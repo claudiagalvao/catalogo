@@ -1,0 +1,270 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: #ffffff;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* TITULOS */
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+p {
+  opacity: 0.7;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+}
+
+.hero h1 {
+  margin-bottom: 15px;
+}
+
+.hero p {
+  margin-bottom: 20px;
+}
+
+/* BOTÕES */
+.btn {
+  background: #ff0055;
+  border: none;
+  padding: 12px 22px;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0 0 15px #ff0055;
+  transform: scale(1.05);
+}
+
+.btn.secondary {
+  background: #00eaff;
+}
+
+.btn.secondary:hover {
+  box-shadow: 0 0 15px #00eaff;
+}
+
+/* SECTIONS */
+section {
+  padding: 60px 0;
+}
+
+/* QUIZ */
+.quiz {
+  text-align: center;
+}
+
+.quiz-options {
+  margin-top: 20px;
+}
+
+.quiz-options button {
+  margin: 10px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: #1a1a1a;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.quiz-options button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00eaff;
+}
+
+/* FILTROS */
+.filters {
+  text-align: center;
+}
+
+.filter-bar {
+  margin-top: 20px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* CATEGORIAS */
+.categoria h2 {
+  margin-bottom: 5px;
+}
+
+.categoria p {
+  margin-bottom: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s;
+  background: #111;
+}
+
+.card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  filter: brightness(0.8);
+  transition: 0.3s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.card:hover {
+  box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+}
+
+/* INFO CARD */
+.card .info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(transparent, black);
+}
+
+.card h3 {
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 14px;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 800px;
+  width: 90%;
+  position: relative;
+}
+
+/* CLOSE */
+.close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* MODAL BODY */
+.modal-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.modal-body img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.modal-info {
+  flex: 1;
+}
+
+.modal-info h3 {
+  margin-bottom: 10px;
+}
+
+.modal-info p {
+  margin-bottom: 10px;
+}
+
+/* UPSELL */
+#upsell {
+  margin-top: 15px;
+}
+
+#upsell div {
+  background: #1a1a1a;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+/* SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+}
