@@ -1,0 +1,20 @@
+[
+  {
+    "id": "a-luva-branca",
+    "nome": "Luva Branca",
+    "preco": 15,
+    "imagem": "assets/images/luva-branca.jpg"
+  },
+  {
+    "id": "a-oculos-gatinho-rosa",
+    "nome": "Óculos Gatinho Rosa",
+    "preco": 20,
+    "imagem": "assets/images/oculos-gatinho.jpg"
+  },
+  {
+    "id": "a-oculos-aviador",
+    "nome": "Óculos Aviador",
+    "preco": 25,
+    "imagem": "assets/images/oculos-aviador.jpg"
+  }
+]
