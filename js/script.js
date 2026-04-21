@@ -3,6 +3,7 @@
 // ==========================
 let produtos = [];
 let acessorios = [];
+let produtoAtual = null;
 
 // ==========================
 // ELEMENTOS DO MODAL
@@ -14,10 +15,10 @@ const modalPreco = document.getElementById("modal-preco");
 const modalTamanhos = document.getElementById("modal-tamanhos");
 const modalWhatsapp = document.getElementById("modal-whatsapp");
 const upsellDiv = document.getElementById("upsell");
-
+const btnUpsell = document.getElementById("btn-upsell");
 
 // ==========================
-// CARREGAR JSON (fantasias + acessórios)
+// CARREGAR JSON
 // ==========================
 Promise.all([
   fetch('data/fantasias.json').then(res => res.json()),
@@ -42,7 +43,6 @@ function renderProdutos() {
     luxo: document.querySelector("#luxo .grid")
   };
 
-  // limpa grids antes de renderizar
   Object.values(categorias).forEach(cat => {
     if (cat) cat.innerHTML = "";
   });
@@ -59,10 +59,8 @@ function renderProdutos() {
       </div>
     `;
 
-    // clique abre modal
     card.addEventListener("click", () => abrirModal(p));
 
-    // usa categoriaSlug (IMPORTANTE)
     if (categorias[p.categoriaSlug]) {
       categorias[p.categoriaSlug].appendChild(card);
     }
@@ -74,6 +72,8 @@ function renderProdutos() {
 // ABRIR MODAL
 // ==========================
 function abrirModal(produto) {
+  produtoAtual = produto;
+
   modal.classList.remove("hidden");
 
   modalImg.src = produto.imagem;
@@ -81,7 +81,6 @@ function abrirModal(produto) {
   modalPreco.innerText = "R$ " + produto.preco;
   modalTamanhos.innerText = "Tamanhos: " + produto.tamanhos.join(", ");
 
-  // ⚠️ TROCAR PELO SEU NÚMERO
   modalWhatsapp.href = `https://wa.me/5519992850208?text=Tenho interesse na fantasia ${produto.nome}`;
 
   renderUpsell(produto);
@@ -103,7 +102,7 @@ window.onclick = (e) => {
 
 
 // ==========================
-// UPSELL INTELIGENTE
+// UPSELL COM IMAGEM + CSS
 // ==========================
 function renderUpsell(produto) {
   upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
@@ -119,19 +118,48 @@ function renderUpsell(produto) {
       total += acc.preco;
 
       const item = document.createElement("div");
+      item.className = "upsell-item";
+
       item.innerHTML = `
-        ${acc.nome} + R$ ${acc.preco}
+        <img src="${acc.imagem}" alt="${acc.nome}">
+        <span>${acc.nome} + R$ ${acc.preco}</span>
       `;
+
       upsellDiv.appendChild(item);
     }
   });
 
-  // TOTAL DO LOOK
   const totalDiv = document.createElement("div");
   totalDiv.style.marginTop = "10px";
   totalDiv.innerHTML = `<strong>💰 Look completo: R$ ${total}</strong>`;
   upsellDiv.appendChild(totalDiv);
 }
+
+
+// ==========================
+// BOTÃO COMPLETAR LOOK
+// ==========================
+btnUpsell.addEventListener("click", () => {
+  if (!produtoAtual) return;
+
+  let mensagem = `Quero o look completo:\n${produtoAtual.nome}\n`;
+  let total = produtoAtual.preco;
+
+  produtoAtual.upsell.forEach(id => {
+    const acc = acessorios.find(a => a.id === id);
+
+    if (acc) {
+      mensagem += `+ ${acc.nome} (R$ ${acc.preco})\n`;
+      total += acc.preco;
+    }
+  });
+
+  mensagem += `Total: R$ ${total}`;
+
+  const url = `https://wa.me/5519992850208?text=${encodeURIComponent(mensagem)}`;
+
+  window.open(url, "_blank");
+});
 
 
 // ==========================
@@ -150,15 +178,13 @@ document.querySelectorAll(".quiz-options button").forEach(btn => {
     const target = btn.dataset.target;
     const section = document.getElementById(target);
 
-    if (section) {
-      section.scrollIntoView();
-    }
+    if (section) section.scrollIntoView();
   });
 });
 
 
 // ==========================
-// BUSCA (BÁSICA)
+// BUSCA
 // ==========================
 const buscaInput = document.getElementById("busca");
 
