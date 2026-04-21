@@ -128,14 +128,14 @@ section {
   margin-bottom: 20px;
 }
 
-/* GRID */
+/* GRID MELHORADO */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
 
-/* CARD */
+/* CARD PREMIUM */
 .card {
   position: relative;
   border-radius: 15px;
@@ -143,18 +143,23 @@ section {
   cursor: pointer;
   transition: 0.3s;
   background: #111;
+
+  height: 420px; /* 🔥 altura padrão premium */
 }
 
+/* IMAGEM AJUSTADA */
 .card img {
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
-  filter: brightness(0.8);
+  object-position: top; /* 🔥 prioriza rosto */
+  filter: brightness(0.85);
   transition: 0.3s;
 }
 
+/* HOVER PREMIUM */
 .card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
   filter: brightness(1);
 }
 
@@ -186,7 +191,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,7 +204,7 @@ section {
 
 .modal-content {
   background: #111;
-  padding: 20px;
+  padding: 25px;
   border-radius: 15px;
   max-width: 800px;
   width: 90%;
@@ -224,7 +229,7 @@ section {
 
 .modal-body img {
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   border-radius: 10px;
 }
 
@@ -266,5 +271,9 @@ html {
   .modal-body {
     flex-direction: column;
     align-items: center;
+  }
+
+  .card {
+    height: 380px;
   }
 }
