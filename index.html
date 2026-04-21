@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Crazy Fantasy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: radial-gradient(circle at top, #1a1a1a, #000);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+    }
+
+    .hero p {
+      opacity: 0.7;
+    }
+
+    .btn {
+      background: #ff0055;
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 15px #ff0055;
+    }
+
+    /* QUIZ */
+    .quiz button {
+      margin: 10px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #1a1a1a;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .quiz button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00eaff;
+    }
+
+    /* BUSCA */
+    .filters input, .filters select {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(0,234,255,0.4);
+    }
+
+    .card .info {
+      position: absolute;
+      bottom: 0;
+      padding: 20px;
+      background: linear-gradient(transparent, black);
+      width: 100%;
+    }
+
+    /* CATEGORIA SCROLL */
+    html {
+      scroll-behavior: smooth;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Fantasias para todos os estilos</h1>
+    <p>Monte seu look. Cause impacto. Seja inesquecível.</p>
+    <button class="btn" onclick="scrollToQuiz()">Descobrir meu estilo</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="quiz">
+    <h2>Qual vibe você quer hoje?</h2>
+
+    <button onclick="goToCategory('bad')">😈 Impactar</button>
+    <button onclick="goToCategory('fun')">😂 Divertir</button>
+    <button onclick="goToCategory('pop')">✨ Brilhar</button>
+    <button onclick="goToCategory('luxo')">👑 Luxo</button>
+  </section>
+
+  <!-- BUSCA -->
+  <section class="filters">
+    <h2>Buscar fantasia</h2>
+
+    <input type="text" placeholder="Buscar...">
+    <select>
+      <option>Tamanho</option>
+      <option>P</option>
+      <option>M</option>
+      <option>G</option>
+    </select>
+
+    <select>
+      <option>Preço</option>
+      <option>Até R$50</option>
+      <option>Até R$100</option>
+      <option>Até R$200</option>
+    </select>
+  </section>
+
+  <!-- CATEGORIAS -->
+
+  <section id="bad">
+    <h2>🔥 Bad & Dark</h2>
+    <div class="grid">
+
+      <div class="card">
+        <img src="https://picsum.photos/300/400?1">
+        <div class="info">
+          <h3>Killer Mask</h3>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://picsum.photos/300/400?2">
+        <div class="info">
+          <h3>Dark Queen</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="fun">
+    <h2>😂 Geek & Fun</h2>
+    <div class="grid"></div>
+  </section>
+
+  <section id="pop">
+    <h2>✨ Iconic & Pop</h2>
+    <div class="grid"></div>
+  </section>
+
+  <section id="luxo">
+    <h2>👑 Luxo & Impacto</h2>
+    <div class="grid"></div>
+  </section>
+
+  <script>
+
+    function scrollToQuiz() {
+      document.getElementById("quiz").scrollIntoView();
+    }
+
+    function goToCategory(cat) {
+      document.getElementById(cat).scrollIntoView();
+    }
+
+  </script>
+
+</body>
+</html>
