@@ -44,9 +44,11 @@
 
         <select id="filtroTamanho">
           <option value="">Tamanho</option>
+          <option value="PP">PP</option>
           <option value="P">P</option>
           <option value="M">M</option>
           <option value="G">G</option>
+          <option value="GG">GG</option>
         </select>
 
         <select id="filtroPreco">
@@ -66,7 +68,6 @@
     <div class="container">
       <h2>🔥 Bad & Dark</h2>
       <p>Entre no lado errado da festa</p>
-
       <div class="grid"></div>
     </div>
   </section>
@@ -76,7 +77,6 @@
     <div class="container">
       <h2>😂 Geek & Fun</h2>
       <p>Para quem quer divertir e viralizar</p>
-
       <div class="grid"></div>
     </div>
   </section>
@@ -86,7 +86,6 @@
     <div class="container">
       <h2>✨ Iconic & Pop</h2>
       <p>Seja o centro das atenções</p>
-
       <div class="grid"></div>
     </div>
   </section>
@@ -96,18 +95,18 @@
     <div class="container">
       <h2>👑 Luxo & Impacto</h2>
       <p>Para quem quer chegar dominando</p>
-
       <div class="grid"></div>
     </div>
   </section>
 
-  <!-- MODAL (produto + upsell) -->
+  <!-- MODAL -->
   <div id="modal" class="modal hidden">
     <div class="modal-content">
 
       <span class="close">&times;</span>
 
       <div class="modal-body">
+
         <!-- imagem -->
         <img id="modal-img" src="" alt="">
 
@@ -117,27 +116,27 @@
           <p id="modal-preco"></p>
           <p id="modal-tamanhos"></p>
 
-          <!-- ações -->
+          <!-- botão WhatsApp -->
           <a id="modal-whatsapp" target="_blank" class="btn">
             Consultar disponibilidade
           </a>
 
+          <!-- botão upsell -->
           <button id="btn-upsell" class="btn secondary">
             Completar look
           </button>
 
-          <!-- upsell -->
-          <div id="upsell" class="hidden"></div>
+          <!-- upsell (IMPORTANTE: sem hidden) -->
+          <div id="upsell"></div>
+
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script src="js/main.js"></script>
-  <script src="js/quiz.js"></script>
-  <script src="js/filtros.js"></script>
+  <!-- SCRIPT CORRETO -->
+  <script src="js/script.js"></script>
 
 </body>
 </html>
