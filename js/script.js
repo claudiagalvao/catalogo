@@ -102,25 +102,22 @@ window.onclick = (e) => {
 
 
 // ==========================
-// UPSELL COM IMAGEM + CSS
+// UPSELL COM SELEÇÃO
 // ==========================
 function renderUpsell(produto) {
   upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
 
   if (!produto.upsell || produto.upsell.length === 0) return;
 
-  let total = produto.preco;
-
   produto.upsell.forEach(id => {
     const acc = acessorios.find(a => a.id === id);
 
     if (acc) {
-      total += acc.preco;
-
       const item = document.createElement("div");
       item.className = "upsell-item";
 
       item.innerHTML = `
+        <input type="checkbox" data-id="${acc.id}" data-preco="${acc.preco}">
         <img src="${acc.imagem}" alt="${acc.nome}">
         <span>${acc.nome} + R$ ${acc.preco}</span>
       `;
@@ -129,10 +126,48 @@ function renderUpsell(produto) {
     }
   });
 
+  // TOTAL
   const totalDiv = document.createElement("div");
+  totalDiv.id = "total-combo";
   totalDiv.style.marginTop = "10px";
-  totalDiv.innerHTML = `<strong>💰 Look completo: R$ ${total}</strong>`;
   upsellDiv.appendChild(totalDiv);
+
+  atualizarTotal(produto);
+
+  upsellDiv.querySelectorAll("input").forEach(input => {
+    input.addEventListener("change", () => atualizarTotal(produto));
+  });
+}
+
+
+// ==========================
+// CÁLCULO COM DESCONTO
+// ==========================
+function atualizarTotal(produto) {
+  const checkboxes = upsellDiv.querySelectorAll("input:checked");
+
+  let totalAcessorios = 0;
+
+  checkboxes.forEach(cb => {
+    totalAcessorios += parseFloat(cb.dataset.preco);
+  });
+
+  let quantidade = checkboxes.length;
+  let desconto = 0;
+
+  if (quantidade === 1) desconto = 0.05;
+  if (quantidade === 2) desconto = 0.08;
+  if (quantidade >= 3) desconto = 0.10;
+
+  let descontoValor = produto.preco * desconto;
+  let totalFinal = produto.preco - descontoValor + totalAcessorios;
+
+  document.getElementById("total-combo").innerHTML = `
+    💰 Fantasia: R$ ${produto.preco}<br>
+    🧩 Acessórios: R$ ${totalAcessorios}<br>
+    🎁 Desconto: -R$ ${descontoValor.toFixed(2)}<br>
+    <strong>🔥 Total: R$ ${totalFinal.toFixed(2)}</strong>
+  `;
 }
 
 
@@ -142,11 +177,13 @@ function renderUpsell(produto) {
 btnUpsell.addEventListener("click", () => {
   if (!produtoAtual) return;
 
-  let mensagem = `Quero o look completo:\n${produtoAtual.nome}\n`;
+  const checkboxes = upsellDiv.querySelectorAll("input:checked");
+
+  let mensagem = `Quero o look:\n${produtoAtual.nome}\n`;
   let total = produtoAtual.preco;
 
-  produtoAtual.upsell.forEach(id => {
-    const acc = acessorios.find(a => a.id === id);
+  checkboxes.forEach(cb => {
+    const acc = acessorios.find(a => a.id === cb.dataset.id);
 
     if (acc) {
       mensagem += `+ ${acc.nome} (R$ ${acc.preco})\n`;
