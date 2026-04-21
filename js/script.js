@@ -2,17 +2,33 @@
 // VARIÁVEIS GLOBAIS
 // ==========================
 let produtos = [];
+let acessorios = [];
 
 // ==========================
-// CARREGAR JSON
+// ELEMENTOS DO MODAL
 // ==========================
-fetch('data/fantasias.json')
-  .then(res => res.json())
-  .then(data => {
-    produtos = data;
-    renderProdutos();
-  })
-  .catch(err => console.error("Erro ao carregar JSON:", err));
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+const modalNome = document.getElementById("modal-nome");
+const modalPreco = document.getElementById("modal-preco");
+const modalTamanhos = document.getElementById("modal-tamanhos");
+const modalWhatsapp = document.getElementById("modal-whatsapp");
+const upsellDiv = document.getElementById("upsell");
+
+
+// ==========================
+// CARREGAR JSON (fantasias + acessórios)
+// ==========================
+Promise.all([
+  fetch('data/fantasias.json').then(res => res.json()),
+  fetch('data/acessorios.json').then(res => res.json())
+])
+.then(([fantasiasData, acessoriosData]) => {
+  produtos = fantasiasData;
+  acessorios = acessoriosData;
+  renderProdutos();
+})
+.catch(err => console.error("Erro ao carregar dados:", err));
 
 
 // ==========================
@@ -26,8 +42,10 @@ function renderProdutos() {
     luxo: document.querySelector("#luxo .grid")
   };
 
-  // limpa antes (evita duplicar)
-  Object.values(categorias).forEach(cat => cat.innerHTML = "");
+  // limpa grids antes de renderizar
+  Object.values(categorias).forEach(cat => {
+    if (cat) cat.innerHTML = "";
+  });
 
   produtos.forEach(p => {
     const card = document.createElement("div");
@@ -44,22 +62,17 @@ function renderProdutos() {
     // clique abre modal
     card.addEventListener("click", () => abrirModal(p));
 
-    categorias[p.categoria]?.appendChild(card);
+    // usa categoriaSlug (IMPORTANTE)
+    if (categorias[p.categoriaSlug]) {
+      categorias[p.categoriaSlug].appendChild(card);
+    }
   });
 }
 
 
 // ==========================
-// MODAL
+// ABRIR MODAL
 // ==========================
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modal-img");
-const modalNome = document.getElementById("modal-nome");
-const modalPreco = document.getElementById("modal-preco");
-const modalTamanhos = document.getElementById("modal-tamanhos");
-const modalWhatsapp = document.getElementById("modal-whatsapp");
-const upsellDiv = document.getElementById("upsell");
-
 function abrirModal(produto) {
   modal.classList.remove("hidden");
 
@@ -68,14 +81,16 @@ function abrirModal(produto) {
   modalPreco.innerText = "R$ " + produto.preco;
   modalTamanhos.innerText = "Tamanhos: " + produto.tamanhos.join(", ");
 
-  // WhatsApp
+  // ⚠️ TROCAR PELO SEU NÚMERO
   modalWhatsapp.href = `https://wa.me/5519992850208?text=Tenho interesse na fantasia ${produto.nome}`;
 
-  // UPSSELL
-  renderUpsell(produto.acessorios);
+  renderUpsell(produto);
 }
 
-// fechar modal
+
+// ==========================
+// FECHAR MODAL
+// ==========================
 document.querySelector(".close").onclick = () => {
   modal.classList.add("hidden");
 };
@@ -88,47 +103,72 @@ window.onclick = (e) => {
 
 
 // ==========================
-// UPSELL
+// UPSELL INTELIGENTE
 // ==========================
-function renderUpsell(acessorios) {
-  upsellDiv.innerHTML = "";
+function renderUpsell(produto) {
+  upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
 
-  if (!acessorios || acessorios.length === 0) return;
+  if (!produto.upsell || produto.upsell.length === 0) return;
 
-  acessorios.forEach(a => {
-    const item = document.createElement("div");
-    item.innerHTML = `${a.nome} + R$ ${a.preco}`;
-    upsellDiv.appendChild(item);
+  let total = produto.preco;
+
+  produto.upsell.forEach(id => {
+    const acc = acessorios.find(a => a.id === id);
+
+    if (acc) {
+      total += acc.preco;
+
+      const item = document.createElement("div");
+      item.innerHTML = `
+        ${acc.nome} + R$ ${acc.preco}
+      `;
+      upsellDiv.appendChild(item);
+    }
   });
+
+  // TOTAL DO LOOK
+  const totalDiv = document.createElement("div");
+  totalDiv.style.marginTop = "10px";
+  totalDiv.innerHTML = `<strong>💰 Look completo: R$ ${total}</strong>`;
+  upsellDiv.appendChild(totalDiv);
 }
 
 
 // ==========================
 // QUIZ
 // ==========================
-document.getElementById("btn-quiz").addEventListener("click", () => {
-  document.getElementById("quiz").scrollIntoView();
-});
+const btnQuiz = document.getElementById("btn-quiz");
+
+if (btnQuiz) {
+  btnQuiz.addEventListener("click", () => {
+    document.getElementById("quiz").scrollIntoView();
+  });
+}
 
 document.querySelectorAll(".quiz-options button").forEach(btn => {
   btn.addEventListener("click", () => {
     const target = btn.dataset.target;
-    document.getElementById(target).scrollIntoView();
+    const section = document.getElementById(target);
+
+    if (section) {
+      section.scrollIntoView();
+    }
   });
 });
 
 
 // ==========================
-// BUSCA (simples)
+// BUSCA (BÁSICA)
 // ==========================
 const buscaInput = document.getElementById("busca");
 
-buscaInput.addEventListener("input", () => {
-  const termo = buscaInput.value.toLowerCase();
+if (buscaInput) {
+  buscaInput.addEventListener("input", () => {
+    const termo = buscaInput.value.toLowerCase();
 
-  document.querySelectorAll(".card").forEach(card => {
-    const nome = card.innerText.toLowerCase();
-
-    card.style.display = nome.includes(termo) ? "block" : "none";
+    document.querySelectorAll(".card").forEach(card => {
+      const nome = card.innerText.toLowerCase();
+      card.style.display = nome.includes(termo) ? "block" : "none";
+    });
   });
-});
+}
