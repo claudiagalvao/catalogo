@@ -1,0 +1,37 @@
+[
+  {
+    "id": "f-aeromoca",
+    "nome": "Aeromoça",
+    "categoria": "Profissões",
+    "categoriaSlug": "fun",
+    "tipo": "fantasia",
+    "modelo": "Feminino",
+
+    "descricao": "Visual elegante e marcante, perfeito para festas temáticas, Halloween e eventos noturnos.",
+
+    "tamanhos": ["PP", "P", "M", "G", "GG"],
+
+    "preco": 110,
+
+    "imagem": "assets/images/aeromoca.jpg",
+    "thumb": "assets/images/aeromoca-thumb.jpg",
+
+    "tags": [
+      "aeromoça",
+      "aviadora",
+      "uniforme",
+      "profissão",
+      "elegante",
+      "chic",
+      "balada"
+    ],
+
+    "upsell": [
+      "a-luva-branca",
+      "a-oculos-gatinho-rosa",
+      "a-oculos-aviador"
+    ],
+
+    "destaque": true
+  }
+]
