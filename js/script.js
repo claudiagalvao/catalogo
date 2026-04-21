@@ -6,7 +6,7 @@ let produtos = [];
 // ==========================
 // CARREGAR JSON
 // ==========================
-fetch('data/produtos.json')
+fetch('data/fantasias.json')
   .then(res => res.json())
   .then(data => {
     produtos = data;
