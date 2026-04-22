@@ -2,105 +2,80 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Crazy Fantasy | Monte Seu Look. Cause Impacto.</title>
+  <title>Crazy Fantasy | Catálogo de Fantasias</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header class="hero-banner">
-  <img src="assets/images/banner_principal.jpg" alt="Crazy Fantasy Banner">
+  <img src="assets/images/hero-banner.jpg" alt="Seja o Problema da Festa">
 </header>
 
-<section class="vibe-section container">
+<nav class="vibe-section container">
   <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
-  
-  <nav class="vibe-grid">
+  <div class="vibe-grid">
     <button class="vibe-btn active" data-vibe="impactar">
-      <img src="assets/images/icon_skull.png" alt="Impactar">
-      <div class="vibe-text">
-        <strong>IMPACTAR</strong>
-        <span>Chegue chegando</span>
-      </div>
+      <div class="vibe-text"><strong>IMPACTAR</strong><span>Chegue chegando</span></div>
     </button>
-
     <button class="vibe-btn" data-vibe="divertir">
-      <img src="assets/images/icon_fun.png" alt="Divertir">
-      <div class="vibe-text">
-        <strong>DIVERTIR</strong>
-        <span>Alegria garantida</span>
-      </div>
+      <div class="vibe-text"><strong>DIVERTIR</strong><span>Alegria garantida</span></div>
     </button>
-
     <button class="vibe-btn" data-vibe="brilhar">
-      <img src="assets/images/icon_lightning.png" alt="Brilhar">
-      <div class="vibe-text">
-        <strong>BRILHAR</strong>
-        <span>Seja o centro</span>
-      </div>
+      <div class="vibe-text"><strong>BRILHAR</strong><span>Seja o centro</span></div>
     </button>
-
     <button class="vibe-btn" data-vibe="luxo">
-      <img src="assets/images/icon_crown.png" alt="Luxo">
-      <div class="vibe-text">
-        <strong>LUXO</strong>
-        <span>Sofisticação pura</span>
-      </div>
+      <div class="vibe-text"><strong>LUXO</strong><span>Sofisticação pura</span></div>
     </button>
-  </nav>
-</section>
+  </div>
+</nav>
 
-<section class="search-section container">
-  <h2>BUSCAR FANTASIA</h2>
-  
-  <div class="search-controls">
-    <div class="search-bar">
-      <input type="text" id="busca_fantasia" placeholder="Nome do personagem, tema...">
-      <img src="assets/images/icon_search.png" alt="Buscar">
-    </div>
-
-    <div class="search-filters">
-      <select id="filtro_tamanho">
-        <option value="">TAMANHO</option>
-        <option value="p">P</option><option value="m">M</option><option value="g">G</option>
-      </select>
-      <select id="filtro_preco">
-        <option value="">PREÇO</option>
-        <option value="100">Até R$100</option>
-        <option value="200">Até R$200</option>
-      </select>
-    </div>
+<section class="container">
+  <div class="search-box">
+    <input type="text" id="busca" placeholder="Buscar fantasia...">
   </div>
 </section>
 
-<section class="collections-section container">
+<section class="collections container">
   <div class="collections-grid">
-    <a href="#" class="collection-card" data-collection="bad">
-      <img src="assets/images/cat-bad.jpg" alt="Bad & Dark Collection">
-    </a>
-    <a href="#" class="collection-card" data-collection="fun">
-      <img src="assets/images/cat-fun.jpg" alt="Fun & Party Collection">
-    </a>
-    <a href="#" class="collection-card" data-collection="pop">
-      <img src="assets/images/cat-pop.jpg" alt="Pop Culture Collection">
-    </a>
-    <a href="#" class="collection-card" data-collection="luxo">
-      <img src="assets/images/cat-luxo.jpg" alt="Luxo & Glam Collection">
-    </a>
+    <img src="assets/images/cat-bad.jpg" class="col-img" data-vibe="impactar">
+    <img src="assets/images/cat-fun.jpg" class="col-img" data-vibe="divertir">
+    <img src="assets/images/cat-pop.jpg" class="col-img" data-vibe="brilhar">
+    <img src="assets/images/cat-luxo.jpg" class="col-img" data-vibe="luxo">
   </div>
 </section>
 
 <main class="container">
-    <div id="product-grid" class="product-grid">
-        </div>
+  <div id="product-grid" class="product-grid">
+    </div>
 </main>
 
 <footer class="main-footer">
-    <img src="assets/images/footer_diferenciais.jpg" alt="Nossos Diferenciais">
+  <div class="container">
+    <img src="assets/images/footer-diferenciais.jpg" alt="Nossos Diferenciais" style="width:100%">
+    <p>© 2026 Crazy Fantasy - Valinhos/SP</p>
+  </div>
 </footer>
 
 <div id="modal" class="hidden">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-body">
+      <div class="modal-img"><img id="modal-img" src=""></div>
+      <div class="modal-info">
+        <h3 id="modal-nome"></h3>
+        <p id="modal-preco" class="modal-neon-price"></p>
+        <p id="modal-tamanhos"></p>
+        <div class="divider"></div>
+        <div id="upsell"></div>
+        <div class="modal-actions">
+          <button id="btn-upsell">🔥 Reservar Look Completo</button>
+          <a id="modal-whatsapp" target="_blank">Dúvidas via WhatsApp</a>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>
