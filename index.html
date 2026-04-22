@@ -2,60 +2,90 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Crazy Fantasy | Catálogo 2026</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crazy Fantasy | Catálogo Oficial 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header class="hero-banner">
-    <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
-</header>
+    <header class="hero-banner">
+        <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy Banner">
+    </header>
 
-<section class="search-filter-container container">
-    <div class="search-box">
-        <i class="fa fa-search"></i>
-        <input type="text" id="input-busca" placeholder="Buscar fantasia...">
-    </div>
-    <div class="filter-box">
-        <select id="filter-tamanho">
-            <option value="">Tamanho</option>
-            <option value="PP">PP</option>
-            <option value="P">P</option>
-            <option value="M">M</option>
-            <option value="G">G</option>
-            <option value="GG">GG</option>
-        </select>
-    </div>
-</section>
+    <section class="vibe-section container">
+        <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
+        <div class="vibe-grid">
+            <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
+            <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
+            <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
+            <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
+        </div>
+    </section>
 
-<main class="container">
-    <div id="product-grid" class="product-grid"></div>
-</main>
+    <section class="search-filter-container container">
+        <div class="search-box">
+            <i class="fa fa-search"></i>
+            <input type="text" id="input-busca" placeholder="Buscar fantasia ou acessório...">
+        </div>
+        <div class="filter-box">
+            <select id="filter-tamanho">
+                <option value="">Tamanho</option>
+                <option value="PP">PP</option>
+                <option value="P">P</option>
+                <option value="M">M</option>
+                <option value="G">G</option>
+                <option value="GG">GG</option>
+            </select>
+        </div>
+    </section>
 
-<div id="modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-left"><img id="modal-img" src=""></div>
-            <div class="modal-right">
-                <h3 id="modal-nome"></h3>
-                <div class="price-container">
-                    <span id="modal-preco-atual" class="new-price"></span>
+    <main class="container">
+        <div id="product-grid" class="product-grid">
+            </div>
+    </main>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="btn-fechar-modal">&times;</span>
+            
+            <div class="modal-layout">
+                <div class="modal-left">
+                    <img id="modal-img" src="" alt="Produto">
                 </div>
-                <div id="upsell-container" class="upsell-container">
-                    <h4>🔥 ADICIONE ACESSÓRIOS:</h4>
-                    <div id="upsell-list"></div>
+
+                <div class="modal-right">
+                    <h3 id="modal-nome">Nome da Fantasia</h3>
+                    
+                    <div class="price-container">
+                        <span id="modal-preco-atual" class="new-price">R$ 0,00</span>
+                    </div>
+
+                    <div class="upsell-container">
+                        <h4>🔥 COMPLETE O LOOK:</h4>
+                        <div id="upsell-list" class="upsell-list">
+                            </div>
+                    </div>
+
+                    <button id="btn-finalizar" class="btn-whatsapp-neon">
+                        <i class="fab fa-whatsapp"></i> RESERVAR NO WHATSAPP
+                    </button>
                 </div>
-                <button id="btn-finalizar" class="btn-whatsapp-neon">
-                    <i class="fab fa-whatsapp"></i> RESERVAR AGORA
-                </button>
             </div>
         </div>
     </div>
-</div>
 
-<script src="js/script.js"></script>
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Galvão Artigos para Festas Ltda - Crazy Fantasy</p>
+            <p>Valinhos - SP | Atendimento para todo o Brasil</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
