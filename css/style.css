@@ -1,48 +1,298 @@
-:root { --bg: #050505; --card-bg: #0d0d0d; --neon: #00ffff; --magenta: #ff0055; }
-body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-.container { max-width: 1200px; margin: auto; padding: 0 20px; }
+/* ========================================
+   CRAZY FANTASY - ESTILO OFICIAL 2026
+   Vibe: Cyberpunk / Netflix Style
+   ========================================
+*/
 
-.hero-banner img { width: 100%; display: block; }
+:root { 
+    --bg: #050505; 
+    --card-bg: rgba(255, 255, 255, 0.03); 
+    --neon: #00ffff; 
+    --magenta: #ff0055; 
+    --whatsapp: #25d366;
+    --text-gray: #b3b3b3;
+}
 
-/* VIBES */
-.vibe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
-.vibe-btn { background: #111; border: 1px solid #333; padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; color: #fff; }
-.vibe-btn strong { display: block; font-size: 14px; }
+body { 
+    background: var(--bg); 
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    overflow-x: hidden; 
+}
+
+.container { 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 20px; 
+}
+
+/* HERO BANNER */
+.hero-banner img { 
+    width: 100%; 
+    display: block; 
+}
+
+/* SEÇÃO DE VIBES */
+.vibe-section h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.vibe-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    gap: 15px; 
+    margin: 20px 0; 
+}
+
+.vibe-btn { 
+    background: #111; 
+    border: 1px solid #333; 
+    padding: 15px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.vibe-btn strong { font-size: 14px; text-transform: uppercase; }
 .vibe-btn span { font-size: 11px; color: #666; }
-.vibe-btn.active { border-color: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
+
+.vibe-btn.active { 
+    border-color: var(--magenta); 
+    box-shadow: 0 0 15px var(--magenta); 
+}
 
 /* BUSCA E FILTROS */
-.search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; align-items: center; }
-.search-box { flex: 2; min-width: 280px; position: relative; }
-.search-box input { width: 50%; background: #111; border: 1px solid #333; padding: 12px 45px; border-radius: 25px; color: #fff; outline: none; }
-.search-box i { position: absolute; left: 18px; top: 15px; color: #555; }
-.filter-box { flex: 1; display: flex; gap: 10px; min-width: 200px; }
-.filter-box select { background: #111; color: #fff; border: 1px solid #333; padding: 10px; border-radius: 10px; flex: 1; }
+.search-filter-container { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    margin-bottom: 30px; 
+    align-items: center; 
+}
 
-/* CATEGORIAS QUADRADAS */
-.collections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 40px; }
-.col-item img { width: 100%; border-radius: 15px; cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
-.col-item:hover img { border-color: var(--neon); transform: scale(1.03); }
+.search-box { 
+    flex: 2; 
+    min-width: 280px; 
+    position: relative; 
+}
 
-/* CARDS */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-.card { background: var(--card-bg); border-radius: 15px; overflow: hidden; border: 1px solid #222; transition: 0.3s; cursor: pointer; }
-.card:hover { transform: translateY(-5px); border-color: var(--magenta); }
-.card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-.card .info { padding: 15px; text-align: center; }
+.search-box input { 
+    width: 100%; 
+    background: #111; 
+    border: 1px solid #333; 
+    padding: 12px 45px; 
+    border-radius: 25px; 
+    color: #fff; 
+    outline: none; 
+}
 
-/* MODAL */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.search-box i { 
+    position: absolute; 
+    left: 18px; 
+    top: 15px; 
+    color: #555; 
+}
+
+/* CATEGORIAS EM LINHA */
+.collections-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; 
+    margin-bottom: 40px; 
+}
+
+.col-item img { 
+    width: 100%; 
+    border-radius: 15px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    border: 2px solid transparent; 
+}
+
+.col-item:hover img { 
+    border-color: var(--neon); 
+    transform: scale(1.03); 
+}
+
+/* ========================================
+   CARDS DE PRODUTO (MAIS VIDA)
+   ========================================
+*/
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 25px; 
+    padding: 20px 0;
+}
+
+.card { 
+    background: var(--card-bg); 
+    backdrop-filter: blur(10px);
+    border-radius: 20px; 
+    overflow: hidden; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer;
+    position: relative;
+}
+
+.card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+    border-color: var(--magenta); 
+    box-shadow: 0 15px 30px rgba(255, 0, 85, 0.25); 
+}
+
+.card-img-container {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #111;
+}
+
+.card img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+.card:hover img { 
+    transform: scale(1.1); 
+}
+
+.card .info { 
+    padding: 20px; 
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.card h3 { 
+    font-size: 17px; 
+    margin: 0 0 8px 0; 
+    color: #fff;
+    font-weight: 600;
+}
+
+.card .price { 
+    color: var(--magenta); 
+    font-size: 19px; 
+    font-weight: bold;
+}
+
+/* ========================================
+   MODAL E BOTÃO WHATSAPP NEON
+   ========================================
+*/
+.modal { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.92); 
+    z-index: 1000; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+
 .hidden { display: none !important; }
-.modal-content { background: #0a0a0a; padding: 30px; border-radius: 20px; max-width: 850px; width: 100%; position: relative; border: 1px solid #333; }
+
+.modal-content { 
+    background: #0a0a0a; 
+    padding: 30px; 
+    border-radius: 20px; 
+    max-width: 850px; 
+    width: 100%; 
+    position: relative; 
+    border: 1px solid #222; 
+}
+
 .modal-layout { display: flex; gap: 30px; flex-wrap: wrap; }
 .modal-left img { width: 100%; max-width: 320px; border-radius: 10px; }
 .modal-right { flex: 1; min-width: 300px; }
-.new-price { color: var(--neon); font-size: 28px; font-weight: bold; }
-.old-price { text-decoration: line-through; color: #444; margin-right: 10px; font-size: 18px; }
-.close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; }
 
-/* FOOTER */
-.main-footer { background: #000; padding: 40px 0; border-top: 1px solid #111; margin-top: 50px; text-align: center; }
-.footer-top { display: flex; justify-content: space-around; margin-bottom: 30px; color: #555; font-size: 14px; }
-.benefit i { color: var(--magenta); margin-bottom: 5px; font-size: 20px; display: block; }
+/* Botão WhatsApp com Efeito de Pulso */
+.btn-whatsapp-neon {
+    background-color: var(--whatsapp);
+    color: #fff;
+    padding: 16px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+    animation: pulse-whatsapp 2s infinite;
+}
+
+.btn-whatsapp-neon:hover {
+    transform: scale(1.03);
+    background-color: #1ebe57;
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+}
+
+@keyframes pulse-whatsapp {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.close { 
+    position: absolute; 
+    top: 15px; 
+    right: 20px; 
+    font-size: 30px; 
+    cursor: pointer; 
+    color: #fff;
+}
+
+/* RODAPÉ */
+.main-footer { 
+    background: #000; 
+    padding: 60px 0 20px; 
+    border-top: 1px solid #111; 
+    margin-top: 50px; 
+    text-align: center; 
+}
+
+.footer-top { 
+    display: flex; 
+    justify-content: space-around; 
+    margin-bottom: 40px; 
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.benefit i { 
+    color: var(--magenta); 
+    margin-bottom: 10px; 
+    font-size: 26px; 
+    display: block; 
+}
+
+.benefit span { color: #888; font-size: 14px; }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .collections-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-layout { flex-direction: column; align-items: center; }
+    .modal-left img { max-width: 100%; }
+}
