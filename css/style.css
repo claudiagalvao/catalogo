@@ -1,65 +1,101 @@
-:root { 
-    --bg: #050505; 
-    --magenta: #ff0055; 
-    --neon: #00ffff; 
-    --whatsapp: #25d366;
-}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Crazy Fantasy | Catálogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
 
-body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
-.container { max-width: 1200px; margin: auto; padding: 0 20px; }
+<header class="hero-banner">
+    <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
+</header>
 
-/* VIBE SECTION */
-.vibe-section { text-align: center; margin: 40px 0; }
-.vibe-grid { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-.vibe-btn { 
-    background: #111; border: 1px solid #333; padding: 15px 20px; 
-    border-radius: 12px; color: #fff; cursor: pointer; transition: 0.3s;
-    min-width: 150px; display: flex; flex-direction: column; align-items: center;
-}
-.vibe-btn.active { border-color: var(--magenta); box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); background: rgba(255,0,85,0.05); }
-.vibe-btn strong { font-size: 15px; }
-.vibe-btn span { font-size: 10px; opacity: 0.6; }
+<section class="vibe-section container">
+    <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
+    <div class="vibe-grid">
+        <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
+        <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
+        <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
+        <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
+    </div>
+</section>
 
-/* BARRA DE BUSCA */
-.search-filter-container { display: flex; gap: 15px; margin: 30px auto; align-items: center; flex-wrap: wrap; }
-.search-box { flex: 1; min-width: 280px; position: relative; }
-.search-box input { 
-    width: 100%; background: #111; border: 1px solid #333; padding: 14px 15px 14px 45px; 
-    border-radius: 30px; color: #fff; box-sizing: border-box; outline: none;
-}
-.search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #555; }
-.filter-box select { background: #111; color: #fff; border: 1px solid #333; padding: 14px 20px; border-radius: 30px; outline: none; cursor: pointer; }
+<section class="search-filter-container container">
+    <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
+    </div>
+    <div class="filter-box">
+        <select id="filter-tamanho">
+            <option value="">Tamanho</option>
+            <option value="PP">PP</option>
+            <option value="P">P</option>
+            <option value="M">M</option>
+            <option value="G">G</option>
+            <option value="GG">GG</option>
+        </select>
+        <select id="filter-preco">
+            <option value="">Preço</option>
+            <option value="0-100">Até R$ 100</option>
+            <option value="100-150">R$ 100 - R$ 150</option>
+            <option value="150+">Acima de R$ 150</option>
+        </select>
+    </div>
+</section>
 
-/* GRID DE PRODUTOS */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-.card { 
-    position: relative; border-radius: 20px; overflow: hidden; 
-    border: 1px solid rgba(255,255,255,0.1); height: 420px; cursor: pointer; transition: 0.4s;
-}
-.card img { width: 100%; height: 100%; object-fit: cover; }
+<section class="collections container">
+    <div class="collections-grid">
+        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
+        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
+        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
+        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
+    </div>
+</section>
 
-/* OVERLAY DO TEXTO (ESSENCIAL PARA LEGIBILIDADE) */
-.card-info-overlay {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 50px 15px 20px;
-    background: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0.5) 70%, transparent 100%);
-    pointer-events: none;
-}
-.card-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
-.card-price { font-size: 22px; font-weight: 900; }
-.card-sizes { display: flex; gap: 5px; margin-top: 10px; }
-.size-tag { 
-    width: 24px; height: 24px; border: 1px solid #444; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-size: 9px; background: rgba(0,0,0,0.5);
-}
-.card-action-icon {
-    position: absolute; bottom: 20px; right: 20px;
-    background: var(--magenta); width: 40px; height: 40px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; color: #fff;
-}
+<main class="container">
+    <div id="product-grid" class="product-grid"></div>
+</main>
 
-/* MODAL */
-.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-.hidden { display: none !important; }
-.modal-content { background: #0a0a0a; padding: 30px; border-radius: 25px; width: 90%; max-width: 800px; position: relative; border: 1px solid #222; }
-.btn-whatsapp-neon { background: var(--whatsapp); color: #fff; padding: 18px; border-radius: 50px; border: none; font-weight: bold; width: 100%; cursor: pointer; margin-top: 20px; }
+<footer class="main-footer">
+    <div class="footer-top container">
+        <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
+        <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
+        <div class="benefit">
+            <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
+                <i class="fa fa-headset"></i>
+                <span>Suporte VIP</span>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-left"><img id="modal-img" src=""></div>
+            <div class="modal-right">
+                <h3 id="modal-nome"></h3>
+                <div class="price-container">
+                    <span id="modal-preco-antigo" class="old-price"></span>
+                    <span id="modal-preco-atual" class="new-price"></span>
+                </div>
+                <div class="upsell-container">
+                    <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
+                    <div id="upsell-list"></div>
+                </div>
+                <div id="resumo-financeiro"></div>
+                <button id="btn-finalizar" class="btn-whatsapp-neon">
+                    <i class="fab fa-whatsapp"></i> RESERVAR NO WHATSAPP
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
