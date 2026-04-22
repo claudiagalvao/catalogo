@@ -1,13 +1,10 @@
 // ==========================
-// VARIÁVEIS GLOBAIS
+// VARIÁVEIS
 // ==========================
 let produtos = [];
 let acessorios = [];
 let produtoAtual = null;
 
-// ==========================
-// ELEMENTOS DO MODAL
-// ==========================
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
 const modalNome = document.getElementById("modal-nome");
@@ -24,18 +21,17 @@ Promise.all([
   fetch('data/fantasias.json').then(res => res.json()),
   fetch('data/acessorios.json').then(res => res.json())
 ])
-.then(([fantasiasData, acessoriosData]) => {
-  produtos = fantasiasData;
-  acessorios = acessoriosData;
+.then(([f, a]) => {
+  produtos = f;
+  acessorios = a;
   renderProdutos();
-})
-.catch(err => console.error("Erro ao carregar dados:", err));
-
+});
 
 // ==========================
-// RENDERIZAR PRODUTOS
+// RENDER PRODUTOS
 // ==========================
-function renderProdutos() {
+function renderProdutos(lista = produtos) {
+
   const categorias = {
     bad: document.querySelector("#bad .grid"),
     fun: document.querySelector("#fun .grid"),
@@ -43,23 +39,21 @@ function renderProdutos() {
     luxo: document.querySelector("#luxo .grid")
   };
 
-  Object.values(categorias).forEach(cat => {
-    if (cat) cat.innerHTML = "";
-  });
+  Object.values(categorias).forEach(c => c.innerHTML = "");
 
-  produtos.forEach(p => {
+  lista.forEach(p => {
     const card = document.createElement("div");
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.imagem}" alt="${p.nome}">
+      <img src="${p.imagem}">
       <div class="info">
         <h3>${p.nome}</h3>
         <p>R$ ${p.preco}</p>
       </div>
     `;
 
-    card.addEventListener("click", () => abrirModal(p));
+    card.onclick = () => abrirModal(p);
 
     if (categorias[p.categoriaSlug]) {
       categorias[p.categoriaSlug].appendChild(card);
@@ -67,9 +61,8 @@ function renderProdutos() {
   });
 }
 
-
 // ==========================
-// ABRIR MODAL
+// MODAL
 // ==========================
 function abrirModal(produto) {
   produtoAtual = produto;
@@ -86,61 +79,17 @@ function abrirModal(produto) {
   renderUpsell(produto);
 }
 
+// fechar modal
+document.querySelector(".close").onclick = () => modal.classList.add("hidden");
+window.onclick = (e) => { if (e.target === modal) modal.classList.add("hidden"); };
 
 // ==========================
-// FECHAR MODAL
-// ==========================
-document.querySelector(".close").onclick = () => {
-  modal.classList.add("hidden");
-};
-
-window.onclick = (e) => {
-  if (e.target === modal) {
-    modal.classList.add("hidden");
-  }
-};
-
-
-// ==========================
-// FUNÇÃO CENTRAL DE CÁLCULO
-// ==========================
-function calcularValores(produto) {
-  const checkboxes = upsellDiv.querySelectorAll("input:checked");
-
-  let totalAcessorios = 0;
-
-  checkboxes.forEach(cb => {
-    totalAcessorios += parseFloat(cb.dataset.preco);
-  });
-
-  let quantidade = checkboxes.length;
-  let desconto = 0;
-
-  if (quantidade === 1) desconto = 0.05;
-  if (quantidade === 2) desconto = 0.08;
-  if (quantidade >= 3) desconto = 0.10;
-
-  let descontoValor = produto.preco * desconto;
-  let precoComDesconto = produto.preco - descontoValor;
-  let totalFinal = precoComDesconto + totalAcessorios;
-
-  return {
-    totalAcessorios,
-    descontoValor,
-    precoComDesconto,
-    totalFinal,
-    quantidade
-  };
-}
-
-
-// ==========================
-// UPSELL COM SELEÇÃO
+// UPSSELL
 // ==========================
 function renderUpsell(produto) {
   upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
 
-  if (!produto.upsell || produto.upsell.length === 0) return;
+  if (!produto.upsell) return;
 
   produto.upsell.forEach(id => {
     const acc = acessorios.find(a => a.id === id);
@@ -151,7 +100,7 @@ function renderUpsell(produto) {
 
       item.innerHTML = `
         <input type="checkbox" data-id="${acc.id}" data-preco="${acc.preco}">
-        <img src="${acc.imagem}" alt="${acc.nome}">
+        <img src="${acc.imagem}">
         <span>${acc.nome} + R$ ${acc.preco}</span>
       `;
 
@@ -159,108 +108,97 @@ function renderUpsell(produto) {
     }
   });
 
-  const totalDiv = document.createElement("div");
-  totalDiv.id = "total-combo";
-  totalDiv.style.marginTop = "10px";
-  upsellDiv.appendChild(totalDiv);
+  const total = document.createElement("div");
+  total.id = "total-combo";
+  upsellDiv.appendChild(total);
 
   atualizarTotal(produto);
 
-  upsellDiv.querySelectorAll("input").forEach(input => {
-    input.addEventListener("change", () => atualizarTotal(produto));
+  upsellDiv.querySelectorAll("input").forEach(i => {
+    i.addEventListener("change", () => atualizarTotal(produto));
   });
 }
 
+// ==========================
+// CÁLCULO
+// ==========================
+function calcularValores(produto) {
+
+  const selecionados = upsellDiv.querySelectorAll("input:checked");
+
+  let totalAcessorios = 0;
+
+  selecionados.forEach(cb => {
+    totalAcessorios += Number(cb.dataset.preco);
+  });
+
+  let qtd = selecionados.length;
+  let desconto = 0;
+
+  if (qtd === 1) desconto = 0.05;
+  if (qtd === 2) desconto = 0.08;
+  if (qtd >= 3) desconto = 0.10;
+
+  let descontoValor = produto.preco * desconto;
+  let precoComDesconto = produto.preco - descontoValor;
+  let totalFinal = precoComDesconto + totalAcessorios;
+
+  return { totalAcessorios, descontoValor, precoComDesconto, totalFinal };
+}
 
 // ==========================
-// TOTAL COM VISUAL FORTE
+// ATUALIZAR TOTAL
 // ==========================
 function atualizarTotal(produto) {
-  const valores = calcularValores(produto);
+  const v = calcularValores(produto);
 
   document.getElementById("total-combo").innerHTML = `
-    💰 Fantasia: 
-    <span style="text-decoration: line-through; opacity: 0.6;">
-      R$ ${produto.preco}
-    </span><br>
-
-    🎁 Fantasia com desconto: 
-    <strong style="color:#00eaff;">
-      R$ ${valores.precoComDesconto.toFixed(2)}
-    </strong><br>
-
-    🧩 Acessórios: R$ ${valores.totalAcessorios}<br>
-
-    🎉 Você economiza: R$ ${valores.descontoValor.toFixed(2)}<br>
-
-    <strong style="font-size:18px;">
-      🔥 Total: R$ ${valores.totalFinal.toFixed(2)}
-    </strong>
+    💰 <s>R$ ${produto.preco}</s><br>
+    🎁 R$ ${v.precoComDesconto.toFixed(2)}<br>
+    🧩 + R$ ${v.totalAcessorios}<br>
+    💸 Economia: R$ ${v.descontoValor.toFixed(2)}<br>
+    <strong>🔥 Total: R$ ${v.totalFinal.toFixed(2)}</strong>
   `;
 }
 
-
 // ==========================
-// BOTÃO COMPLETAR LOOK (ALINHADO)
+// BOTÃO WHATSAPP
 // ==========================
-btnUpsell.addEventListener("click", () => {
-  if (!produtoAtual) return;
+btnUpsell.onclick = () => {
 
-  const valores = calcularValores(produtoAtual);
-  const checkboxes = upsellDiv.querySelectorAll("input:checked");
+  const v = calcularValores(produtoAtual);
 
-  let mensagem = `Quero o look:\n${produtoAtual.nome}\n`;
+  let msg = `Quero o look:\n${produtoAtual.nome}\n`;
 
-  checkboxes.forEach(cb => {
+  upsellDiv.querySelectorAll("input:checked").forEach(cb => {
     const acc = acessorios.find(a => a.id === cb.dataset.id);
-    if (acc) {
-      mensagem += `+ ${acc.nome} (R$ ${acc.preco})\n`;
-    }
+    msg += `+ ${acc.nome} (R$ ${acc.preco})\n`;
   });
 
-  mensagem += `\n🎁 Fantasia com desconto: R$ ${valores.precoComDesconto.toFixed(2)}`;
-  mensagem += `\n💸 Economia: R$ ${valores.descontoValor.toFixed(2)}`;
-  mensagem += `\n💰 Total final: R$ ${valores.totalFinal.toFixed(2)}`;
+  msg += `\n💰 Total: R$ ${v.totalFinal.toFixed(2)}`;
 
-  const url = `https://wa.me/5519992850208?text=${encodeURIComponent(mensagem)}`;
-
-  window.open(url, "_blank");
-});
-
-
-// ==========================
-// QUIZ
-// ==========================
-const btnQuiz = document.getElementById("btn-quiz");
-
-if (btnQuiz) {
-  btnQuiz.addEventListener("click", () => {
-    document.getElementById("quiz").scrollIntoView();
-  });
-}
-
-document.querySelectorAll(".quiz-options button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const target = btn.dataset.target;
-    const section = document.getElementById(target);
-
-    if (section) section.scrollIntoView();
-  });
-});
-
+  window.open(`https://wa.me/5519992850208?text=${encodeURIComponent(msg)}`);
+};
 
 // ==========================
 // BUSCA
 // ==========================
-const buscaInput = document.getElementById("busca");
+document.getElementById("busca").addEventListener("input", e => {
+  const termo = e.target.value.toLowerCase();
 
-if (buscaInput) {
-  buscaInput.addEventListener("input", () => {
-    const termo = buscaInput.value.toLowerCase();
+  const filtrado = produtos.filter(p =>
+    p.nome.toLowerCase().includes(termo)
+  );
 
-    document.querySelectorAll(".card").forEach(card => {
-      const nome = card.innerText.toLowerCase();
-      card.style.display = nome.includes(termo) ? "block" : "none";
-    });
+  renderProdutos(filtrado);
+});
+
+// ==========================
+// QUIZ + CATEGORIAS
+// ==========================
+document.querySelectorAll("[data-target]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.target;
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
   });
-}
+});
