@@ -2,9 +2,10 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Crazy Fantasy | Catálogo de Fantasias</title>
+  <title>Crazy Fantasy | Catálogo Interativo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -15,63 +16,98 @@
 <nav class="vibe-section container">
   <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
   <div class="vibe-grid">
-    <button class="vibe-btn active" data-vibe="impactar">
-      <div class="vibe-text"><strong>IMPACTAR</strong><span>Chegue chegando</span></div>
+    <button class="vibe-btn active" data-vibe="bad">
+      <strong>IMPACTAR</strong><span>Chegue chegando</span>
     </button>
-    <button class="vibe-btn" data-vibe="divertir">
-      <div class="vibe-text"><strong>DIVERTIR</strong><span>Alegria garantida</span></div>
+    <button class="vibe-btn" data-vibe="fun">
+      <strong>DIVERTIR</strong><span>Alegria garantida</span>
     </button>
-    <button class="vibe-btn" data-vibe="brilhar">
-      <div class="vibe-text"><strong>BRILHAR</strong><span>Seja o centro</span></div>
+    <button class="vibe-btn" data-vibe="pop">
+      <strong>BRILHAR</strong><span>Seja o centro</span>
     </button>
     <button class="vibe-btn" data-vibe="luxo">
-      <div class="vibe-text"><strong>LUXO</strong><span>Sofisticação pura</span></div>
+      <strong>LUXO</strong><span>Sofisticação pura</span>
     </button>
   </div>
 </nav>
 
-<section class="container">
-  <div class="search-box">
-    <input type="text" id="busca" placeholder="Buscar fantasia...">
+<section class="filters-section container">
+  <div class="search-bar">
+    <i class="fa fa-search"></i>
+    <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
+  </div>
+  <div class="filter-group">
+    <select id="filter-tamanho">
+      <option value="">Tamanho</option>
+      <option value="PP">PP</option>
+      <option value="P">P</option>
+      <option value="M">M</option>
+      <option value="G">G</option>
+      <option value="GG">GG</option>
+    </select>
+    <select id="filter-preco">
+      <option value="">Preço</option>
+      <option value="0-100">Até R$ 100</option>
+      <option value="100-150">R$ 100 - R$ 150</option>
+      <option value="150+">Acima de R$ 150</option>
+    </select>
   </div>
 </section>
 
 <section class="collections container">
   <div class="collections-grid">
-    <img src="assets/images/cat-bad.jpg" class="col-img" data-vibe="impactar">
-    <img src="assets/images/cat-fun.jpg" class="col-img" data-vibe="divertir">
-    <img src="assets/images/cat-pop.jpg" class="col-img" data-vibe="brilhar">
-    <img src="assets/images/cat-luxo.jpg" class="col-img" data-vibe="luxo">
+    <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg"></div>
+    <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg"></div>
+    <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg"></div>
+    <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg"></div>
   </div>
 </section>
 
 <main class="container">
-  <div id="product-grid" class="product-grid">
-    </div>
+  <div id="product-grid" class="product-grid"></div>
 </main>
 
 <footer class="main-footer">
-  <div class="container">
-    <img src="assets/images/footer-diferenciais.jpg" alt="Nossos Diferenciais" style="width:100%">
-    <p>© 2026 Crazy Fantasy - Valinhos/SP</p>
+  <div class="footer-top container">
+    <div class="benefit"><i class="fa fa-truck"></i><span>Entrega Rápida</span></div>
+    <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
+    <div class="benefit"><i class="fa fa-headset"></i><span>Suporte VIP</span></div>
+  </div>
+  <div class="footer-content container">
+    <p><strong>Crazy Fantasy</strong> - Galvão Artigos para Festas Ltda</p>
+    <p>Valinhos, SP | Enviamos para todo Brasil</p>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="https://wa.me/5519992850208"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <p class="copy">© 2026 Crazy Fantasy. Todos os direitos reservados.</p>
   </div>
 </footer>
 
-<div id="modal" class="hidden">
+<div id="modal" class="modal hidden">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <div class="modal-body">
-      <div class="modal-img"><img id="modal-img" src=""></div>
-      <div class="modal-info">
+    <div class="modal-layout">
+      <div class="modal-left">
+        <img id="modal-img" src="">
+      </div>
+      <div class="modal-right">
         <h3 id="modal-nome"></h3>
-        <p id="modal-preco" class="modal-neon-price"></p>
-        <p id="modal-tamanhos"></p>
-        <div class="divider"></div>
-        <div id="upsell"></div>
-        <div class="modal-actions">
-          <button id="btn-upsell">🔥 Reservar Look Completo</button>
-          <a id="modal-whatsapp" target="_blank">Dúvidas via WhatsApp</a>
+        <div class="price-container">
+           <span id="modal-preco-antigo" class="old-price"></span>
+           <span id="modal-preco-atual" class="new-price"></span>
         </div>
+        <p id="modal-tamanhos" class="tamanhos-badge"></p>
+        
+        <div class="upsell-container">
+          <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
+          <p class="promo-hint">Selecione acessórios para baixar o preço da fantasia!</p>
+          <div id="upsell-list"></div>
+        </div>
+
+        <div id="resumo-financeiro"></div>
+
+        <button id="btn-finalizar">RESERVAR NO WHATSAPP</button>
       </div>
     </div>
   </div>
