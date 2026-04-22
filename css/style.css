@@ -1,51 +1,50 @@
-/* CONFIGURAÇÕES GLOBAIS */
 :root {
-  --bg: #030303;
-  --text: #ffffff;
-  --vibe-border-active: #ff0055;
-  --collection-border-hover: #00ffff;
-  --collection-title: #fdfdfd;
+  --bg: #050505;
+  --neon: #00ffff;
+  --magenta: #ff0055;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: var(--bg); color: var(--text); font-family: 'Inter', 'Segoe UI', sans-serif; }
-.container { max-width: 1300px; margin: auto; padding: 0 40px; }
+body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; }
+.container { max-width: 1200px; margin: auto; padding: 0 20px; }
 
-/* HERO BANNER */
-.hero-banner img { width: 100%; display: block; }
+/* 1) HERO BANNER */
+.hero-banner img { width: 100%; display: block; object-fit: cover; }
 
-/* TÍTULOS DE SEÇÃO */
-h2 { text-transform: uppercase; font-size: 1.5rem; letter-spacing: 2px; text-align: center; margin: 50px 0 30px; font-weight: 700; color: #444; }
+/* VIBES */
+h2 { text-align: center; margin: 40px 0 20px; font-size: 1.2rem; color: #444; letter-spacing: 3px; }
+.vibe-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 40px; }
+.vibe-btn { background: #111; border: 1px solid #222; padding: 15px; border-radius: 10px; cursor: pointer; color: #fff; transition: 0.3s; }
+.vibe-btn.active { border-color: var(--magenta); box-shadow: 0 0 10px var(--magenta); }
 
-/* SEÇÃO: QUAL VIBE */
-.vibe-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+/* COLEÇÕES */
+.collections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 50px; }
+.col-img { width: 100%; border-radius: 15px; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+.col-img:hover { border-color: var(--neon); transform: scale(1.02); }
 
-.vibe-btn { background: #111111; border: 1px solid #222222; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 15px; cursor: pointer; text-align: left; }
-.vibe-btn img { width: 40px; height: 40px; object-fit: contain; }
-.vibe-btn strong { display: block; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 2px; color: var(--text); }
-.vibe-btn span { font-size: 0.8rem; color: #666; font-weight: normal; }
+/* PRODUCT GRID & CARDS */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; padding-bottom: 100px; }
+.card { background: #0d0d0d; border-radius: 15px; border: 1px solid #1a1a1a; overflow: hidden; cursor: pointer; }
+.card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.card .info { padding: 15px; }
+.card h3 { font-size: 14px; color: #ccc; margin-bottom: 5px; }
+.card p { color: var(--magenta); font-weight: bold; }
 
-.vibe-btn.active { border-color: var(--vibe-border-active); box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+/* MODAL */
+#modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+.hidden { display: none !important; }
+.modal-content { background: #080808; border: 1px solid #222; border-radius: 20px; width: 100%; max-width: 800px; padding: 30px; position: relative; }
+.close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #444; }
+.modal-body { display: flex; gap: 30px; }
+.modal-img img { width: 280px; border-radius: 12px; }
+.modal-neon-price { font-size: 28px; color: var(--neon); font-weight: bold; margin: 10px 0; }
+.divider { height: 1px; background: #222; margin: 15px 0; }
 
-/* SEÇÃO: BUSCAR FANTASIA */
-.search-controls { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto 50px; }
+/* 3) RODAPÉ */
+.main-footer { background: #000; padding: 40px 0; text-align: center; border-top: 1px solid #111; margin-top: 50px; }
+.main-footer p { color: #444; font-size: 12px; margin-top: 20px; }
 
-.search-bar { position: relative; }
-.search-bar input { width: 100%; padding: 18px 20px 18px 50px; border-radius: 10px; border: 1px solid #222222; background: #0c0c0c; color: #fff; font-size: 1rem; }
-.search-bar img { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 22px; filter: invert(0.6); }
-
-.search-filters { display: flex; gap: 15px; }
-.search-filters select { flex: 1; padding: 15px; background: #0c0c0c; color: #fff; border: 1px solid #222222; border-radius: 10px; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; }
-
-/* SEÇÃO: COLEÇÕES VISUAIS */
-.collections-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-.collection-card { border-radius: 15px; overflow: hidden; border: 2px solid transparent; transition: 0.3s ease; }
-.collection-card:hover { border-color: var(--collection-border-hover); transform: scale(1.02); }
-.collection-card img { width: 100%; display: block; object-fit: cover; }
-
-/* GRID DE PRODUTOS */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 30px 0 100px; }
-
-/* MODAL & FOOTER (Mantido dos arquivos anteriores) */
-.main-footer img { width: 100%; display: block; margin-top: 100px; }
+@media (max-width: 768px) {
+  .vibe-grid, .collections-grid { grid-template-columns: 1fr 1fr; }
+  .modal-body { flex-direction: column; }
+}
