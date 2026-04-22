@@ -27,13 +27,11 @@ body {
     padding: 0 20px; 
 }
 
-/* HERO BANNER */
 .hero-banner img { 
     width: 100%; 
     display: block; 
 }
 
-/* SEÇÃO DE VIBES */
 .vibe-section h2 {
     text-align: center;
     font-size: 1.2rem;
@@ -72,7 +70,6 @@ body {
     box-shadow: 0 0 15px var(--magenta); 
 }
 
-/* BUSCA E FILTROS */
 .search-filter-container { 
     display: flex; 
     flex-wrap: wrap; 
@@ -104,7 +101,6 @@ body {
     color: #555; 
 }
 
-/* CATEGORIAS EM LINHA */
 .collections-grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
@@ -125,10 +121,7 @@ body {
     transform: scale(1.03); 
 }
 
-/* ========================================
-   CARDS DE PRODUTO (MAIS VIDA)
-   ========================================
-*/
+/* CARDS LIMPOS - ESTILO PRINT APROVADO */
 .product-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
@@ -144,8 +137,9 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1); 
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     cursor: pointer;
-    position: relative;
 }
+
+.card .info { display: none; } /* Remove texto do card principal */
 
 .card:hover { 
     transform: translateY(-10px) scale(1.02); 
@@ -153,46 +147,14 @@ body {
     box-shadow: 0 15px 30px rgba(255, 0, 85, 0.25); 
 }
 
-.card-img-container {
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    background: #111;
-}
-
 .card img { 
     width: 100%; 
-    height: 100%;
+    height: auto;
+    display: block;
     object-fit: cover; 
-    transition: transform 0.6s ease;
 }
 
-.card:hover img { 
-    transform: scale(1.1); 
-}
-
-.card .info { 
-    padding: 20px; 
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-
-.card h3 { 
-    font-size: 17px; 
-    margin: 0 0 8px 0; 
-    color: #fff;
-    font-weight: 600;
-}
-
-.card .price { 
-    color: var(--magenta); 
-    font-size: 19px; 
-    font-weight: bold;
-}
-
-/* ========================================
-   MODAL E BOTÃO WHATSAPP NEON
-   ========================================
-*/
+/* MODAL */
 .modal { 
     position: fixed; 
     inset: 0; 
@@ -220,15 +182,17 @@ body {
 .modal-left img { width: 100%; max-width: 320px; border-radius: 10px; }
 .modal-right { flex: 1; min-width: 300px; }
 
-/* Botão WhatsApp com Efeito de Pulso */
+.new-price { font-size: 24px; color: var(--neon); font-weight: bold; }
+.old-price { text-decoration: line-through; color: #666; margin-right: 10px; font-size: 18px; }
+
+/* BOTÃO WHATSAPP NEON PULSANTE */
 .btn-whatsapp-neon {
     background-color: var(--whatsapp);
     color: #fff;
-    padding: 16px 25px;
+    padding: 18px 25px;
     border-radius: 50px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,17 +200,10 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none;
     margin-top: 20px;
     width: 100%;
     box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
     animation: pulse-whatsapp 2s infinite;
-}
-
-.btn-whatsapp-neon:hover {
-    transform: scale(1.03);
-    background-color: #1ebe57;
-    box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
 }
 
 @keyframes pulse-whatsapp {
@@ -261,10 +218,8 @@ body {
     right: 20px; 
     font-size: 30px; 
     cursor: pointer; 
-    color: #fff;
 }
 
-/* RODAPÉ */
 .main-footer { 
     background: #000; 
     padding: 60px 0 20px; 
@@ -281,18 +236,10 @@ body {
     gap: 20px;
 }
 
-.benefit i { 
-    color: var(--magenta); 
-    margin-bottom: 10px; 
-    font-size: 26px; 
-    display: block; 
-}
-
+.benefit i { color: var(--magenta); margin-bottom: 10px; font-size: 26px; display: block; }
 .benefit span { color: #888; font-size: 14px; }
 
-/* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .collections-grid { grid-template-columns: repeat(2, 1fr); }
     .modal-layout { flex-direction: column; align-items: center; }
-    .modal-left img { max-width: 100%; }
 }
