@@ -15,7 +15,17 @@
 <!-- VIBE -->
 <section class="vibe"></section>
 
-<!-- BLOCO BUSCA -->
+<!-- QUIZ (AGORA NO LUGAR CERTO) -->
+<div class="quiz">
+
+  <button data-target="bad" class="impactar">💀 Impactar</button>
+  <button data-target="fun" class="divertir">😄 Divertir</button>
+  <button data-target="pop" class="brilhar">⚡ Brilhar</button>
+  <button data-target="luxo" class="luxo">👑 Luxo</button>
+
+</div>
+
+<!-- BUSCA -->
 <section class="search-overlay">
   <div class="search-box">
 
@@ -36,34 +46,16 @@
       </select>
     </div>
 
-    <div class="quiz">
-      <button data-target="bad">Impactar</button>
-      <button data-target="fun">Divertir</button>
-      <button data-target="pop">Brilhar</button>
-      <button data-target="luxo">Luxo</button>
-    </div>
-
   </div>
 </section>
 
 <!-- CATEGORIAS -->
 <section class="categorias container">
 
-  <div class="cat" data-target="bad">
-    <img src="assets/images/cat-bad.jpg">
-  </div>
-
-  <div class="cat" data-target="fun">
-    <img src="assets/images/cat-fun.jpg">
-  </div>
-
-  <div class="cat" data-target="pop">
-    <img src="assets/images/cat-pop.jpg">
-  </div>
-
-  <div class="cat" data-target="luxo">
-    <img src="assets/images/cat-luxo.jpg">
-  </div>
+  <div class="cat"><img src="assets/images/cat-bad.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-fun.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-pop.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-luxo.jpg"></div>
 
 </section>
 
@@ -80,15 +72,16 @@
     <span class="close">&times;</span>
 
     <div class="modal-body">
+
       <img id="modal-img">
 
-      <div>
+      <div class="modal-info">
         <h3 id="modal-nome"></h3>
         <p id="modal-preco"></p>
         <p id="modal-tamanhos"></p>
 
         <a id="modal-whatsapp" target="_blank" class="btn">
-          Consultar
+          Consultar disponibilidade
         </a>
 
         <button id="btn-upsell" class="btn secondary">
@@ -97,6 +90,7 @@
 
         <div id="upsell"></div>
       </div>
+
     </div>
 
   </div>
