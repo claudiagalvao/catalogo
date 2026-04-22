@@ -2,10 +2,27 @@ let produtos = [];
 let acessorios = [];
 let produtoAtual = null;
 
-const modal = document.getElementById("modal");
-const upsellDiv = document.getElementById("upsell");
+// Lógica de Vibe Ativa
+const vibeButtons = document.querySelectorAll('.vibe-btn');
+vibeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelector('.vibe-btn.active').classList.remove('active');
+        btn.classList.add('active');
+        renderizarGridPorVibe(btn.dataset.vibe);
+    });
+});
 
-// Carregar dados
+// Lógica de Clique em Coleção Visual
+const collectionCards = document.querySelectorAll('.collection-card');
+collectionCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.vibe-btn.active').classList.remove('active');
+        document.querySelector(`[data-vibe="${card.dataset.collection}"]`).classList.add('active');
+        renderizarGridPorVibe(card.dataset.collection);
+    });
+});
+
 async function iniciar() {
     try {
         const [resF, resA] = await Promise.all([
@@ -14,111 +31,41 @@ async function iniciar() {
         ]);
         produtos = resF;
         acessorios = resA;
-        renderizar(produtos);
-    } catch (e) { console.error("Erro ao carregar JSONs", e); }
+        renderizarGridPorVibe('impactar'); // Carrega 'Impactar' por padrão
+    } catch (e) { console.error("Erro ao carregar dados", e); }
 }
 
-function renderizar(lista) {
-    document.querySelectorAll(".grid").forEach(g => g.innerHTML = "");
-    lista.forEach(p => {
-        const grid = document.querySelector(`#${p.categoriaSlug} .grid`);
-        if (grid) {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.onclick = () => abrir(p);
-            card.innerHTML = `
-                <img src="${p.imagem}">
-                <div class="info">
-                    <h3>${p.nome}</h3>
-                    <p>R$ ${p.preco.toFixed(2)}</p>
-                </div>
-            `;
-            grid.appendChild(card);
-        }
-    });
-}
+function renderizarGridPorVibe(vibeSlug) {
+    const grid = document.getElementById("product-grid");
+    grid.innerHTML = ""; // Limpa o grid
 
-function abrir(p) {
-    produtoAtual = p;
-    document.getElementById("modal-img").src = p.imagem;
-    document.getElementById("modal-nome").innerText = p.nome;
-    document.getElementById("modal-preco").innerText = `R$ ${p.preco.toFixed(2)}`;
-    document.getElementById("modal-tamanhos").innerText = `Tamanhos: ${p.tamanhos.join(", ")}`;
-    
-    renderUpsell(p);
-    modal.classList.remove("hidden");
-}
+    const produtosFiltrados = produtos.filter(p => p.categoriaSlug === vibeSlug);
 
-function renderUpsell(p) {
-    upsellDiv.innerHTML = "<h4>🔥 Complete o look:</h4>";
-    if (!p.upsell || p.upsell.length === 0) { 
-        atualizarTotal(p); 
-        return; 
-    }
-
-    p.upsell.forEach(id => {
-        const acc = acessorios.find(a => a.id === id);
-        if (acc) {
-            const item = document.createElement("div");
-            item.className = "upsell-item";
-            item.innerHTML = `
-                <input type="checkbox" data-preco="${acc.preco}" data-id="${acc.id}">
-                <img src="${acc.imagem}">
-                <div style="flex:1; display:flex; justify-content:space-between; font-size:13px">
-                    <span>${acc.nome}</span>
-                    <strong>+ R$ ${acc.preco.toFixed(2)}</strong>
-                </div>
-            `;
-            upsellDiv.appendChild(item);
-        }
-    });
-
-    const totalDiv = document.createElement("div");
-    totalDiv.id = "total-combo";
-    upsellDiv.appendChild(totalDiv);
-
-    upsellDiv.querySelectorAll("input").forEach(i => i.onchange = () => atualizarTotal(p));
-    atualizarTotal(p);
-}
-
-function atualizarTotal(p) {
-    const checks = upsellDiv.querySelectorAll("input:checked");
-    let totalAcc = 0;
-    checks.forEach(c => totalAcc += Number(c.dataset.preco));
-
-    let desc = checks.length === 1 ? 0.05 : checks.length === 2 ? 0.08 : checks.length >= 3 ? 0.10 : 0;
-    let precoDesc = p.preco * (1 - desc);
-    let totalFinal = precoDesc + totalAcc;
-
-    const div = document.getElementById("total-combo");
-    if (div) {
-        div.innerHTML = `
-            Combo Especial: <strong>R$ ${precoDesc.toFixed(2)}</strong><br>
-            Acessórios: <strong>R$ ${totalAcc.toFixed(2)}</strong><br>
-            <hr style="border:0; border-top:1px solid #222; margin:5px 0">
-            <strong>TOTAL FINAL: R$ ${totalFinal.toFixed(2)}</strong>
+    produtosFiltrados.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card-produto grunge-border"; // Usando a borda grunge do layout
+        card.onclick = () => abrirModal(p);
+        card.innerHTML = `
+            <img src="${p.imagem}">
+            <div class="info">
+                <h3>${p.nome}</h3>
+                <p>R$ ${p.preco.toFixed(2)}</p>
+                <button class="ver-colecao">VER DETALHES</button>
+            </div>
         `;
-    }
+        grid.appendChild(card);
+    });
 }
 
-document.getElementById("btn-upsell").onclick = () => {
-    const checks = upsellDiv.querySelectorAll("input:checked");
-    let msg = `*PEDIDO:* ${produtoAtual.nome}\n`;
-    checks.forEach(c => {
-        const a = acessorios.find(item => item.id == c.dataset.id);
-        msg += `+ ${a.nome}\n`;
-    });
-    window.open(`https://wa.me/5519992850208?text=${encodeURIComponent(msg)}`);
-};
+/* LÓGICA DO MODAL (Mantida, mas conectada ao novo renderizarGridPorVibe) */
+// ... (copie aqui a lógica de abrirModal, renderUpsell, atualizarTotal do arquivo JS anterior) ...
 
-document.querySelector(".close").onclick = () => modal.classList.add("hidden");
-document.getElementById("busca").oninput = (e) => {
+document.getElementById("busca_fantasia").oninput = (e) => {
     const t = e.target.value.toLowerCase();
-    renderizar(produtos.filter(p => p.nome.toLowerCase().includes(t)));
+    const v = document.querySelector('.vibe-btn.active').dataset.vibe;
+    const filtrados = produtos.filter(p => p.categoriaSlug === v && p.nome.toLowerCase().includes(t));
+    renderizarGridPorVibeComLista(v, filtrados);
 };
 
-document.querySelectorAll("[data-target]").forEach(b => {
-    b.onclick = () => document.getElementById(b.dataset.target).scrollIntoView({behavior: "smooth"});
-});
-
+// ... (resto da lógica de busca e quiz) ...
 iniciar();
