@@ -24,7 +24,7 @@ body {
 }
 
 /* ========================= */
-/* QUIZ ESTILO ARTE 🔥 */
+/* QUIZ BOTÕES GRANDES 🔥 */
 /* ========================= */
 
 .quiz {
@@ -37,29 +37,30 @@ body {
 }
 
 .quiz button {
-  padding: 14px 18px;
-  border-radius: 12px;
+  padding: 18px 24px;
+  border-radius: 14px;
   background: #111;
-  border: 1px solid #333;
+  border: 2px solid #333;
   color: #fff;
   cursor: pointer;
   transition: 0.3s;
   font-weight: bold;
+  font-size: 15px;
 }
 
-/* CORES PERSONALIZADAS */
+.quiz button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255,0,120,0.6);
+}
+
+/* CORES */
 .impactar { border-color: #ff0066; }
 .divertir { border-color: #ffcc00; }
 .brilhar { border-color: #00e0ff; }
 .luxo { border-color: #ffcc66; }
 
-.quiz button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 15px rgba(255,0,100,0.5);
-}
-
 /* ========================= */
-/* BUSCA */
+/* BUSCA COM LUPA 🔍 */
 /* ========================= */
 
 .search-overlay {
@@ -72,20 +73,29 @@ body {
   display: flex;
   gap: 10px;
   width: 100%;
-  max-width: 900px;
+  max-width: 800px;
+  align-items: center;
 }
 
-.search-box input,
+/* INPUT COM ÍCONE */
+.search-box input {
+  flex: 2;
+  padding: 12px 40px 12px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #111 url('https://cdn-icons-png.flaticon.com/512/622/622669.png') no-repeat right 12px center;
+  background-size: 16px;
+  color: #fff;
+}
+
 .search-box select {
+  flex: 1;
   padding: 12px;
   border-radius: 10px;
   border: none;
   background: #111;
   color: #fff;
 }
-
-.search-box input { flex: 2; }
-.search-box select { flex: 1; }
 
 /* ========================= */
 /* CATEGORIAS */
@@ -120,6 +130,14 @@ body {
   padding: 30px;
 }
 
+.card {
+  max-width: 260px;
+  background: #0b0b0b;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
 .card img {
   width: 100%;
   height: 260px;
@@ -127,42 +145,72 @@ body {
 }
 
 /* ========================= */
-/* MODAL (FIXADO) */
+/* MODAL (AGORA FUNCIONA 💣) */
 /* ========================= */
 
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#modal {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.85) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 9999;
 }
 
-.hidden { display: none; }
+#modal.hidden {
+  display: none !important;
+}
 
 .modal-content {
-  background: #111;
-  padding: 20px;
-  border-radius: 14px;
-  width: 90%;
-  max-width: 700px;
+  background: #111 !important;
+  border-radius: 16px !important;
+  padding: 25px !important;
+  width: 90% !important;
+  max-width: 700px !important;
 }
 
 .modal-body {
-  display: flex;
-  gap: 20px;
+  display: flex !important;
+  gap: 20px !important;
+  align-items: flex-start !important;
 }
 
 .modal-body img {
-  width: 250px;
-  height: 320px;
-  object-fit: cover;
-  border-radius: 10px;
+  width: 240px !important;
+  height: 320px !important;
+  object-fit: cover !important;
+  border-radius: 12px !important;
 }
 
 .modal-info {
   flex: 1;
+}
+
+.modal-info h3 {
+  font-size: 20px;
+}
+
+.modal-info p {
+  color: #ccc;
+  margin: 5px 0;
+}
+
+/* BOTÕES */
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+  text-decoration: none;
+  background: #ff0066;
+  color: #fff;
+}
+
+.btn.secondary {
+  background: #00c2ff;
+  margin-left: 10px;
 }
 
 /* ========================= */
@@ -175,19 +223,28 @@ body {
   text-align: center;
 }
 
+/* ========================= */
 /* RESPONSIVO */
+/* ========================= */
 
 @media(max-width:700px){
+
   .modal-body {
-    flex-direction: column;
+    flex-direction: column !important;
+    align-items: center;
   }
 
   .modal-body img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
 
   .quiz {
     flex-wrap: wrap;
   }
+
+  .search-box {
+    flex-direction: column;
+  }
+
 }
