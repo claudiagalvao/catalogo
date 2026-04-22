@@ -1,101 +1,298 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Crazy Fantasy | Catálogo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
+/* ========================================
+   CRAZY FANTASY - ESTILO OFICIAL 2026
+   Vibe: Cyberpunk / Netflix Style
+   ========================================
+*/
 
-<header class="hero-banner">
-    <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
-</header>
+:root { 
+    --bg: #050505; 
+    --card-bg: rgba(255, 255, 255, 0.03); 
+    --neon: #00ffff; 
+    --magenta: #ff0055; 
+    --whatsapp: #25d366;
+    --text-gray: #b3b3b3;
+}
 
-<section class="vibe-section container">
-    <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
-    <div class="vibe-grid">
-        <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
-        <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
-        <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
-        <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
-    </div>
-</section>
+body { 
+    background: var(--bg); 
+    color: #fff; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    overflow-x: hidden; 
+}
 
-<section class="search-filter-container container">
-    <div class="search-box">
-        <i class="fa fa-search"></i>
-        <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
-    </div>
-    <div class="filter-box">
-        <select id="filter-tamanho">
-            <option value="">Tamanho</option>
-            <option value="PP">PP</option>
-            <option value="P">P</option>
-            <option value="M">M</option>
-            <option value="G">G</option>
-            <option value="GG">GG</option>
-        </select>
-        <select id="filter-preco">
-            <option value="">Preço</option>
-            <option value="0-100">Até R$ 100</option>
-            <option value="100-150">R$ 100 - R$ 150</option>
-            <option value="150+">Acima de R$ 150</option>
-        </select>
-    </div>
-</section>
+.container { 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 20px; 
+}
 
-<section class="collections container">
-    <div class="collections-grid">
-        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
-        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
-        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
-        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
-    </div>
-</section>
+/* HERO BANNER */
+.hero-banner img { 
+    width: 100%; 
+    display: block; 
+}
 
-<main class="container">
-    <div id="product-grid" class="product-grid"></div>
-</main>
+/* SEÇÃO DE VIBES */
+.vibe-section h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
 
-<footer class="main-footer">
-    <div class="footer-top container">
-        <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
-        <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
-        <div class="benefit">
-            <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
-                <i class="fa fa-headset"></i>
-                <span>Suporte VIP</span>
-            </a>
-        </div>
-    </div>
-</footer>
+.vibe-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    gap: 15px; 
+    margin: 20px 0; 
+}
 
-<div id="modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-left"><img id="modal-img" src=""></div>
-            <div class="modal-right">
-                <h3 id="modal-nome"></h3>
-                <div class="price-container">
-                    <span id="modal-preco-antigo" class="old-price"></span>
-                    <span id="modal-preco-atual" class="new-price"></span>
-                </div>
-                <div class="upsell-container">
-                    <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
-                    <div id="upsell-list"></div>
-                </div>
-                <div id="resumo-financeiro"></div>
-                <button id="btn-finalizar" class="btn-whatsapp-neon">
-                    <i class="fab fa-whatsapp"></i> RESERVAR NO WHATSAPP
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+.vibe-btn { 
+    background: #111; 
+    border: 1px solid #333; 
+    padding: 15px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+}
 
-<script src="js/script.js"></script>
-</body>
-</html>
+.vibe-btn strong { font-size: 14px; text-transform: uppercase; }
+.vibe-btn span { font-size: 11px; color: #666; }
+
+.vibe-btn.active { 
+    border-color: var(--magenta); 
+    box-shadow: 0 0 15px var(--magenta); 
+}
+
+/* BUSCA E FILTROS */
+.search-filter-container { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    margin-bottom: 30px; 
+    align-items: center; 
+}
+
+.search-box { 
+    flex: 2; 
+    min-width: 280px; 
+    position: relative; 
+}
+
+.search-box input { 
+    width: 100%; 
+    background: #111; 
+    border: 1px solid #333; 
+    padding: 12px 45px; 
+    border-radius: 25px; 
+    color: #fff; 
+    outline: none; 
+}
+
+.search-box i { 
+    position: absolute; 
+    left: 18px; 
+    top: 15px; 
+    color: #555; 
+}
+
+/* CATEGORIAS EM LINHA */
+.collections-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px; 
+    margin-bottom: 40px; 
+}
+
+.col-item img { 
+    width: 100%; 
+    border-radius: 15px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    border: 2px solid transparent; 
+}
+
+.col-item:hover img { 
+    border-color: var(--neon); 
+    transform: scale(1.03); 
+}
+
+/* ========================================
+   CARDS DE PRODUTO (MAIS VIDA)
+   ========================================
+*/
+.product-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 25px; 
+    padding: 20px 0;
+}
+
+.card { 
+    background: var(--card-bg); 
+    backdrop-filter: blur(10px);
+    border-radius: 20px; 
+    overflow: hidden; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer;
+    position: relative;
+}
+
+.card:hover { 
+    transform: translateY(-10px) scale(1.02); 
+    border-color: var(--magenta); 
+    box-shadow: 0 15px 30px rgba(255, 0, 85, 0.25); 
+}
+
+.card-img-container {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: #111;
+}
+
+.card img { 
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+.card:hover img { 
+    transform: scale(1.1); 
+}
+
+.card .info { 
+    padding: 20px; 
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.card h3 { 
+    font-size: 17px; 
+    margin: 0 0 8px 0; 
+    color: #fff;
+    font-weight: 600;
+}
+
+.card .price { 
+    color: var(--magenta); 
+    font-size: 19px; 
+    font-weight: bold;
+}
+
+/* ========================================
+   MODAL E BOTÃO WHATSAPP NEON
+   ========================================
+*/
+.modal { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.92); 
+    z-index: 1000; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px; 
+}
+
+.hidden { display: none !important; }
+
+.modal-content { 
+    background: #0a0a0a; 
+    padding: 30px; 
+    border-radius: 20px; 
+    max-width: 850px; 
+    width: 100%; 
+    position: relative; 
+    border: 1px solid #222; 
+}
+
+.modal-layout { display: flex; gap: 30px; flex-wrap: wrap; }
+.modal-left img { width: 100%; max-width: 320px; border-radius: 10px; }
+.modal-right { flex: 1; min-width: 300px; }
+
+/* Botão WhatsApp com Efeito de Pulso */
+.btn-whatsapp-neon {
+    background-color: var(--whatsapp);
+    color: #fff;
+    padding: 16px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: 20px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+    animation: pulse-whatsapp 2s infinite;
+}
+
+.btn-whatsapp-neon:hover {
+    transform: scale(1.03);
+    background-color: #1ebe57;
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+}
+
+@keyframes pulse-whatsapp {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.close { 
+    position: absolute; 
+    top: 15px; 
+    right: 20px; 
+    font-size: 30px; 
+    cursor: pointer; 
+    color: #fff;
+}
+
+/* RODAPÉ */
+.main-footer { 
+    background: #000; 
+    padding: 60px 0 20px; 
+    border-top: 1px solid #111; 
+    margin-top: 50px; 
+    text-align: center; 
+}
+
+.footer-top { 
+    display: flex; 
+    justify-content: space-around; 
+    margin-bottom: 40px; 
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.benefit i { 
+    color: var(--magenta); 
+    margin-bottom: 10px; 
+    font-size: 26px; 
+    display: block; 
+}
+
+.benefit span { color: #888; font-size: 14px; }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .collections-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-layout { flex-direction: column; align-items: center; }
+    .modal-left img { max-width: 100%; }
+}
