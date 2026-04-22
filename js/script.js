@@ -84,28 +84,33 @@ document.querySelector(".close").onclick = () => modal.classList.add("hidden");
 window.onclick = (e) => { if (e.target === modal) modal.classList.add("hidden"); };
 
 // ==========================
-// UPSSELL
+// UPSSELL (CORRIGIDO)
 // ==========================
 function renderUpsell(produto) {
   upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
 
-  if (!produto.upsell) return;
+  if (!produto.upsell || produto.upsell.length === 0) return;
 
   produto.upsell.forEach(id => {
     const acc = acessorios.find(a => a.id === id);
 
-    if (acc) {
-      const item = document.createElement("div");
-      item.className = "upsell-item";
+    if (!acc) return;
 
-      item.innerHTML = `
-        <input type="checkbox" data-id="${acc.id}" data-preco="${acc.preco}">
-        <img src="${acc.imagem}">
-        <span>${acc.nome} + R$ ${acc.preco}</span>
-      `;
+    const item = document.createElement("div");
+    item.className = "upsell-item";
 
-      upsellDiv.appendChild(item);
-    }
+    item.innerHTML = `
+      <input type="checkbox" data-id="${acc.id}" data-preco="${acc.preco}">
+      
+      <img src="${acc.imagem}" alt="${acc.nome}">
+      
+      <div class="upsell-info">
+        <span>${acc.nome}</span>
+        <strong>+ R$ ${acc.preco}</strong>
+      </div>
+    `;
+
+    upsellDiv.appendChild(item);
   });
 
   const total = document.createElement("div");
@@ -171,7 +176,7 @@ btnUpsell.onclick = () => {
   let msg = `Quero o look:\n${produtoAtual.nome}\n`;
 
   upsellDiv.querySelectorAll("input:checked").forEach(cb => {
-    const acc = acessorios.find(a => a.id === cb.dataset.id);
+    const acc = acessorios.find(a => a.id == cb.dataset.id);
     msg += `+ ${acc.nome} (R$ ${acc.preco})\n`;
   });
 
@@ -194,7 +199,7 @@ document.getElementById("busca").addEventListener("input", e => {
 });
 
 // ==========================
-// QUIZ + CATEGORIAS
+// QUIZ
 // ==========================
 document.querySelectorAll("[data-target]").forEach(btn => {
   btn.addEventListener("click", () => {
