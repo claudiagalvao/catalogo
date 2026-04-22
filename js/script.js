@@ -2,39 +2,50 @@ let produtos = [];
 let acessorios = [];
 let produtoAtual = null;
 
-// Inicialização: Busca os arquivos na pasta /data do seu GitHub
-async function carregarDados() {
+async function iniciar() {
     try {
-        const [resF, resA] = await Promise.all([
+        const [f, a] = await Promise.all([
             fetch('data/fantasias.json').then(r => r.json()),
             fetch('data/acessorios.json').then(r => r.json())
         ]);
-        
-        produtos = resF;
-        acessorios = resA;
-        
-        // Define a categoria inicial como 'fun' (onde está a Aeromoça)
-        renderizar('fun'); 
-        
-    } catch (e) {
-        console.error("Erro ao carregar os ficheiros JSON. Verifique os caminhos.", e);
-    }
+        produtos = f;
+        acessorios = a;
+        renderizar(); // Inicia com a primeira categoria ou todas
+    } catch (e) { console.error("Erro JSON", e); }
 }
 
-function renderizar(slug) {
+// BUSCA E FILTROS EM TEMPO REAL
+function filtrarProdutos() {
+    const termo = document.getElementById("input-busca").value.toLowerCase();
+    const tamanho = document.getElementById("filter-tamanho").value;
+    const precoRange = document.getElementById("filter-preco").value;
+    const vibeAtiva = document.querySelector(".vibe-btn.active").dataset.vibe;
+
+    return produtos.filter(p => {
+        const matchVibe = p.categoriaSlug === vibeAtiva;
+        const matchBusca = p.nome.toLowerCase().includes(termo) || p.tags.some(t => t.includes(termo));
+        const matchTamanho = tamanho === "" || p.tamanhos.includes(tamanho);
+        
+        let matchPreco = true;
+        if (precoRange === "0-100") matchPreco = p.preco <= 100;
+        else if (precoRange === "100-150") matchPreco = p.preco > 100 && p.preco <= 150;
+        else if (precoRange === "150+") matchPreco = p.preco > 150;
+
+        return matchVibe && matchBusca && matchTamanho && matchPreco;
+    });
+}
+
+function renderizar() {
     const grid = document.getElementById("product-grid");
-    if (!grid) return;
-    
     grid.innerHTML = "";
     
-    // Filtra pela categoriaSlug (ex: 'fun')
-    const filtrados = produtos.filter(p => p.categoriaSlug === slug);
+    const filtrados = filtrarProdutos();
     
     filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-            <img src="${p.imagem}" alt="${p.nome}">
+            <img src="${p.imagem}">
             <div class="info">
                 <h3>${p.nome}</h3>
                 <p>R$ ${p.preco.toFixed(2)}</p>
@@ -47,110 +58,111 @@ function renderizar(slug) {
 
 function abrirModal(p) {
     produtoAtual = p;
-    
-    // Preenche dados básicos
     document.getElementById("modal-img").src = p.imagem;
     document.getElementById("modal-nome").innerText = p.nome;
-    document.getElementById("modal-preco").innerText = `R$ ${p.preco.toFixed(2)}`;
-    document.getElementById("modal-tamanhos").innerText = `Tamanhos: ${p.tamanhos.join(", ")}`;
+    document.getElementById("modal-tamanhos").innerText = `Disponível: ${p.tamanhos.join(", ")}`;
     
-    // Gerar a área de Upsell (Acessórios)
-    const upsellDiv = document.getElementById("upsell");
-    upsellDiv.innerHTML = "<h4>🔥 Complete o look:</h4>";
+    const list = document.getElementById("upsell-list");
+    list.innerHTML = "";
     
-    if (p.upsell && p.upsell.length > 0) {
-        p.upsell.forEach(accId => {
-            const acc = acessorios.find(a => a.id === accId);
-            if (acc) {
-                const item = document.createElement("div");
-                item.className = "upsell-item";
-                item.innerHTML = `
-                    <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-                        <input type="checkbox" data-preco="${acc.preco}" data-id="${acc.id}" class="acc-check">
-                        <img src="${acc.imagem}" style="width:40px; height:40px; border-radius:4px; object-fit:cover;">
-                        <div style="flex:1; font-size:13px;">
-                            <span>${acc.nome}</span><br>
-                            <strong>+ R$ ${acc.preco.toFixed(2)}</strong>
-                        </div>
-                    </label>
-                `;
-                upsellDiv.appendChild(item);
-            }
-        });
-        
-        // Adiciona o container do total se houver acessórios
-        const totalDiv = document.createElement("div");
-        totalDiv.id = "total-combo";
-        totalDiv.className = "total-destaque";
-        upsellDiv.appendChild(totalDiv);
-        
-        // Escuta mudanças nos checkboxes
-        upsellDiv.querySelectorAll(".acc-check").forEach(input => {
-            input.onchange = () => atualizarPrecos(p);
-        });
-    }
+    p.upsell.forEach(idAcc => {
+        const acc = acessorios.find(a => a.id === idAcc);
+        if(acc) {
+            const div = document.createElement("div");
+            div.className = "acc-item";
+            div.innerHTML = `
+                <input type="checkbox" class="acc-check" data-id="${acc.id}" data-preco="${acc.preco}">
+                <img src="${acc.imagem}">
+                <div style="flex:1">
+                    <div style="font-size:14px">${acc.nome}</div>
+                    <div style="font-size:12px; color:var(--neon)">+ R$ ${acc.preco.toFixed(2)}</div>
+                </div>
+            `;
+            list.appendChild(div);
+        }
+    });
 
-    atualizarPrecos(p);
+    list.querySelectorAll('.acc-check').forEach(c => c.onchange = calcularRegraNegocio);
+    calcularRegraNegocio();
     document.getElementById("modal").classList.remove("hidden");
 }
 
-function atualizarPrecos(p) {
+function calcularRegraNegocio() {
     const checks = document.querySelectorAll(".acc-check:checked");
-    let totalAcc = 0;
-    checks.forEach(c => totalAcc += Number(c.dataset.preco));
+    const qtd = checks.length;
+    let descontoPercentual = 0;
 
-    // Lógica de Desconto Progressivo (Opcional)
-    let desconto = checks.length >= 2 ? 0.05 : 0; // 5% de desc se levar 2 ou mais acessórios
-    let precoBaseComDesc = p.preco * (1 - desconto);
-    let totalGeral = precoBaseComDesc + totalAcc;
+    // REGRA DE NEGÓCIO
+    if (qtd === 1) descontoPercentual = 0.05;
+    else if (qtd === 2) descontoPercentual = 0.08;
+    else if (qtd >= 3) descontoPercentual = 0.10;
 
-    const totalDiv = document.getElementById("total-combo");
-    if (totalDiv) {
-        totalDiv.innerHTML = `
-            <div style="border-top:1px solid #222; margin-top:10px; padding-top:10px;">
-                <p style="font-size:14px; color:#888;">Resumo do Look:</p>
-                <div style="display:flex; justify-content:space-between; margin-top:5px;">
-                    <span>Fantasia:</span> <span>R$ ${precoBaseComDesc.toFixed(2)}</span>
-                </div>
-                <div style="display:flex; justify-content:space-between;">
-                    <span>Acessórios:</span> <span>R$ ${totalAcc.toFixed(2)}</span>
-                </div>
-                <div style="display:flex; justify-content:space-between; margin-top:10px; color:#00ffff; font-weight:bold; font-size:18px;">
-                    <span>TOTAL:</span> <span>R$ ${totalGeral.toFixed(2)}</span>
-                </div>
-            </div>
-        `;
+    const precoOriginal = produtoAtual.preco;
+    const precoComDesconto = precoOriginal * (1 - descontoPercentual);
+    
+    let totalAcessorios = 0;
+    checks.forEach(c => totalAcessorios += parseFloat(c.dataset.preco));
+
+    const totalGeral = precoComDesconto + totalAcessorios;
+
+    // Atualização Visual no Modal
+    const precoAntigoSpan = document.getElementById("modal-preco-antigo");
+    const precoAtualSpan = document.getElementById("modal-preco-atual");
+
+    if (descontoPercentual > 0) {
+        precoAntigoSpan.style.display = "inline";
+        precoAntigoSpan.innerText = `R$ ${precoOriginal.toFixed(2)}`;
+        precoAtualSpan.innerText = `R$ ${precoComDesconto.toFixed(2)}`;
+        precoAtualSpan.style.color = "var(--neon)";
+    } else {
+        precoAntigoSpan.style.display = "none";
+        precoAtualSpan.innerText = `R$ ${precoOriginal.toFixed(2)}`;
+        precoAtualSpan.style.color = "#fff";
     }
+
+    const resumo = document.getElementById("resumo-financeiro");
+    resumo.innerHTML = `
+        <div style="margin-top:20px; border-top:1px solid #222; padding-top:15px; font-size:14px">
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px">
+                <span>Total Acessórios:</span> <span>R$ ${totalAcessorios.toFixed(2)}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:20px; font-weight:bold; color:var(--neon); margin-top:10px">
+                <span>TOTAL COMBO:</span> <span>R$ ${totalGeral.toFixed(2)}</span>
+            </div>
+            ${descontoPercentual > 0 ? `<p style="color:var(--gold); font-size:11px; margin-top:5px">✨ Economia de ${(descontoPercentual*100).toFixed(0)}% aplicada na fantasia!</p>` : ''}
+        </div>
+    `;
 }
 
-// Botão WhatsApp
-document.getElementById("btn-upsell").onclick = () => {
-    const checks = document.querySelectorAll(".acc-check:checked");
-    let pedido = `*NOVO LOOK COMPLETO*\n\n✅ *Fantasia:* ${produtoAtual.nome}`;
-    
-    if (checks.length > 0) {
-        pedido += `\n➕ *Acessórios:*`;
-        checks.forEach(c => {
-            const acc = acessorios.find(a => a.id === c.dataset.id);
-            pedido += `\n- ${acc.nome}`;
-        });
-    }
-    
-    const url = `https://wa.me/5519992850208?text=${encodeURIComponent(pedido)}`;
-    window.open(url, '_blank');
-};
+// EVENTOS DE BUSCA E FILTROS
+document.getElementById("input-busca").oninput = renderizar;
+document.getElementById("filter-tamanho").onchange = renderizar;
+document.getElementById("filter-preco").onchange = renderizar;
 
-// Funções de Navegação e Fechamento
-document.querySelector(".close").onclick = () => document.getElementById("modal").classList.add("hidden");
-
-document.querySelectorAll(".vibe-btn, .col-img").forEach(el => {
-    el.onclick = () => {
-        const vibe = el.dataset.vibe;
+document.querySelectorAll(".vibe-btn, .col-item").forEach(btn => {
+    btn.onclick = () => {
         document.querySelectorAll(".vibe-btn").forEach(b => b.classList.remove("active"));
-        const btn = document.querySelector(`.vibe-btn[data-vibe="${vibe}"]`);
-        if(btn) btn.classList.add("active");
-        renderizar(vibe);
-    };
+        const vibe = btn.dataset.vibe;
+        document.querySelector(`.vibe-btn[data-vibe="${vibe}"]`).classList.add("active");
+        renderizar();
+    }
 });
 
-carregarDados();
+document.querySelector(".close").onclick = () => document.getElementById("modal").classList.add("hidden");
+
+// WHATSAPP
+document.getElementById("btn-finalizar").onclick = () => {
+    const checks = document.querySelectorAll(".acc-check:checked");
+    let msg = `Olá! Gostaria de reservar:\n\n🎭 *Fantasia:* ${produtoAtual.nome}`;
+    if(checks.length > 0) {
+        msg += `\n✨ *Acessórios:*`;
+        checks.forEach(c => {
+            const acc = acessorios.find(a => a.id === c.dataset.id);
+            msg += `\n- ${acc.nome}`;
+        });
+    }
+    const final = document.querySelector("#resumo-financeiro b span")?.innerText || "";
+    window.open(`https://wa.me/5519992850208?text=${encodeURIComponent(msg)}`);
+}
+
+iniciar();
