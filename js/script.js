@@ -102,6 +102,39 @@ window.onclick = (e) => {
 
 
 // ==========================
+// FUNÇÃO CENTRAL DE CÁLCULO
+// ==========================
+function calcularValores(produto) {
+  const checkboxes = upsellDiv.querySelectorAll("input:checked");
+
+  let totalAcessorios = 0;
+
+  checkboxes.forEach(cb => {
+    totalAcessorios += parseFloat(cb.dataset.preco);
+  });
+
+  let quantidade = checkboxes.length;
+  let desconto = 0;
+
+  if (quantidade === 1) desconto = 0.05;
+  if (quantidade === 2) desconto = 0.08;
+  if (quantidade >= 3) desconto = 0.10;
+
+  let descontoValor = produto.preco * desconto;
+  let precoComDesconto = produto.preco - descontoValor;
+  let totalFinal = precoComDesconto + totalAcessorios;
+
+  return {
+    totalAcessorios,
+    descontoValor,
+    precoComDesconto,
+    totalFinal,
+    quantidade
+  };
+}
+
+
+// ==========================
 // UPSELL COM SELEÇÃO
 // ==========================
 function renderUpsell(produto) {
@@ -126,7 +159,6 @@ function renderUpsell(produto) {
     }
   });
 
-  // TOTAL
   const totalDiv = document.createElement("div");
   totalDiv.id = "total-combo";
   totalDiv.style.marginTop = "10px";
@@ -141,57 +173,54 @@ function renderUpsell(produto) {
 
 
 // ==========================
-// CÁLCULO COM DESCONTO
+// TOTAL COM VISUAL FORTE
 // ==========================
 function atualizarTotal(produto) {
-  const checkboxes = upsellDiv.querySelectorAll("input:checked");
-
-  let totalAcessorios = 0;
-
-  checkboxes.forEach(cb => {
-    totalAcessorios += parseFloat(cb.dataset.preco);
-  });
-
-  let quantidade = checkboxes.length;
-  let desconto = 0;
-
-  if (quantidade === 1) desconto = 0.05;
-  if (quantidade === 2) desconto = 0.08;
-  if (quantidade >= 3) desconto = 0.10;
-
-  let descontoValor = produto.preco * desconto;
-  let totalFinal = produto.preco - descontoValor + totalAcessorios;
+  const valores = calcularValores(produto);
 
   document.getElementById("total-combo").innerHTML = `
-    💰 Fantasia: R$ ${produto.preco}<br>
-    🧩 Acessórios: R$ ${totalAcessorios}<br>
-    🎁 Desconto: -R$ ${descontoValor.toFixed(2)}<br>
-    <strong>🔥 Total: R$ ${totalFinal.toFixed(2)}</strong>
+    💰 Fantasia: 
+    <span style="text-decoration: line-through; opacity: 0.6;">
+      R$ ${produto.preco}
+    </span><br>
+
+    🎁 Fantasia com desconto: 
+    <strong style="color:#00eaff;">
+      R$ ${valores.precoComDesconto.toFixed(2)}
+    </strong><br>
+
+    🧩 Acessórios: R$ ${valores.totalAcessorios}<br>
+
+    🎉 Você economiza: R$ ${valores.descontoValor.toFixed(2)}<br>
+
+    <strong style="font-size:18px;">
+      🔥 Total: R$ ${valores.totalFinal.toFixed(2)}
+    </strong>
   `;
 }
 
 
 // ==========================
-// BOTÃO COMPLETAR LOOK
+// BOTÃO COMPLETAR LOOK (ALINHADO)
 // ==========================
 btnUpsell.addEventListener("click", () => {
   if (!produtoAtual) return;
 
+  const valores = calcularValores(produtoAtual);
   const checkboxes = upsellDiv.querySelectorAll("input:checked");
 
   let mensagem = `Quero o look:\n${produtoAtual.nome}\n`;
-  let total = produtoAtual.preco;
 
   checkboxes.forEach(cb => {
     const acc = acessorios.find(a => a.id === cb.dataset.id);
-
     if (acc) {
       mensagem += `+ ${acc.nome} (R$ ${acc.preco})\n`;
-      total += acc.preco;
     }
   });
 
-  mensagem += `Total: R$ ${total}`;
+  mensagem += `\n🎁 Fantasia com desconto: R$ ${valores.precoComDesconto.toFixed(2)}`;
+  mensagem += `\n💸 Economia: R$ ${valores.descontoValor.toFixed(2)}`;
+  mensagem += `\n💰 Total final: R$ ${valores.totalFinal.toFixed(2)}`;
 
   const url = `https://wa.me/5519992850208?text=${encodeURIComponent(mensagem)}`;
 
