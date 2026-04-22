@@ -4,13 +4,15 @@ let produtoAtual = null;
 
 async function carregarDados() {
     try {
-        const resProd = await fetch('data/fantasias.json');
-        const resAcc = await fetch('data/acessorios.json');
-        produtos = await resProd.json();
-        acessorios = await resAcc.json();
+        const [resP, resA] = await Promise.all([
+            fetch('data/fantasias.json').then(r => r.json()),
+            fetch('data/acessorios.json').then(r => r.json())
+        ]);
+        produtos = resP;
+        acessorios = resA;
         renderizar();
     } catch (e) {
-        console.error("Erro ao carregar arquivos JSON. Verifique se os nomes estão corretos na pasta /data", e);
+        console.error("Erro no JSON. Verifique a pasta /data", e);
     }
 }
 
@@ -25,8 +27,9 @@ function renderizar() {
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
     const filtrados = produtos.filter(p => {
-        const matchVibe = p.categoriaSlug === vibeAtiva;
-        const matchBusca = p.nome.toLowerCase().includes(termo);
+        // Se houver texto na busca, ignora o filtro de Vibe para mostrar o resultado
+        const matchVibe = termo.length > 0 ? true : (p.categoriaSlug === vibeAtiva);
+        const matchBusca = p.nome.toLowerCase().includes(termo) || (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
         const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
         
         let matchPreco = true;
@@ -38,7 +41,7 @@ function renderizar() {
     });
 
     if (filtrados.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #555;'>Nenhuma fantasia encontrada.</p>";
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #555; padding: 40px;">Nenhuma fantasia encontrada para "${termo}".</p>`;
     }
 
     filtrados.forEach(p => {
@@ -64,21 +67,24 @@ function abrirModal(p) {
     const list = document.getElementById("upsell-list");
     list.innerHTML = "";
     
-    p.upsell.forEach(idAcc => {
-        const acc = acessorios.find(a => a.id === idAcc);
-        if(acc) {
-            const div = document.createElement("div");
-            div.style.display = "flex";
-            div.style.alignItems = "center";
-            div.style.gap = "10px";
-            div.style.marginBottom = "10px";
-            div.innerHTML = `
-                <input type="checkbox" class="acc-check" data-preco="${acc.preco}">
-                <span style="font-size:14px">${acc.nome} (+ R$ ${acc.preco.toFixed(2)})</span>
-            `;
-            list.appendChild(div);
-        }
-    });
+    if(p.upsell) {
+        p.upsell.forEach(idAcc => {
+            const acc = acessorios.find(a => a.id === idAcc);
+            if(acc) {
+                const div = document.createElement("div");
+                div.style.display = "flex";
+                div.style.alignItems = "center";
+                div.style.gap = "10px";
+                div.style.marginBottom = "12px";
+                div.innerHTML = `
+                    <input type="checkbox" class="acc-check" data-id="${acc.id}" data-preco="${acc.preco}">
+                    <img src="${acc.imagem}" style="width:40px; height:40px; border-radius:5px; object-fit:cover;">
+                    <span style="font-size:14px">${acc.nome} (+ R$ ${acc.preco.toFixed(2)})</span>
+                `;
+                list.appendChild(div);
+            }
+        });
+    }
 
     const checks = list.querySelectorAll('.acc-check');
     checks.forEach(c => c.onchange = atualizarPrecosModal);
@@ -91,6 +97,8 @@ function atualizarPrecosModal() {
     const checks = document.querySelectorAll(".acc-check:checked");
     const qtd = checks.length;
     let desc = 0;
+    
+    // REGRA DE NEGÓCIO 5%, 8%, 10%
     if (qtd === 1) desc = 0.05;
     else if (qtd === 2) desc = 0.08;
     else if (qtd >= 3) desc = 0.10;
@@ -100,34 +108,54 @@ function atualizarPrecosModal() {
     checks.forEach(c => totalAcc += parseFloat(c.dataset.preco));
 
     document.getElementById("modal-preco-atual").innerText = `R$ ${precoFinalFantasia.toFixed(2)}`;
+    
+    const precoAntigo = document.getElementById("modal-preco-antigo");
     if (desc > 0) {
-        document.getElementById("modal-preco-antigo").style.display = "inline";
-        document.getElementById("modal-preco-antigo").innerText = `R$ ${produtoAtual.preco.toFixed(2)}`;
+        precoAntigo.style.display = "inline";
+        precoAntigo.innerText = `R$ ${produtoAtual.preco.toFixed(2)}`;
     } else {
-        document.getElementById("modal-preco-antigo").style.display = "none";
+        precoAntigo.style.display = "none";
     }
 
     document.getElementById("resumo-financeiro").innerHTML = `
-        <div style="margin-top:15px; border-top:1px solid #222; padding-top:10px">
+        <div style="margin-top:15px; border-top:1px solid #222; padding-top:10px; font-size:14px">
             <p>Acessórios: R$ ${totalAcc.toFixed(2)}</p>
-            <p style="font-size:18px; color:var(--neon)">Total: R$ ${(precoFinalFantasia + totalAcc).toFixed(2)}</p>
+            <p style="font-size:20px; color:var(--neon); font-weight:bold; margin-top:5px">Total Combo: R$ ${(precoFinalFantasia + totalAcc).toFixed(2)}</p>
+            ${desc > 0 ? `<p style="color:#ffcc00; font-size:12px">✨ Desconto de ${(desc*100)}% aplicado!</p>` : ''}
         </div>
     `;
 }
 
-// EVENTOS
+// EVENTOS DE BUSCA E FILTROS
 document.getElementById("input-busca").addEventListener("input", renderizar);
 document.getElementById("filter-tamanho").addEventListener("change", renderizar);
 document.getElementById("filter-preco").addEventListener("change", renderizar);
 
-document.querySelectorAll(".vibe-btn").forEach(btn => {
-    btn.onclick = () => {
+// EVENTO DE CLIQUE NAS VIBES E NAS IMAGENS DAS CATEGORIAS
+document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
+    el.onclick = () => {
+        const vibe = el.dataset.vibe;
         document.querySelectorAll(".vibe-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+        document.querySelector(`.vibe-btn[data-vibe="${vibe}"]`).classList.add("active");
+        document.getElementById("input-busca").value = ""; // Limpa busca ao mudar vibe
         renderizar();
     };
 });
 
 document.querySelector(".close").onclick = () => document.getElementById("modal").classList.add("hidden");
+
+// WHATSAPP
+document.getElementById("btn-finalizar").onclick = () => {
+    const checks = document.querySelectorAll(".acc-check:checked");
+    let msg = `Olá Crazy Fantasy! Gostaria de reservar:\n\n🎭 *${produtoAtual.nome}*`;
+    if(checks.length > 0) {
+        msg += `\n✨ *Acessórios:*`;
+        checks.forEach(c => {
+            const acc = acessorios.find(a => a.id === c.dataset.id);
+            msg += `\n- ${acc.nome}`;
+        });
+    }
+    window.open(`https://wa.me/5519992850208?text=${encodeURIComponent(msg)}`);
+}
 
 window.onload = carregarDados;
