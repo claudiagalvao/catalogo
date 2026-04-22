@@ -74,7 +74,7 @@ body {
 .search-box {
   display: flex;
   gap: 10px;
-  max-width: 650px;
+  max-width: 600px;
   width: 90%;
 }
 
