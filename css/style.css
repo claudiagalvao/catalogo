@@ -5,8 +5,9 @@
   box-sizing: border-box;
 }
 
+/* FUNDO COM TEXTURA LEVE */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background: #0b0b0b;
   color: #ffffff;
 }
@@ -18,24 +19,29 @@ body {
   padding: 0 20px;
 }
 
-/* TITULOS */
+/* TIPOGRAFIA */
+h1, h2 {
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
 h1 {
-  font-size: 48px;
+  font-size: 42px;
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
 p {
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 /* HERO */
 .hero {
   text-align: center;
-  padding: 120px 20px;
+  padding: 100px 20px;
   background: radial-gradient(circle at top, #1a1a1a, #000);
 }
 
@@ -59,8 +65,7 @@ p {
 }
 
 .btn:hover {
-  box-shadow: 0 0 15px #ff0055;
-  transform: scale(1.05);
+  box-shadow: 0 0 10px #ff0055;
 }
 
 .btn.secondary {
@@ -68,12 +73,12 @@ p {
 }
 
 .btn.secondary:hover {
-  box-shadow: 0 0 15px #00eaff;
+  box-shadow: 0 0 10px #00eaff;
 }
 
 /* SECTIONS */
 section {
-  padding: 60px 0;
+  padding: 50px 0;
 }
 
 /* QUIZ */
@@ -86,9 +91,9 @@ section {
 }
 
 .quiz-options button {
-  margin: 10px;
-  padding: 15px 20px;
-  border-radius: 12px;
+  margin: 8px;
+  padding: 12px 16px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   background: #1a1a1a;
@@ -97,8 +102,7 @@ section {
 }
 
 .quiz-options button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #00eaff;
+  box-shadow: 0 0 8px #00eaff;
 }
 
 /* FILTROS */
@@ -107,28 +111,18 @@ section {
 }
 
 .filter-bar {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .filter-bar input,
 .filter-bar select {
   padding: 10px;
-  margin: 8px;
+  margin: 6px;
   border-radius: 8px;
   border: none;
-  outline: none;
 }
 
-/* CATEGORIAS */
-.categoria h2 {
-  margin-bottom: 5px;
-}
-
-.categoria p {
-  margin-bottom: 20px;
-}
-
-/* GRID AJUSTADO (evita cards esticados) */
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
@@ -136,57 +130,58 @@ section {
   gap: 25px;
 }
 
-/* CARD COM PROPORÇÃO CORRETA */
+/* CARD */
 .card {
   position: relative;
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
-  transition: 0.3s;
   background: #111;
+  transition: 0.3s;
 
-  aspect-ratio: 3 / 4; /* 🔥 proporção ideal */
+  aspect-ratio: 3 / 4;
   max-width: 260px;
+
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* IMAGEM AJUSTADA */
+/* IMAGEM */
 .card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top; /* 🔥 evita cortar rosto */
-  filter: brightness(0.85);
+  object-position: top;
   transition: 0.3s;
 }
 
-/* HOVER PREMIUM */
-.card:hover img {
-  transform: scale(1.08);
-  filter: brightness(1);
-}
-
+/* HOVER */
 .card:hover {
-  box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0,234,255,0.25);
 }
 
-/* INFO CARD */
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* INFO */
 .card .info {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 15px;
-  background: linear-gradient(transparent, black);
+  padding: 12px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
 }
 
 .card h3 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .card p {
   font-size: 14px;
 }
 
-/* MODAL */
+/* MODAL (mais forte, mas confortável) */
 .modal {
   position: fixed;
   top: 0;
@@ -197,7 +192,6 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 }
 
 .hidden {
@@ -205,12 +199,14 @@ section {
 }
 
 .modal-content {
-  background: #111;
+  background: #0f0f0f;
   padding: 25px;
   border-radius: 15px;
   max-width: 800px;
   width: 90%;
-  position: relative;
+
+  border: 1px solid rgba(0,234,255,0.2);
+  box-shadow: 0 0 25px rgba(0,234,255,0.1);
 }
 
 /* CLOSE */
@@ -218,7 +214,7 @@ section {
   position: absolute;
   right: 15px;
   top: 10px;
-  font-size: 24px;
+  font-size: 22px;
   cursor: pointer;
 }
 
@@ -231,7 +227,7 @@ section {
 
 .modal-body img {
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   border-radius: 10px;
 }
 
@@ -239,15 +235,7 @@ section {
   flex: 1;
 }
 
-.modal-info h3 {
-  margin-bottom: 10px;
-}
-
-.modal-info p {
-  margin-bottom: 10px;
-}
-
-/* UPSELL ESTILIZADO */
+/* UPSELL */
 #upsell {
   margin-top: 15px;
 }
@@ -258,34 +246,32 @@ section {
   gap: 10px;
   background: #1a1a1a;
   padding: 10px;
-  margin-bottom: 8px;
   border-radius: 8px;
 }
 
 .upsell-item img {
   width: 40px;
   height: 40px;
-  object-fit: cover;
   border-radius: 6px;
 }
 
-/* SCROLL SUAVE */
-html {
-  scroll-behavior: smooth;
+/* TOTAL DESTAQUE */
+#total-combo {
+  margin-top: 15px;
+  padding: 10px;
+  background: #111;
+  border-radius: 10px;
+  border: 1px solid rgba(0,234,255,0.2);
 }
 
 /* RESPONSIVO */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 32px;
-  }
-
   .modal-body {
     flex-direction: column;
     align-items: center;
   }
 
-  .card {
-    aspect-ratio: 3 / 4;
+  h1 {
+    font-size: 30px;
   }
 }
