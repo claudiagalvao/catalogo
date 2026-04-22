@@ -27,11 +27,13 @@ body {
     padding: 0 20px; 
 }
 
+/* HERO BANNER */
 .hero-banner img { 
     width: 100%; 
     display: block; 
 }
 
+/* SEÇÃO DE VIBES */
 .vibe-section h2 {
     text-align: center;
     font-size: 1.2rem;
@@ -70,17 +72,19 @@ body {
     box-shadow: 0 0 15px var(--magenta); 
 }
 
+/* AJUSTE: BUSCA E FILTROS (FIXED) */
 .search-filter-container { 
     display: flex; 
     flex-wrap: wrap; 
     gap: 15px; 
     margin-bottom: 30px; 
     align-items: center; 
+    width: 100%;
 }
 
 .search-box { 
-    flex: 2; 
-    min-width: 280px; 
+    flex: 1; 
+    min-width: 250px; 
     position: relative; 
 }
 
@@ -88,19 +92,38 @@ body {
     width: 100%; 
     background: #111; 
     border: 1px solid #333; 
-    padding: 12px 45px; 
+    padding: 12px 15px 12px 45px; 
     border-radius: 25px; 
     color: #fff; 
-    outline: none; 
+    outline: none;
+    box-sizing: border-box; /* Garante que o padding não quebre a largura */
 }
 
 .search-box i { 
     position: absolute; 
     left: 18px; 
-    top: 15px; 
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza ícone verticalmente */
     color: #555; 
 }
 
+.filter-box {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.filter-box select {
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* CATEGORIAS */
 .collections-grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
@@ -121,7 +144,7 @@ body {
     transform: scale(1.03); 
 }
 
-/* CARDS LIMPOS - ESTILO PRINT APROVADO */
+/* CARDS LIMPOS */
 .product-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
@@ -139,7 +162,7 @@ body {
     cursor: pointer;
 }
 
-.card .info { display: none; } /* Remove texto do card principal */
+.card .info { display: none; } 
 
 .card:hover { 
     transform: translateY(-10px) scale(1.02); 
@@ -218,8 +241,10 @@ body {
     right: 20px; 
     font-size: 30px; 
     cursor: pointer; 
+    color: #fff;
 }
 
+/* RODAPÉ */
 .main-footer { 
     background: #000; 
     padding: 60px 0 20px; 
@@ -239,7 +264,9 @@ body {
 .benefit i { color: var(--magenta); margin-bottom: 10px; font-size: 26px; display: block; }
 .benefit span { color: #888; font-size: 14px; }
 
+/* RESPONSIVIDADE */
 @media (max-width: 768px) {
     .collections-grid { grid-template-columns: repeat(2, 1fr); }
     .modal-layout { flex-direction: column; align-items: center; }
+    .search-filter-container { flex-direction: column; align-items: stretch; }
 }
