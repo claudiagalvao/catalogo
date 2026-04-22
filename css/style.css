@@ -80,7 +80,7 @@ body {
 
 .search-box { 
     flex: 2; 
-    min-width: 180px; 
+    min-width: 280px; 
     position: relative; 
 }
 
