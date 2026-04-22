@@ -1,15 +1,12 @@
 /* ========================================
-   CRAZY FANTASY - ESTILO OFICIAL 2026
-   Vibe: Cyberpunk / Netflix Style
+   CRAZY FANTASY - FIX DE LAYOUT 2026
    ======================================== */
 
 :root { 
     --bg: #050505; 
-    --card-bg: rgba(255, 255, 255, 0.03); 
-    --neon: #00ffff; 
     --magenta: #ff0055; 
+    --neon: #00ffff; 
     --whatsapp: #25d366;
-    --text-gray: #b3b3b3;
 }
 
 body { 
@@ -17,201 +14,129 @@ body {
     color: #fff; 
     font-family: 'Inter', sans-serif; 
     margin: 0; 
-    overflow-x: hidden; 
 }
 
 .container { max-width: 1200px; margin: auto; padding: 0 20px; }
 
-/* HERO BANNER */
-.hero-banner img { 
-    width: 100%; 
-    display: block; 
+/* FIX: BANNER */
+.hero-banner img { width: 100%; display: block; height: auto; }
+
+/* FIX: VIBE SECTION (BOTOES LADO A LADO) */
+.vibe-section { text-align: center; margin: 40px 0; }
+.vibe-grid { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    flex-wrap: wrap; 
+    margin-top: 20px;
 }
 
-/* BARRA DE BUSCA E FILTROS (CORRIGIDA) */
+.vibe-btn {
+    background: #111;
+    border: 1px solid #333;
+    padding: 15px 25px;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+.vibe-btn.active { border-color: var(--magenta); box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+.vibe-btn strong { font-size: 16px; display: block; }
+.vibe-btn span { font-size: 11px; opacity: 0.6; }
+
+/* FIX: BARRA DE BUSCA (ALINHAMENTO) */
 .search-filter-container { 
     display: flex; 
-    flex-wrap: wrap; 
     gap: 15px; 
-    margin: 30px 0; 
-    align-items: center; 
+    margin: 30px auto; 
+    max-width: 900px;
+    align-items: center;
 }
 
-.search-box { flex: 1; min-width: 280px; position: relative; }
-
+.search-box { flex: 1; position: relative; }
 .search-box input { 
     width: 100%; 
     background: #111; 
     border: 1px solid #333; 
-    padding: 12px 15px 12px 45px; 
-    border-radius: 25px; 
+    padding: 15px 15px 15px 45px; 
+    border-radius: 30px; 
     color: #fff; 
-    outline: none;
     box-sizing: border-box;
 }
 
-.search-box i { 
-    position: absolute; 
-    left: 18px; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    color: #555; 
-}
+.search-box i { position: absolute; left: 18px; top: 18px; color: #555; }
 
-.filter-box { display: flex; gap: 10px; flex-shrink: 0; }
 .filter-box select { 
     background: #111; 
     color: #fff; 
     border: 1px solid #333; 
-    padding: 10px 15px; 
-    border-radius: 20px; 
-    outline: none;
+    padding: 14px 20px; 
+    border-radius: 30px; 
 }
 
-/* GRID DE PRODUTOS */
+/* FIX: CARD (GARANTIR QUE AS INFOS APAREÇAM SOBRE A FOTO) */
 .product-grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
-    gap: 25px; 
-    padding: 20px 0;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px; 
 }
 
-/* CARD ESTILO PREMIUM (OVERLAY) */
 .card { 
-    position: relative;
-    background: #111; 
+    position: relative; 
     border-radius: 20px; 
     overflow: hidden; 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    transition: all 0.4s ease;
-    cursor: pointer;
-    aspect-ratio: 4 / 5.5;
+    border: 1px solid rgba(255,255,255,0.1);
+    height: 450px; /* Altura fixa para manter o padrão */
 }
 
-.card:hover { 
-    transform: translateY(-8px); 
-    border-color: var(--magenta); 
-    box-shadow: 0 10px 30px rgba(255, 0, 85, 0.3);
-}
-
-.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card img { width: 100%; height: 100%; object-fit: cover; }
 
 .card-info-overlay {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 30px 15px 15px;
-    background: linear-gradient(to top, rgba(0,0,0,0.95) 30%, rgba(0,0,0,0.4) 70%, transparent 100%);
+    padding: 40px 20px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,1) 20%, rgba(0,0,0,0.5) 60%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
-.card-category { color: var(--magenta); font-size: 10px; text-transform: uppercase; font-weight: bold; }
-.card-title { font-size: 18px; margin: 5px 0; font-weight: 700; line-height: 1.2; }
+.card-title { font-size: 20px; font-weight: 700; margin: 5px 0; }
+.card-price { font-size: 24px; font-weight: 900; color: #fff; }
 
-.card-rating { color: #ffcc00; font-size: 11px; margin-bottom: 5px; display: flex; align-items: center; gap: 3px; }
-.card-rating span { color: #666; font-size: 10px; margin-left: 5px; }
+.card-rating { color: #ffcc00; font-size: 12px; margin-bottom: 8px; }
 
-.card-price { font-size: 20px; font-weight: 900; color: #fff; }
-
-.card-sizes { display: flex; gap: 5px; margin-top: 10px; }
+.card-sizes { display: flex; gap: 8px; margin-top: 10px; }
 .size-tag { 
-    width: 26px; height: 26px; border-radius: 50%; 
-    background: rgba(255,255,255,0.05); border: 1px solid #444;
-    display: flex; align-items: center; justify-content: center; 
-    font-size: 9px; font-weight: bold; color: #ccc;
+    width: 28px; height: 28px; border: 1px solid #444; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 10px; background: rgba(0,0,0,0.5);
 }
 
-/* ÍCONE DE AÇÃO (SACOLA/SETINHA) */
 .card-action-icon {
     position: absolute;
-    bottom: 15px; right: 15px;
-    background: rgba(255, 0, 85, 0.2);
-    border: 1px solid var(--magenta);
-    width: 40px; height: 40px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; 
-    color: var(--magenta);
-    transition: 0.3s;
+    bottom: 20px; right: 20px;
+    background: var(--magenta);
+    width: 45px; height: 45px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
 }
 
-.card:hover .card-action-icon { 
-    background: var(--magenta); 
-    color: #fff; 
-    transform: scale(1.1); 
-}
-
-/* MODAL AJUSTADO */
-.modal { 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(0,0,0,0.92); 
-    z-index: 1000; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 20px;
-}
-
+/* FIX: MODAL */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 999; }
 .hidden { display: none !important; }
+.modal-content { background: #111; padding: 30px; border-radius: 25px; width: 90%; max-width: 800px; position: relative; border: 1px solid #222; }
 
-.modal-content { 
-    background: #0a0a0a; 
-    padding: 30px; 
-    border-radius: 20px; 
-    width: 95%; 
-    max-width: 850px; 
-    position: relative; 
-    border: 1px solid #222; 
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.modal-layout { display: flex; gap: 30px; flex-wrap: wrap; }
-.modal-left { flex: 1; min-width: 280px; }
-.modal-left img { width: 100%; border-radius: 15px; border: 1px solid #333; }
-.modal-right { flex: 1.2; min-width: 280px; display: flex; flex-direction: column; }
-
-.close { 
-    position: absolute; 
-    top: 15px; 
-    right: 20px; 
-    font-size: 30px; 
-    cursor: pointer; 
-    color: #555; 
-    transition: 0.3s;
-}
-.close:hover { color: var(--magenta); }
-
-.new-price { font-size: 28px; color: var(--neon); font-weight: 800; }
-
-/* BOTÃO WHATSAPP NEON PULSANTE */
 .btn-whatsapp-neon {
-    background: var(--whatsapp); 
-    color: #fff; 
-    padding: 18px; 
-    border-radius: 50px;
-    border: none; 
-    cursor: pointer; 
-    width: 100%; 
-    margin-top: auto; 
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: 0.3s;
-    box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
-    animation: pulse-whatsapp 2s infinite;
-}
-
-@keyframes pulse-whatsapp {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    background: var(--whatsapp); color: #fff; padding: 20px; border-radius: 50px;
+    border: none; font-weight: bold; width: 100%; cursor: pointer; margin-top: 20px;
 }
 
 /* RESPONSIVIDADE */
 @media (max-width: 768px) {
-    .modal-layout { flex-direction: column; }
-    .modal-left img { max-width: 100%; }
-    .search-filter-container { flex-direction: column; align-items: stretch; }
+    .search-filter-container { flex-direction: column; }
+    .vibe-grid { gap: 10px; }
+    .vibe-btn { min-width: 45%; }
 }
