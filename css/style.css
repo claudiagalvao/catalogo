@@ -14,7 +14,7 @@ body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; mar
 /* BUSCA E FILTROS */
 .search-filter-container { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; align-items: center; }
 .search-box { flex: 2; min-width: 280px; position: relative; }
-.search-box input { width: 100%; background: #111; border: 1px solid #333; padding: 12px 45px; border-radius: 25px; color: #fff; outline: none; }
+.search-box input { width: 50%; background: #111; border: 1px solid #333; padding: 12px 45px; border-radius: 25px; color: #fff; outline: none; }
 .search-box i { position: absolute; left: 18px; top: 15px; color: #555; }
 .filter-box { flex: 1; display: flex; gap: 10px; min-width: 200px; }
 .filter-box select { background: #111; color: #fff; border: 1px solid #333; padding: 10px; border-radius: 10px; flex: 1; }
