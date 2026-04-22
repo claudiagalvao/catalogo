@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Crazy Fantasy | Catálogo Interativo</title>
+  <title>Crazy Fantasy | Catálogo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -10,33 +10,25 @@
 <body>
 
 <header class="hero-banner">
-  <img src="assets/images/hero-banner.jpg" alt="Seja o Problema da Festa">
+  <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
 </header>
 
-<nav class="vibe-section container">
+<section class="vibe-section container">
   <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
   <div class="vibe-grid">
-    <button class="vibe-btn active" data-vibe="bad">
-      <strong>IMPACTAR</strong><span>Chegue chegando</span>
-    </button>
-    <button class="vibe-btn" data-vibe="fun">
-      <strong>DIVERTIR</strong><span>Alegria garantida</span>
-    </button>
-    <button class="vibe-btn" data-vibe="pop">
-      <strong>BRILHAR</strong><span>Seja o centro</span>
-    </button>
-    <button class="vibe-btn" data-vibe="luxo">
-      <strong>LUXO</strong><span>Sofisticação pura</span>
-    </button>
+    <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
+    <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
+    <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
+    <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
   </div>
-</nav>
+</section>
 
-<section class="filters-section container">
-  <div class="search-bar">
+<section class="search-filter-container container">
+  <div class="search-box">
     <i class="fa fa-search"></i>
     <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
   </div>
-  <div class="filter-group">
+  <div class="filter-box">
     <select id="filter-tamanho">
       <option value="">Tamanho</option>
       <option value="PP">PP</option>
@@ -54,15 +46,6 @@
   </div>
 </section>
 
-<section class="collections container">
-  <div class="collections-grid">
-    <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg"></div>
-    <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg"></div>
-    <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg"></div>
-    <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg"></div>
-  </div>
-</section>
-
 <main class="container">
   <div id="product-grid" class="product-grid"></div>
 </main>
@@ -76,10 +59,6 @@
   <div class="footer-content container">
     <p><strong>Crazy Fantasy</strong> - Galvão Artigos para Festas Ltda</p>
     <p>Valinhos, SP | Enviamos para todo Brasil</p>
-    <div class="social-links">
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="https://wa.me/5519992850208"><i class="fab fa-whatsapp"></i></a>
-    </div>
     <p class="copy">© 2026 Crazy Fantasy. Todos os direitos reservados.</p>
   </div>
 </footer>
@@ -88,25 +67,18 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="modal-layout">
-      <div class="modal-left">
-        <img id="modal-img" src="">
-      </div>
+      <div class="modal-left"><img id="modal-img" src=""></div>
       <div class="modal-right">
         <h3 id="modal-nome"></h3>
         <div class="price-container">
            <span id="modal-preco-antigo" class="old-price"></span>
            <span id="modal-preco-atual" class="new-price"></span>
         </div>
-        <p id="modal-tamanhos" class="tamanhos-badge"></p>
-        
         <div class="upsell-container">
           <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
-          <p class="promo-hint">Selecione acessórios para baixar o preço da fantasia!</p>
           <div id="upsell-list"></div>
         </div>
-
         <div id="resumo-financeiro"></div>
-
         <button id="btn-finalizar">RESERVAR NO WHATSAPP</button>
       </div>
     </div>
