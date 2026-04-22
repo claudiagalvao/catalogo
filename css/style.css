@@ -22,7 +22,7 @@ HERO
 }
 
 /* ==========================
-QUIZ / CATEGORIAS
+QUIZ
 ========================== */
 .quiz {
   display: flex;
@@ -50,17 +50,29 @@ QUIZ / CATEGORIAS
 }
 
 /* ==========================
-BUSCA (1 LINHA)
+BUSCA
 ========================== */
-.filtros {
+.search-box {
   max-width: 900px;
   margin: 20px auto;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.filters {
   display: flex;
   gap: 10px;
 }
 
-.filtros input,
-.filtros select {
+.filters select {
   flex: 1;
   padding: 10px;
   background: #111;
@@ -80,7 +92,7 @@ GRID
 }
 
 /* ==========================
-CARD (MELHORADO)
+CARD
 ========================== */
 .card {
   background: #0c0c0c;
@@ -92,7 +104,7 @@ CARD (MELHORADO)
 }
 
 .card:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-6px);
   box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
 }
 
@@ -108,7 +120,6 @@ CARD (MELHORADO)
 
 .card h3 {
   font-size: 16px;
-  margin-bottom: 5px;
 }
 
 .card p {
@@ -116,39 +127,50 @@ CARD (MELHORADO)
   font-weight: bold;
 }
 
-
-
-
 /* ==========================
-MODAL PREMIUM
+MODAL (FIX REAL)
 ========================== */
 
+#modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
+#modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #0d0d0d;
+  border-radius: 18px;
+  width: 92%;
+  max-width: 850px;
+  padding: 24px;
+  position: relative;
+}
+
+/* BODY CORRETO */
 .modal-body {
   display: flex;
   gap: 24px;
   align-items: flex-start;
 }
 
-
-
-
-.modal-content {
-  background: #0d0d0d;
-  border-radius: 18px;
-  width: 92%;
-  max-width: 900px;
-  display: flex;
-  gap: 28px;
-  padding: 28px;
-  position: relative;
-  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+/* IMAGEM */
+.modal-img {
+  flex: 0 0 280px;
 }
 
-/* IMAGEM */
 .modal-img img {
   width: 100%;
-  max-width: 300px;
   border-radius: 14px;
 }
 
@@ -157,101 +179,67 @@ MODAL PREMIUM
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.modal-info h2 {
-  font-size: 22px;
-}
-
-.modal-info p {
-  color: #bbb;
-  font-size: 14px;
-}
-
-/* PREÇO */
 .modal-preco {
   font-size: 18px;
   font-weight: bold;
-  color: #fff;
 }
 
-/* DIVIDER */
 .divider {
   height: 1px;
   background: #222;
-  margin: 12px 0;
+  margin: 10px 0;
 }
 
 /* BOTÕES */
 .modal-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.modal-actions button {
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+  gap: 10px;
 }
 
 #modal-whatsapp {
   background: #ff0055;
   color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
 }
 
 #btn-upsell {
   background: #00d4ff;
   color: #000;
+  padding: 10px 14px;
+  border-radius: 8px;
 }
 
 /* ==========================
-UPSELL PREMIUM
+UPSELL (CORRIGIDO REAL)
 ========================== */
 
 #upsell {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-#upsell h4 {
-  font-size: 15px;
-  color: #fff;
-  margin-bottom: 6px;
+  gap: 8px;
 }
 
 /* ITEM */
 .upsell-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: #111;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #1a1a1a;
-  transition: 0.2s;
+  padding: 8px;
+  border-radius: 8px;
 }
 
-.upsell-item:hover {
-  background: #151515;
-}
-
-/* CHECK */
-.upsell-item input {
-  transform: scale(1.1);
-}
-
-/* IMG MENOR */
+/* IMG CORRETA */
 .upsell-item img {
-  width: 42px;
-  height: 42px;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
+  border-radius: 6px;
 }
 
 /* TEXTO */
@@ -259,70 +247,30 @@ UPSELL PREMIUM
   flex: 1;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 13px;
 }
 
-/* ==========================
-TOTAL (BONITO)
-========================== */
-
+/* TOTAL */
 #total-combo {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #111, #0c0c0c);
-  border: 1px solid #222;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  margin-top: 10px;
+  background: #111;
+  padding: 10px;
+  border-radius: 10px;
   font-size: 14px;
 }
-
-#total-combo .linha {
-  display: flex;
-  justify-content: space-between;
-}
-
-#total-combo .destaque {
-  color: #ff0055;
-  font-weight: bold;
-}
-
-#total-combo .economia {
-  color: #00d4ff;
-}
-
-#total-combo .total {
-  margin-top: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-}
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================
 FOOTER
 ========================== */
 footer {
   margin-top: 50px;
-  padding: 30px 20px;
+  padding: 30px;
   background: #0a0a0a;
   text-align: center;
-  border-top: 1px solid #222;
 }
 
 footer div {
-  margin: 8px 0;
-  font-size: 14px;
+  margin: 6px 0;
 }
 
 /* ==========================
@@ -330,36 +278,19 @@ RESPONSIVO
 ========================== */
 @media (max-width: 768px) {
 
-  .modal-content {
+  .modal-body {
     flex-direction: column;
-    align-items: center;
   }
 
   .modal-img {
-    max-width: 100%;
+    width: 100%;
   }
 
-  .filtros {
+  .filters {
     flex-direction: column;
-  }
-
-  .quiz {
-    gap: 10px;
   }
 
   .quiz button {
     width: 100%;
   }
-}
-
-
-
-
-
-
-#modal-img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 14px;
-  margin-bottom: 10px;
 }
