@@ -5,7 +5,6 @@
   <title>Crazy Fantasy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -13,35 +12,22 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <h1>Fantasias para todos os estilos</h1>
+    <div class="hero-content container">
+      <h1>Seja o problema da festa</h1>
       <p>Monte seu look. Cause impacto. Seja inesquecível.</p>
       <button class="btn" id="btn-quiz">Descobrir meu estilo</button>
     </div>
   </section>
 
-  <!-- QUIZ -->
-  <section id="quiz" class="quiz">
-    <div class="container">
-      <h2>Qual vibe você quer hoje?</h2>
+  <!-- BLOCO PREMIUM (BUSCA + QUIZ) -->
+  <section class="search-section">
+    <div class="search-card">
 
-      <div class="quiz-options">
-        <button data-target="bad">😈 Impactar</button>
-        <button data-target="fun">😂 Divertir</button>
-        <button data-target="pop">✨ Brilhar</button>
-        <button data-target="luxo">👑 Luxo</button>
-      </div>
-    </div>
-  </section>
+      <h2>Encontre seu look</h2>
 
-  <!-- BUSCA / FILTROS -->
-  <section class="filters">
-    <div class="container">
-      <h2>Buscar fantasia</h2>
+      <input type="text" id="busca" placeholder="Buscar fantasia...">
 
-      <div class="filter-bar">
-        <input type="text" id="busca" placeholder="Buscar...">
-
+      <div class="search-filters">
         <select id="filtroTamanho">
           <option value="">Tamanho</option>
           <option value="PP">PP</option>
@@ -58,43 +44,67 @@
           <option value="200">Até R$200</option>
         </select>
       </div>
+
+      <div class="search-quiz">
+        <button data-target="bad">🔥 Impactar</button>
+        <button data-target="fun">😂 Divertir</button>
+        <button data-target="pop">✨ Brilhar</button>
+        <button data-target="luxo">👑 Luxo</button>
+      </div>
+
     </div>
   </section>
 
-  <!-- CATEGORIAS -->
+  <!-- CATEGORIAS VISUAIS -->
+  <section class="categorias container">
 
-  <!-- BAD -->
+    <div class="categoria-card" data-target="bad">
+      <img src="assets/images/cat-bad.jpg">
+      <span>🔥 Bad & Dark</span>
+    </div>
+
+    <div class="categoria-card" data-target="fun">
+      <img src="assets/images/cat-fun.jpg">
+      <span>😂 Fun & Party</span>
+    </div>
+
+    <div class="categoria-card" data-target="pop">
+      <img src="assets/images/cat-pop.jpg">
+      <span>✨ Pop Culture</span>
+    </div>
+
+    <div class="categoria-card" data-target="luxo">
+      <img src="assets/images/cat-luxo.jpg">
+      <span>👑 Luxo & Glam</span>
+    </div>
+
+  </section>
+
+  <!-- LISTAGEM -->
   <section id="bad" class="categoria">
     <div class="container">
       <h2>🔥 Bad & Dark</h2>
-      <p>Entre no lado errado da festa</p>
       <div class="grid"></div>
     </div>
   </section>
 
-  <!-- FUN -->
   <section id="fun" class="categoria">
     <div class="container">
-      <h2>😂 Geek & Fun</h2>
-      <p>Para quem quer divertir e viralizar</p>
+      <h2>😂 Fun & Party</h2>
       <div class="grid"></div>
     </div>
   </section>
 
-  <!-- POP -->
   <section id="pop" class="categoria">
     <div class="container">
-      <h2>✨ Iconic & Pop</h2>
-      <p>Seja o centro das atenções</p>
+      <h2>✨ Pop Culture</h2>
       <div class="grid"></div>
     </div>
   </section>
 
-  <!-- LUXO -->
   <section id="luxo" class="categoria">
     <div class="container">
-      <h2>👑 Luxo & Impacto</h2>
-      <p>Para quem quer chegar dominando</p>
+      <h2>👑 Luxo & Glam</h2>
       <div class="grid"></div>
     </div>
   </section>
@@ -106,36 +116,56 @@
       <span class="close">&times;</span>
 
       <div class="modal-body">
+        <img id="modal-img">
 
-        <!-- imagem -->
-        <img id="modal-img" src="" alt="">
-
-        <!-- info -->
         <div class="modal-info">
           <h3 id="modal-nome"></h3>
           <p id="modal-preco"></p>
           <p id="modal-tamanhos"></p>
 
-          <!-- botão WhatsApp -->
           <a id="modal-whatsapp" target="_blank" class="btn">
             Consultar disponibilidade
           </a>
 
-          <!-- botão upsell -->
           <button id="btn-upsell" class="btn secondary">
             Completar look
           </button>
 
-          <!-- upsell (IMPORTANTE: sem hidden) -->
           <div id="upsell"></div>
-
         </div>
-
       </div>
+
     </div>
   </div>
 
-  <!-- SCRIPT CORRETO -->
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+
+      <div class="footer-item">
+        <h3>✨ Fantasias Premium</h3>
+        <p>Peças selecionadas para causar impacto</p>
+      </div>
+
+      <div class="footer-item">
+        <h3>🧼 Higienização Profissional</h3>
+        <p>Rigor na limpeza e cuidado com cada peça</p>
+      </div>
+
+      <div class="footer-item">
+        <h3>💬 Atendimento via WhatsApp</h3>
+        <p>Rápido, humano e sem robôs</p>
+      </div>
+
+      <div class="footer-item">
+        <h3>🎯 Atendimento Personalizado</h3>
+        <p>Ajudamos você a montar o look perfeito</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JS -->
   <script src="js/script.js"></script>
 
 </body>
