@@ -1,99 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Crazy Fantasy | Catálogo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <title>Crazy Fantasy | Catálogo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <header class="hero-banner">
-    <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
+  <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
 </header>
 
 <section class="vibe-section container">
-    <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
-    <div class="vibe-grid">
-        <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
-        <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
-        <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
-        <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
-    </div>
+  <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
+  <div class="vibe-grid">
+    <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
+    <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
+    <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
+    <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
+  </div>
 </section>
 
 <section class="search-filter-container container">
-    <div class="search-box">
-        <i class="fa fa-search"></i>
-        <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
-    </div>
-    <div class="filter-box">
-        <select id="filter-tamanho">
-            <option value="">Tamanho</option>
-            <option value="PP">PP</option>
-            <option value="P">P</option>
-            <option value="M">M</option>
-            <option value="G">G</option>
-            <option value="GG">GG</option>
-        </select>
-        <select id="filter-preco">
-            <option value="">Preço</option>
-            <option value="0-100">Até R$ 100</option>
-            <option value="100-150">R$ 100 - R$ 150</option>
-            <option value="150+">Acima de R$ 150</option>
-        </select>
-    </div>
+  <div class="search-box">
+    <i class="fa fa-search"></i>
+    <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
+  </div>
+  <div class="filter-box">
+    <select id="filter-tamanho">
+      <option value="">Tamanho</option>
+      <option value="PP">PP</option>
+      <option value="P">P</option>
+      <option value="M">M</option>
+      <option value="G">G</option>
+      <option value="GG">GG</option>
+    </select>
+    <select id="filter-preco">
+      <option value="">Preço</option>
+      <option value="0-100">Até R$ 100</option>
+      <option value="100-150">R$ 100 - R$ 150</option>
+      <option value="150+">Acima de R$ 150</option>
+    </select>
+  </div>
 </section>
 
 <section class="collections container">
-    <div class="collections-grid">
-        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
-        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
-        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
-        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
-    </div>
+  <div class="collections-grid">
+    <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
+    <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
+    <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
+    <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
+  </div>
 </section>
 
 <main class="container">
-    <div id="product-grid" class="product-grid"></div>
+  <div id="product-grid" class="product-grid"></div>
 </main>
 
 <footer class="main-footer">
-    <div class="footer-top container">
-        <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
-        <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
-        <div class="benefit">
-            <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
-                <i class="fa fa-headset"></i>
-                <span>Suporte VIP</span>
-            </a>
-        </div>
-    </div>
+  <div class="footer-top container">
+    <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
+    <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
+    <div class="benefit">
+  <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
+    <i class="fa fa-headset"></i>
+    <span>Suporte VIP</span>
+  </a>
+</div>
+  </div>
+  <div class="footer-content container">
+    <p><strong>Crazy Fantasy</strong> - Galvão Artigos para Festas Ltda</p>
+    <p class="copy">© 2026 Crazy Fantasy - Catálogo de Fatnasias - Todos os direitos reservados/p>
+  </div>
 </footer>
 
 <div id="modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="modal-layout">
-            <div class="modal-left"><img id="modal-img" src=""></div>
-            <div class="modal-right">
-                <h3 id="modal-nome"></h3>
-                <div class="price-container">
-                    <span id="modal-preco-antigo" class="old-price"></span>
-                    <span id="modal-preco-atual" class="new-price"></span>
-                </div>
-                <div class="upsell-container">
-                    <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
-                    <div id="upsell-list"></div>
-                </div>
-                <div id="resumo-financeiro"></div>
-                <button id="btn-finalizar" class="btn-whatsapp-neon">
-                    <i class="fab fa-whatsapp"></i> RESERVAR NO WHATSAPP
-                </button>
-            </div>
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="modal-layout">
+      <div class="modal-left"><img id="modal-img" src=""></div>
+      <div class="modal-right">
+        <h3 id="modal-nome"></h3>
+        <div class="price-container">
+           <span id="modal-preco-antigo" class="old-price"></span>
+           <span id="modal-preco-atual" class="new-price"></span>
         </div>
+        <div class="upsell-container">
+          <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
+          <div id="upsell-list"></div>
+        </div>
+        <div id="resumo-financeiro"></div>
+        <button id="btn-finalizar">RESERVAR NO WHATSAPP</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <script src="js/script.js"></script>
