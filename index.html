@@ -10,25 +10,21 @@
 <body>
 
 <!-- HERO -->
-<section class="hero"></section>
+<section class="hero">
+  <img src="assets/images/banner.jpg" alt="Crazy Fantasy">
+</section>
 
-<!-- VIBE -->
-<section class="vibe"></section>
-
-<!-- QUIZ (AGORA NO LUGAR CERTO) -->
+<!-- QUIZ -->
 <div class="quiz">
-
-  <button data-target="bad" class="impactar">💀 Impactar</button>
-  <button data-target="fun" class="divertir">😄 Divertir</button>
-  <button data-target="pop" class="brilhar">⚡ Brilhar</button>
-  <button data-target="luxo" class="luxo">👑 Luxo</button>
-
+  <button data-target="bad">💀 Impactar</button>
+  <button data-target="fun">😄 Divertir</button>
+  <button data-target="pop">⚡ Brilhar</button>
+  <button data-target="luxo">👑 Luxo</button>
 </div>
 
 <!-- BUSCA -->
 <section class="search-overlay">
   <div class="search-box">
-
     <input type="text" id="busca" placeholder="Buscar fantasia...">
 
     <div class="filters">
@@ -45,18 +41,15 @@
         <option value="200">Até R$200</option>
       </select>
     </div>
-
   </div>
 </section>
 
 <!-- CATEGORIAS -->
 <section class="categorias container">
-
   <div class="cat"><img src="assets/images/cat-bad.jpg"></div>
   <div class="cat"><img src="assets/images/cat-fun.jpg"></div>
   <div class="cat"><img src="assets/images/cat-pop.jpg"></div>
   <div class="cat"><img src="assets/images/cat-luxo.jpg"></div>
-
 </section>
 
 <!-- PRODUTOS -->
@@ -65,22 +58,18 @@
 <section id="pop"><div class="grid"></div></section>
 <section id="luxo"><div class="grid"></div></section>
 
-
-
 <!-- MODAL -->
-<div id="modal" class="modal hidden">
+<div id="modal" class="hidden">
   <div class="modal-content">
 
     <span class="close">&times;</span>
 
     <div class="modal-body">
 
-      <!-- IMAGEM -->
       <div class="modal-img">
         <img id="modal-img">
       </div>
 
-      <!-- INFO -->
       <div class="modal-info">
 
         <h3 id="modal-nome"></h3>
@@ -90,43 +79,26 @@
 
         <div class="divider"></div>
 
-        <!-- BOTÕES -->
         <div class="modal-actions">
-          <a id="modal-whatsapp" target="_blank" class="btn">
-            Consultar disponibilidade
-          </a>
-
-          <button id="btn-upsell" class="btn secondary">
-            Completar look
-          </button>
+          <a id="modal-whatsapp" target="_blank">Consultar disponibilidade</a>
+          <button id="btn-upsell">Completar look</button>
         </div>
 
-        <!-- UPSELL -->
         <div id="upsell"></div>
 
       </div>
 
     </div>
-
   </div>
 </div>
 
-
-
-
-
-
-  
-
 <!-- FOOTER -->
-<footer class="footer">
+<footer>
   <div class="footer-grid container">
-
     <div>✨ Fantasias Premium</div>
     <div>🧼 Higienização Profissional</div>
     <div>💬 Atendimento via WhatsApp</div>
     <div>🎯 Atendimento Personalizado</div>
-
   </div>
 </footer>
 
