@@ -123,6 +123,16 @@ CARD (MELHORADO)
 MODAL PREMIUM
 ========================== */
 
+
+.modal-body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+
+
+
 .modal-content {
   background: #0d0d0d;
   border-radius: 18px;
