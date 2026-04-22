@@ -12,56 +12,85 @@
 <!-- HERO -->
 <section class="hero"></section>
 
-<!-- QUIZ -->
+<!-- VIBE -->
+<section class="vibe"></section>
+
+<!-- QUIZ (AGORA NO LUGAR CERTO) -->
 <div class="quiz">
+
   <button data-target="bad" class="impactar">💀 Impactar</button>
   <button data-target="fun" class="divertir">😄 Divertir</button>
   <button data-target="pop" class="brilhar">⚡ Brilhar</button>
   <button data-target="luxo" class="luxo">👑 Luxo</button>
+
 </div>
 
 <!-- BUSCA -->
 <section class="search-overlay">
   <div class="search-box">
+
     <input type="text" id="busca" placeholder="Buscar fantasia...">
-    <select id="filtroTamanho">
-      <option value="">Tamanho</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-    </select>
-    <select id="filtroPreco">
-      <option value="">Preço</option>
-      <option value="100">Até R$100</option>
-      <option value="200">Até R$200</option>
-    </select>
+
+    <div class="filters">
+      <select id="filtroTamanho">
+        <option value="">Tamanho</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+      </select>
+
+      <select id="filtroPreco">
+        <option value="">Preço</option>
+        <option value="100">Até R$100</option>
+        <option value="200">Até R$200</option>
+      </select>
+    </div>
+
   </div>
 </section>
 
-<!-- PRODUTOS -->
-<section class="catalogo">
-  <div class="grid" id="grid"></div>
+<!-- CATEGORIAS -->
+<section class="categorias container">
+
+  <div class="cat"><img src="assets/images/cat-bad.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-fun.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-pop.jpg"></div>
+  <div class="cat"><img src="assets/images/cat-luxo.jpg"></div>
+
 </section>
 
+<!-- PRODUTOS -->
+<section id="bad"><div class="grid"></div></section>
+<section id="fun"><div class="grid"></div></section>
+<section id="pop"><div class="grid"></div></section>
+<section id="luxo"><div class="grid"></div></section>
+
 <!-- MODAL -->
-<div id="modal" class="hidden">
+<div id="modal" class="modal hidden">
   <div class="modal-content">
 
-    <span class="close" onclick="fecharModal()">✖</span>
+    <span class="close">&times;</span>
 
     <div class="modal-body">
+
       <img id="modal-img">
 
       <div class="modal-info">
         <h3 id="modal-nome"></h3>
         <p id="modal-preco"></p>
+        <p id="modal-tamanhos"></p>
 
-        <a id="modal-whatsapp" class="btn" target="_blank">
-          Falar no WhatsApp
+        <a id="modal-whatsapp" target="_blank" class="btn">
+          Consultar disponibilidade
         </a>
+
+        <button id="btn-upsell" class="btn secondary">
+          Completar look
+        </button>
 
         <div id="upsell"></div>
       </div>
+
     </div>
 
   </div>
@@ -69,14 +98,17 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-grid">
+  <div class="footer-grid container">
+
     <div>✨ Fantasias Premium</div>
     <div>🧼 Higienização Profissional</div>
     <div>💬 Atendimento via WhatsApp</div>
     <div>🎯 Atendimento Personalizado</div>
+
   </div>
 </footer>
 
 <script src="js/script.js"></script>
+
 </body>
 </html>
