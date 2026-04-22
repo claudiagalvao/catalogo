@@ -1,4 +1,7 @@
+/* ========================= */
 /* RESET */
+/* ========================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -11,20 +14,26 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+/* ========================= */
 /* HERO */
+/* ========================= */
+
 .hero {
   height: 500px;
   background: url('../assets/images/hero-banner.jpg') center/cover no-repeat;
 }
 
+/* ========================= */
 /* VIBE */
+/* ========================= */
+
 .vibe {
   height: 120px;
   background: url('../assets/images/hero-vibe.jpg') center/cover no-repeat;
 }
 
 /* ========================= */
-/* 🔍 BUSCA PREMIUM */
+/* 🔍 BUSCA (COMPACTA) */
 /* ========================= */
 
 .search-overlay {
@@ -35,11 +44,17 @@ body {
 }
 
 .search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
   background: rgba(10,10,10,0.95);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0,255,255,0.2);
   box-shadow: 0 0 30px rgba(0,255,255,0.1);
-  padding: 25px;
+
+  padding: 15px;
   border-radius: 16px;
   width: 100%;
   max-width: 900px;
@@ -47,19 +62,21 @@ body {
 
 /* INPUT */
 .search-box input {
-  width: 100%;
-  padding: 14px;
+  flex: 2;
+  min-width: 180px;
+
+  padding: 12px;
   border-radius: 10px;
   border: none;
   background: #111;
   color: #fff;
-  margin-bottom: 15px;
 }
 
-/* SELECT */
+/* SELECTS */
 .filters {
   display: flex;
   gap: 10px;
+  flex: 2;
 }
 
 .filters select {
@@ -71,16 +88,16 @@ body {
   border: none;
 }
 
-/* QUIZ BUTTONS */
+/* QUIZ */
 .quiz {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
+  flex: 2;
 }
 
 .quiz button {
-  flex: 1;
-  padding: 12px;
+  padding: 8px 10px;
+  font-size: 12px;
   border-radius: 10px;
   background: #111;
   color: #fff;
@@ -95,13 +112,17 @@ body {
 }
 
 /* ========================= */
-/* 🎴 CATEGORIAS */
+/* 📦 CONTAINER */
 /* ========================= */
 
 .container {
   width: 90%;
   margin: auto;
 }
+
+/* ========================= */
+/* 🎴 CATEGORIAS */
+/* ========================= */
 
 .categorias {
   display: grid;
@@ -126,17 +147,20 @@ body {
 }
 
 /* ========================= */
-/* 🛍️ CARDS DE PRODUTO */
+/* 🛍️ CARDS (CORRIGIDO) */
 /* ========================= */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  justify-content: center;
+  gap: 20px;
   padding: 30px;
 }
 
 .card {
+  width: 100%;
+  max-width: 260px;
   background: #0b0b0b;
   border-radius: 14px;
   overflow: hidden;
@@ -153,25 +177,26 @@ body {
 
 .card img {
   width: 100%;
-  height: 260px;
+  height: 280px;
   object-fit: cover;
 }
 
 .card-info {
-  padding: 15px;
+  padding: 12px;
 }
 
 .card-info h3 {
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 5px;
 }
 
 .card-info p {
+  font-size: 14px;
   color: #aaa;
 }
 
 /* ========================= */
-/* 🧾 MODAL */
+/* 🧾 MODAL (CORRIGIDO) */
 /* ========================= */
 
 .modal {
@@ -190,19 +215,22 @@ body {
 .modal-content {
   background: #111;
   border-radius: 16px;
-  padding: 20px;
+  padding: 25px;
   width: 90%;
-  max-width: 800px;
+  max-width: 750px;
 }
 
 .modal-body {
   display: flex;
   gap: 20px;
+  align-items: flex-start;
 }
 
 .modal-body img {
-  width: 300px;
-  border-radius: 10px;
+  width: 250px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .modal-info {
@@ -210,22 +238,28 @@ body {
 }
 
 .modal-info h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.modal-info p {
+  margin: 5px 0;
+  color: #ccc;
 }
 
 .btn {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 10px 14px;
   border-radius: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+  text-decoration: none;
   background: #ff0066;
   color: #fff;
-  margin-top: 10px;
-  text-decoration: none;
 }
 
 .btn.secondary {
   background: #00c2ff;
+  margin-left: 10px;
 }
 
 /* ========================= */
@@ -269,15 +303,29 @@ body {
     grid-template-columns: repeat(2,1fr);
   }
 
-  .modal-body {
-    flex-direction: column;
-  }
-
   .footer-grid {
     grid-template-columns: repeat(2,1fr);
   }
 
   .filters {
+    flex-direction: column;
+  }
+
+}
+
+@media(max-width: 700px){
+
+  .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-body img {
+    width: 100%;
+    height: auto;
+  }
+
+  .search-box {
     flex-direction: column;
   }
 
