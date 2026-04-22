@@ -1,6 +1,4 @@
-/* ==========================
-RESET
-========================== */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -13,47 +11,45 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* ==========================
-HERO
-========================== */
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 16px;
+}
+
+/* HERO */
 .hero img {
   width: 100%;
   display: block;
 }
 
-/* ==========================
-QUIZ
-========================== */
+/* QUIZ */
 .quiz {
   display: flex;
   justify-content: center;
-  gap: 16px;
-  margin: 30px auto;
+  gap: 12px;
+  margin: 25px auto;
   flex-wrap: wrap;
 }
 
 .quiz button {
   background: #111;
-  border: 2px solid #333;
+  border: 1px solid #333;
+  padding: 12px 18px;
+  border-radius: 10px;
   color: #fff;
-  padding: 14px 22px;
-  border-radius: 12px;
   cursor: pointer;
-  font-size: 15px;
-  transition: 0.3s;
 }
 
 .quiz button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 12px #ff0055;
   border-color: #ff0055;
+  box-shadow: 0 0 10px #ff0055;
 }
 
-/* ==========================
-BUSCA
-========================== */
+/* BUSCA */
 .search-box {
-  max-width: 900px;
+  max-width: 800px;
   margin: 20px auto;
 }
 
@@ -75,15 +71,26 @@ BUSCA
 .filters select {
   flex: 1;
   padding: 10px;
+  border-radius: 8px;
   background: #111;
   border: 1px solid #333;
   color: #fff;
-  border-radius: 8px;
 }
 
-/* ==========================
-GRID
-========================== */
+/* CATEGORIAS */
+.categorias {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 30px auto;
+}
+
+.cat img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -91,21 +98,13 @@ GRID
   padding: 20px;
 }
 
-/* ==========================
-CARD
-========================== */
+/* CARD */
 .card {
   background: #0c0c0c;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: 0.3s;
   border: 1px solid #222;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
 }
 
 .card img {
@@ -115,11 +114,11 @@ CARD
 }
 
 .card .info {
-  padding: 14px;
+  padding: 12px;
 }
 
 .card h3 {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .card p {
@@ -127,16 +126,10 @@ CARD
   font-weight: bold;
 }
 
-/* ==========================
-MODAL (FIX REAL)
-========================== */
-
+/* MODAL */
 #modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
@@ -144,46 +137,41 @@ MODAL (FIX REAL)
   z-index: 999;
 }
 
-#modal.hidden {
-  display: none;
+.hidden {
+  display: none !important;
 }
 
 .modal-content {
   background: #0d0d0d;
-  border-radius: 18px;
-  width: 92%;
-  max-width: 850px;
-  padding: 24px;
-  position: relative;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
 }
 
-/* BODY CORRETO */
 .modal-body {
   display: flex;
-  gap: 24px;
-  align-items: flex-start;
+  gap: 20px;
 }
 
-/* IMAGEM */
 .modal-img {
-  flex: 0 0 280px;
+  width: 260px;
 }
 
 .modal-img img {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 12px;
 }
 
-/* INFO */
 .modal-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .modal-preco {
-  font-size: 18px;
+  color: #ff0055;
   font-weight: bold;
 }
 
@@ -193,7 +181,6 @@ MODAL (FIX REAL)
   margin: 10px 0;
 }
 
-/* BOTÕES */
 .modal-actions {
   display: flex;
   gap: 10px;
@@ -201,30 +188,24 @@ MODAL (FIX REAL)
 
 #modal-whatsapp {
   background: #ff0055;
-  color: #fff;
-  padding: 10px 14px;
+  padding: 10px;
   border-radius: 8px;
 }
 
 #btn-upsell {
   background: #00d4ff;
-  color: #000;
-  padding: 10px 14px;
+  padding: 10px;
   border-radius: 8px;
 }
 
-/* ==========================
-UPSELL (CORRIGIDO REAL)
-========================== */
-
+/* UPSELL */
 #upsell {
-  margin-top: 12px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* ITEM */
 .upsell-item {
   display: flex;
   align-items: center;
@@ -234,15 +215,12 @@ UPSELL (CORRIGIDO REAL)
   border-radius: 8px;
 }
 
-/* IMG CORRETA */
 .upsell-item img {
   width: 40px;
   height: 40px;
   object-fit: cover;
-  border-radius: 6px;
 }
 
-/* TEXTO */
 .upsell-info {
   flex: 1;
   display: flex;
@@ -250,40 +228,33 @@ UPSELL (CORRIGIDO REAL)
   font-size: 13px;
 }
 
-/* TOTAL */
-#total-combo {
-  margin-top: 10px;
-  background: #111;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 14px;
+/* FOOTER */
+footer {
+  margin-top: 40px;
+  padding: 20px;
+  background: #0a0a0a;
 }
 
-/* ==========================
-FOOTER
-========================== */
-footer {
-  margin-top: 50px;
-  padding: 30px;
-  background: #0a0a0a;
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   text-align: center;
 }
 
-footer div {
-  margin: 6px 0;
-}
-
-/* ==========================
-RESPONSIVO
-========================== */
+/* RESPONSIVO */
 @media (max-width: 768px) {
 
   .modal-body {
     flex-direction: column;
   }
 
-  .modal-img {
-    width: 100%;
+  .categorias {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .filters {
