@@ -28,6 +28,8 @@ const modal = document.getElementById("modal");
 const upsellDiv = document.getElementById("upsell");
 
 function renderProdutos() {
+  grid.innerHTML = "";
+
   produtos.forEach(produto => {
     const card = document.createElement("div");
     card.className = "card";
@@ -40,7 +42,7 @@ function renderProdutos() {
       </div>
     `;
 
-    card.onclick = () => abrirModal(produto);
+    card.addEventListener("click", () => abrirModal(produto));
 
     grid.appendChild(card);
   });
@@ -63,26 +65,29 @@ function fecharModal() {
 function renderUpsell(produto) {
   upsellDiv.innerHTML = "<h4>🔥 Complete seu look</h4>";
 
-  if (!produto.upsell) return;
+  if (!produto.upsell || produto.upsell.length === 0) return;
 
   produto.upsell.forEach(id => {
     const acc = acessorios.find(a => a.id === id);
 
-    if (acc) {
-      const item = document.createElement("div");
-      item.className = "upsell-item";
+    if (!acc) return;
 
-      item.innerHTML = `
-        <img src="${acc.imagem}">
-        <div class="upsell-info">
-          <span>${acc.nome}</span>
-          <strong>+ R$ ${acc.preco}</strong>
-        </div>
-      `;
+    const item = document.createElement("div");
+    item.className = "upsell-item";
 
-      upsellDiv.appendChild(item);
-    }
+    item.innerHTML = `
+      <img src="${acc.imagem}" alt="${acc.nome}">
+      <div class="upsell-info">
+        <span>${acc.nome}</span>
+        <strong>+ R$ ${acc.preco}</strong>
+      </div>
+    `;
+
+    upsellDiv.appendChild(item);
   });
 }
 
-renderProdutos();
+/* INICIALIZAÇÃO SEGURA */
+document.addEventListener("DOMContentLoaded", () => {
+  renderProdutos();
+});
