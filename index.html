@@ -65,6 +65,8 @@
 <section id="pop"><div class="grid"></div></section>
 <section id="luxo"><div class="grid"></div></section>
 
+
+
 <!-- MODAL -->
 <div id="modal" class="modal hidden">
   <div class="modal-content">
@@ -73,34 +75,48 @@
 
     <div class="modal-body">
 
-      <img id="modal-img">
+      <!-- IMAGEM -->
+      <div class="modal-img">
+        <img id="modal-img">
+      </div>
 
+      <!-- INFO -->
       <div class="modal-info">
+
         <h3 id="modal-nome"></h3>
 
+        <p id="modal-preco" class="modal-preco"></p>
+        <p id="modal-tamanhos"></p>
 
-<p id="modal-preco" class="modal-preco"></p>
-<p id="modal-tamanhos"></p>
+        <div class="divider"></div>
 
-<div class="divider"></div>
+        <!-- BOTÕES -->
+        <div class="modal-actions">
+          <a id="modal-whatsapp" target="_blank" class="btn">
+            Consultar disponibilidade
+          </a>
 
-        
+          <button id="btn-upsell" class="btn secondary">
+            Completar look
+          </button>
+        </div>
 
-        <a id="modal-whatsapp" target="_blank" class="btn">
-          Consultar disponibilidade
-        </a>
-
-        <button id="btn-upsell" class="btn secondary">
-          Completar look
-        </button>
-
+        <!-- UPSELL -->
         <div id="upsell"></div>
+
       </div>
 
     </div>
 
   </div>
 </div>
+
+
+
+
+
+
+  
 
 <!-- FOOTER -->
 <footer class="footer">
