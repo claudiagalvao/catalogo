@@ -25,32 +25,42 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // DROPDOWN (CORRIGIDO)
-    document.querySelectorAll(".custom-select").forEach(select => {
-        const selected = select.querySelector(".selected");
-        const options = select.querySelector(".options");
+   // DROPDOWN (CORRIGIDO)
+document.querySelectorAll(".custom-select").forEach(select => {
+    const selected = select.querySelector(".selected");
+    const options = select.querySelector(".options");
 
-        selected.onclick = (e) => {
-            e.stopPropagation();
-            const isOpen = select.classList.contains("open");
-            document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
-            if (!isOpen) select.classList.add("open");
-        };
-
-        options.querySelectorAll("div").forEach(opt => {
-            opt.onclick = (e) => {
-                e.stopPropagation();
-
-                const value = opt.dataset.value || "";
-                filtrosState[select.dataset.filter] = value;
-
-                selected.innerText = opt.innerText;
-                select.classList.remove("open");
-
-                renderizar();
-            };
+    selected.onclick = (e) => {
+        e.stopPropagation();
+        // Fecha outros que estiverem abertos antes de abrir o atual
+        document.querySelectorAll(".custom-select").forEach(s => {
+            if (s !== select) s.classList.remove("open");
         });
+        select.classList.toggle("open");
+    };
+
+    options.querySelectorAll("div").forEach(opt => {
+        opt.onclick = (e) => {
+            e.stopPropagation();
+
+            // CAPTURA DOS VALORES
+            const value = opt.dataset.value || "";
+            const filterType = select.getAttribute("data-filter"); // Pega se é 'tamanho', 'preco' ou 'genero'
+
+            if (filterType) {
+                filtrosState[filterType] = value;
+                console.log(`Filtro atualizado: ${filterType} = ${value}`); // Para você testar no console
+            }
+
+            // Interface
+            selected.innerText = opt.innerText;
+            select.classList.remove("open");
+
+            // Dispara a atualização da tela
+            renderizar();
+        };
     });
+});
 
     // FECHAR MODAL + DROPDOWN
     const fecharModal = () => document.getElementById("modal").classList.add("hidden");
