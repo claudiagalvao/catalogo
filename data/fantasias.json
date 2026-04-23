@@ -6,16 +6,11 @@
     "categoriaSlug": "fun",
     "tipo": "fantasia",
     "modelo": "Feminino",
-
     "descricao": "Visual elegante e marcante, perfeito para festas temáticas, Halloween e eventos noturnos.",
-
     "tamanhos": ["PP", "P", "M", "G", "GG"],
-
     "preco": 110,
-
     "imagem": "assets/images/aeromoca.jpg",
     "thumb": "assets/images/aeromoca-thumb.jpg",
-
     "tags": [
       "aeromoça",
       "aviadora",
@@ -25,35 +20,26 @@
       "chic",
       "balada"
     ],
-
     "upsell": [
       "a-luva-branca",
       "a-oculos-gatinho-branco",
       "a-meia-calca-branca"
     ],
-
     "destaque": true
-  }
+  },
 
-
-
- {
+  {
     "id": "m-luff",
     "nome": "Luff",
     "categoria": "pop",
     "categoriaSlug": "pop",
     "tipo": "fantasia",
     "modelo": "Masculino",
-
     "descricao": "Visual ousado e aventureiro, ideal para festas temáticas, cosplay e eventos cheios de atitude.",
-
     "tamanhos": ["P"],
-
     "preco": 250,
-
     "imagem": "assets/images/luff.jpg",
     "thumb": "assets/images/luff-thumb.jpg",
-
     "tags": [
       "luff",
       "anime",
@@ -63,12 +49,8 @@
       "halloween",
       "festa",
       "fantasia",
-      "onepiece",
+      "onepiece"
     ],
-
     "destaque": true
   }
-
-
-  
 ]
