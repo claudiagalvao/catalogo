@@ -23,10 +23,8 @@ function normalizar(texto) {
 // 🔥 INIT (GARANTE DOM CARREGADO)
 document.addEventListener("DOMContentLoaded", () => {
 
-    // BUSCA
     document.getElementById("input-busca")?.addEventListener("input", renderizar);
 
-    // VIBE
     document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
         el.onclick = () => {
             const vibe = el.dataset.vibe;
@@ -43,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // DROPDOWN
     document.querySelectorAll(".custom-select").forEach(select => {
         const selected = select.querySelector(".selected");
         const options = select.querySelector(".options");
@@ -76,12 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
     });
 
-    // FECHAR MODAL
     document.querySelector(".close")?.addEventListener("click", () => {
         document.getElementById("modal")?.classList.add("hidden");
     });
 
-    // WHATSAPP (agora garantido)
     const btnFinalizar = document.getElementById("btn-finalizar");
     if (btnFinalizar) {
         btnFinalizar.onclick = () => {
@@ -189,4 +184,58 @@ function renderizar() {
         card.onclick = () => abrirModal(p);
         grid.appendChild(card);
     });
+}
+
+// 🔥 MODAL (ADICIONADO CORRETAMENTE)
+function abrirModal(p) {
+    produtoAtual = p;
+
+    const modal = document.getElementById("modal");
+    const img = document.getElementById("modal-img");
+    const nome = document.getElementById("modal-nome");
+    const list = document.getElementById("upsell-list");
+
+    if (!modal || !img || !nome || !list) return;
+
+    img.src = p.imagem;
+    nome.innerText = p.nome;
+
+    list.innerHTML = "";
+
+    if (p.upsell && Array.isArray(p.upsell)) {
+        p.upsell.forEach(idAcc => {
+            const acc = acessoriosMap[idAcc];
+            if (!acc) return;
+
+            const div = document.createElement("div");
+            div.style = "display:flex; gap:10px; margin-bottom:10px;";
+
+            div.innerHTML = `
+                <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
+                <span>${acc.nome} (+ R$ ${acc.preco.toFixed(2)})</span>
+            `;
+
+            list.appendChild(div);
+        });
+    }
+
+    document.querySelectorAll(".acc-check").forEach(c => c.onchange = atualizarPrecosModal);
+
+    atualizarPrecosModal();
+
+    modal.classList.remove("hidden");
+}
+
+function atualizarPrecosModal() {
+    if (!produtoAtual) return;
+
+    const checks = document.querySelectorAll(".acc-check:checked");
+
+    let totalAcc = 0;
+    checks.forEach(c => totalAcc += parseFloat(c.dataset.preco));
+
+    const total = produtoAtual.preco + totalAcc;
+    valorFinalGlobal = total.toFixed(2);
+
+    document.getElementById("modal-preco-atual")?.innerText = `R$ ${total.toFixed(2)}`;
 }
