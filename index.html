@@ -34,30 +34,52 @@
 
     <div class="divider"></div>
 
-    <select id="filter-tamanho">
-      <option value="">Tamanho</option>
-      <option value="PP">PP</option>
-      <option value="P">P</option>
-      <option value="M">M</option>
-      <option value="G">G</option>
-      <option value="GG">GG</option>
-    </select>
 
-    <select id="filter-preco">
-      <option value="">Preço</option>
-      <option value="0-100">Até R$ 100</option>
-      <option value="100-150">R$ 100 - R$ 150</option>
-      <option value="150+">Acima de R$ 150</option>
-    </select>
 
-    <select id="filter-genero">
-      <option value="">Gênero</option>
-      <option value="feminino">Feminino</option>
-      <option value="masculino">Masculino</option>
-      <option value="unissex">Unissex</option>
-    </select>
 
+<div class="filters">
+
+  <!-- TAMANHO -->
+  <div class="custom-select" data-filter="tamanho">
+    <div class="selected">Tamanho</div>
+    <div class="options">
+      <div data-value="">Todos</div>
+      <div data-value="PP">PP</div>
+      <div data-value="P">P</div>
+      <div data-value="M">M</div>
+      <div data-value="G">G</div>
+      <div data-value="GG">GG</div>
+    </div>
   </div>
+
+  <!-- PREÇO -->
+  <div class="custom-select" data-filter="preco">
+    <div class="selected">Preço</div>
+    <div class="options">
+      <div data-value="">Todos</div>
+      <div data-value="0-100">Até R$100</div>
+      <div data-value="100-150">R$100 - R$150</div>
+      <div data-value="150+">Acima de R$150</div>
+    </div>
+  </div>
+
+  <!-- GÊNERO -->
+  <div class="custom-select" data-filter="genero">
+    <div class="selected">Gênero</div>
+    <div class="options">
+      <div data-value="">Todos</div>
+      <div data-value="feminino">Feminino</div>
+      <div data-value="masculino">Masculino</div>
+      <div data-value="unissex">Unissex</div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+    
 </section>
 
 
