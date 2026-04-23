@@ -296,3 +296,62 @@ body {
     .modal-layout { flex-direction: column; align-items: center; }
     .modal-left img { max-width: 100%; }
 }
+
+
+
+
+
+
+
+/* ========================================
+   CORREÇÃO PREMIUM - BUSCA + FILTRO
+======================================== */
+
+.filter-box {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-box select {
+    background: #111;
+    border: 1px solid #333;
+    padding: 12px 15px;
+    border-radius: 25px;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    height: 44px;
+}
+
+/* seta custom */
+.filter-box select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 35px;
+}
+
+/* alinhamento com input */
+.search-box input {
+    height: 44px;
+}
+
+/* foco neon */
+.filter-box select:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 8px var(--neon);
+}
+
+/* ativo (feedback visual) */
+.filter-box select:valid {
+    border-color: var(--magenta);
+    box-shadow: 0 0 6px rgba(255, 0, 85, 0.4);
+}
+
+/* contador */
+#resultado-count {
+    margin-bottom: 10px;
+    color: var(--text-gray);
+    font-size: 13px;
+}
