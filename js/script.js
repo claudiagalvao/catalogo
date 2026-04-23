@@ -28,7 +28,7 @@ function renderizar() {
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
     const filtrados = produtos.filter(p => {
-        const matchVibe = termo.length > 0 ? true : (p.categoriaSlug === vibeAtiva);
+        const matchVibe = !vibeAtiva || p.categoriaSlug === vibeAtiva;
         const matchBusca = p.nome.toLowerCase().includes(termo) || (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
         const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
         
@@ -40,14 +40,27 @@ function renderizar() {
         return matchVibe && matchBusca && matchTamanho && matchPreco;
     });
 
+    // contador
+    const countEl = document.getElementById("resultado-count");
+    if (countEl) {
+        countEl.innerText = `${filtrados.length} fantasias encontradas`;
+    }
+
     filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "card";
-        card.innerHTML = `<img src="${p.imagem}" onerror="this.src='assets/images/placeholder.jpg'">`;
+        card.innerHTML = `
+            <div class="card-img-container">
+                <img src="${p.imagem}" onerror="this.src='assets/images/placeholder.jpg'">
+            </div>
+        `;
         card.onclick = () => abrirModal(p);
         grid.appendChild(card);
     });
 }
+
+
+
 
 function abrirModal(p) {
     produtoAtual = p;
