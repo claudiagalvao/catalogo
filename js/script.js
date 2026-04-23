@@ -26,18 +26,20 @@ function renderizar() {
     const tamanho = document.getElementById("filter-tamanho").value;
     const precoRange = document.getElementById("filter-preco").value;
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
+    const genero = document.getElementById("filter-genero")?.value;
 
     const filtrados = produtos.filter(p => {
         const matchVibe = !vibeAtiva || p.categoriaSlug === vibeAtiva;
         const matchBusca = p.nome.toLowerCase().includes(termo) || (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
         const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
+        const matchGenero = !genero || p.genero === genero;
         
         let matchPreco = true;
         if (precoRange === "0-100") matchPreco = p.preco <= 100;
         else if (precoRange === "100-150") matchPreco = p.preco > 100 && p.preco <= 150;
         else if (precoRange === "150+") matchPreco = p.preco > 150;
 
-        return matchVibe && matchBusca && matchTamanho && matchPreco;
+      return matchVibe && matchBusca && matchTamanho && matchPreco && matchGenero;
     });
 
     // contador
