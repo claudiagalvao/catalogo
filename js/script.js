@@ -32,9 +32,9 @@ function renderizar() {
     grid.innerHTML = "";
 
     const termo = document.getElementById("input-busca")?.value?.toLowerCase() || "";
-    const tamanho = document.getElementById("filter-tamanho")?.value || "";
-    const precoRange = document.getElementById("filter-preco")?.value || "";
-    const genero = document.getElementById("filter-genero")?.value || "";
+    const tamanho = filtrosState.tamanho;
+const precoRange = filtrosState.preco;
+const genero = filtrosState.genero;
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
     const filtrados = produtos.filter(p => {
@@ -213,3 +213,54 @@ document.querySelector(".close")?.addEventListener("click", () => {
 
 // init
 window.onload = carregarDados;
+
+
+
+
+
+
+// ========================================
+// DROPDOWN PREMIUM
+// ========================================
+
+const filtrosState = {
+    tamanho: "",
+    preco: "",
+    genero: ""
+};
+
+document.querySelectorAll(".custom-select").forEach(select => {
+    const selected = select.querySelector(".selected");
+    const options = select.querySelector(".options");
+
+    selected.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        // fecha outros
+        document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
+
+        select.classList.toggle("open");
+    });
+
+    options.querySelectorAll("div").forEach(option => {
+        option.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            const value = option.dataset.value;
+            const label = option.innerText;
+            const filter = select.dataset.filter;
+
+            selected.innerText = label;
+            filtrosState[filter] = value;
+
+            select.classList.remove("open");
+
+            renderizar();
+        });
+    });
+});
+
+// fechar ao clicar fora
+document.addEventListener("click", () => {
+    document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
+});
