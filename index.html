@@ -24,60 +24,48 @@
 </section>
 
 <section class="search-filter-container container">
-    <div class="search-filter">
-        <div class="search-input">
-            <i class="fa fa-search"></i>
-            <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
-        </div>
-
-        <div class="divider hide-mobile"></div>
-
-        <div class="filters">
-
-
-<section class="search-filter-area">
-    <div class="search-group">
-        <input type="text" id="input-busca" placeholder="O que você procura? (ex: Pirata, Anos 80...)">
-    </div>
-
-    <div class="custom-select" data-filter="tamanho">
-        <div class="selected">Tamanho</div>
-        <div class="options">
-            <div data-value="">Todos os Tamanhos</div>
-            <div data-value="PP">Tamanho PP</div>
-            <div data-value="P">Tamanho P</div>
-            <div data-value="M">Tamanho M</div>
-            <div data-value="G">Tamanho G</div>
-            <div data-value="GG">Tamanho GG</div>
-            <div data-value="XG">Tamanho XG (Plus Size)</div>
+    <div class="search-filter-area">
+        <div class="search-group">
+            <div class="search-input">
+                <i class="fa fa-search"></i>
+                <input type="text" id="input-busca" placeholder="O que você procura? (ex: Pirata, Anos 80...)" autocomplete="off">
             </div>
-    </div>
+        </div>
 
-    <div class="custom-select" data-filter="genero">
-        <div class="selected">Gênero</div>
-        <div class="options">
-            <div data-value="">Todos</div>
-            <div data-value="feminino">Feminino</div>
-            <div data-value="masculino">Masculino</div>
-            <div data-value="unissex">Unissex</div>
+        <div class="custom-select" data-filter="tamanho">
+            <div class="selected">Tamanho</div>
+            <div class="options">
+                <div data-value="">Todos os Tamanhos</div>
+                <div data-value="PP">Tamanho PP</div>
+                <div data-value="P">Tamanho P</div>
+                <div data-value="M">Tamanho M</div>
+                <div data-value="G">Tamanho G</div>
+                <div data-value="GG">Tamanho GG</div>
+                <div data-value="XG">Tamanho XG (Plus Size)</div>
+                <div data-value="Infantil">Infantil</div>
+            </div>
+        </div>
+
+        <div class="custom-select" data-filter="genero">
+            <div class="selected">Gênero</div>
+            <div class="options">
+                <div data-value="">Todos</div>
+                <div data-value="feminino">Feminino</div>
+                <div data-value="masculino">Masculino</div>
+                <div data-value="unissex">Unissex</div>
+            </div>
+        </div>
+
+        <div class="custom-select" data-filter="preco">
+            <div class="selected">Faixa de Preço</div>
+            <div class="options">
+                <div data-value="">Qualquer valor</div>
+                <div data-value="0-100">Até R$ 100</div>
+                <div data-value="100-150">R$ 100 a R$ 150</div>
+                <div data-value="150+">Acima de R$ 150</div>
+            </div>
         </div>
     </div>
-
-    <div class="custom-select" data-filter="preco">
-        <div class="selected">Faixa de Preço</div>
-        <div class="options">
-            <div data-value="">Qualquer valor</div>
-            <div data-value="0-100">Até R$ 100</div>
-            <div data-value="100-150">R$ 100 a R$ 150</div>
-            <div data-value="150+">Acima de R$ 150</div>
-        </div>
-    </div>
-</section>
-
-
-
-
-            
 </section>
 
 <p id="resultado-count" class="container"></p>
@@ -107,7 +95,7 @@
                 <p id="modal-desc" style="color: #888; font-size: 14px; margin-bottom: 15px;"></p>
 
                 <div class="price-container">
-                    <span id="total-modal" class="new-price">R$ 0,00</span>
+                    <div id="total-modal" class="new-price">R$ 0,00</div>
                 </div>
 
                 <div class="upsell-container">
