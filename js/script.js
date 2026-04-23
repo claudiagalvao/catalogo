@@ -198,7 +198,7 @@ function renderizar() {
     });
 }
 
-// 🪟 MODAL
+// 🪟 MODAL (CORRIGIDO)
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -207,32 +207,43 @@ function abrirModal(p) {
     document.getElementById("modal-desc").innerText = p.descricao || "";
 
     const accContainer = document.getElementById("acessorios-container");
+    const tituloUpsell = document.getElementById("upsell-title");
+
     accContainer.innerHTML = "";
 
     const lista = p.upsell || [];
 
-    lista.forEach(id => {
-        const acc = acessoriosMap[id];
-        if (!acc) return;
+    // 🔥 CORREÇÃO AQUI
+    if (!lista.length) {
+        if (tituloUpsell) tituloUpsell.style.display = "none";
+        accContainer.style.display = "none";
+    } else {
+        if (tituloUpsell) tituloUpsell.style.display = "block";
+        accContainer.style.display = "block";
 
-        const div = document.createElement("div");
+        lista.forEach(id => {
+            const acc = acessoriosMap[id];
+            if (!acc) return;
 
-        div.innerHTML = `
-            <label class="acc-item">
-                <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
-                
-                <img src="${acc.imagem}" 
-                     onerror="this.src='assets/images/placeholder.jpg'">
+            const div = document.createElement("div");
 
-                <div class="acc-info">
-                    <span>${acc.nome}</span>
-                    <span class="acc-preco">+ R$ ${acc.preco}</span>
-                </div>
-            </label>
-        `;
+            div.innerHTML = `
+                <label class="acc-item">
+                    <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
+                    
+                    <img src="${acc.imagem}" 
+                         onerror="this.src='assets/images/placeholder.jpg'">
 
-        accContainer.appendChild(div);
-    });
+                    <div class="acc-info">
+                        <span>${acc.nome}</span>
+                        <span class="acc-preco">+ R$ ${acc.preco}</span>
+                    </div>
+                </label>
+            `;
+
+            accContainer.appendChild(div);
+        });
+    }
 
     document.querySelectorAll(".acc-check").forEach(c => {
         c.addEventListener("change", atualizarPrecoTotal);
