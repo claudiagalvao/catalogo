@@ -1,10 +1,19 @@
-let produtos = [];
+no arquivo script.jslet produtos = [];
 let acessorios = [];
 let produtoAtual = null;
 let valorFinalGlobal = 0;
 
 // 🔥 mapa de acessórios (performance)
 let acessoriosMap = {};
+
+// 🔥 normalização global (blindagem)
+function normalizar(texto) {
+    return (texto || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
 
 async function carregarDados() {
     try {
@@ -16,7 +25,6 @@ async function carregarDados() {
         produtos = resP;
         acessorios = resA;
 
-        // 🔥 cria mapa (performance)
         acessoriosMap = Object.fromEntries(acessorios.map(a => [a.id, a]));
 
         renderizar();
@@ -31,32 +39,61 @@ function renderizar() {
 
     grid.innerHTML = "";
 
-   const inputBusca = document.getElementById("input-busca");
-const termo = inputBusca ? inputBusca.value.toLowerCase().trim() : "";
+    const inputBusca = document.getElementById("input-busca");
+    const termo = inputBusca ? inputBusca.value.trim() : "";
+    const termoNormalizado = normalizar(termo);
+
     const tamanho = filtrosState.tamanho;
-const precoRange = filtrosState.preco;
-const genero = filtrosState.genero;
+    const precoRange = filtrosState.preco;
+    const genero = filtrosState.genero;
+
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
     const filtrados = produtos.filter(p => {
-        const matchVibe = !vibeAtiva || p.categoriaSlug === vibeAtiva;
-        const matchBusca = termo === "" || 
-    p.nome.toLowerCase().includes(termo) ||
-    (p.tags && p.tags.some(t => t.toLowerCase().includes(termo))) ||
-    (p.categoriaSlug && p.categoriaSlug.toLowerCase().includes(termo));
 
-        const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
-        const matchGenero = !genero || p.genero === genero;
+        // 🔥 normalização única (performance)
+        const nome = normalizar(p.nome);
+        const categoria = normalizar(p.categoria);
+        const modelo = normalizar(p.modelo);
+        const slug = normalizar(p.categoriaSlug);
 
+        // 🔥 vibe não bloqueia busca
+        const matchVibe = termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
+
+        // 🔥 busca blindada
+        const matchBusca =
+            termo === "" ||
+            nome.includes(termoNormalizado) ||
+            categoria.includes(termoNormalizado) ||
+            modelo.includes(termoNormalizado) ||
+            slug.includes(termoNormalizado) ||
+            (Array.isArray(p.tags) && p.tags.some(t => normalizar(t).includes(termoNormalizado)));
+
+        // 🔥 tamanho seguro
+        const matchTamanho =
+            !tamanho ||
+            (Array.isArray(p.tamanhos) && p.tamanhos.includes(tamanho));
+
+        // 🔥 gênero blindado (case + acento)
+        const matchGenero =
+            !genero ||
+            normalizar(p.modelo) === normalizar(genero);
+
+        // 🔥 preço mais consistente
         let matchPreco = true;
         if (precoRange === "0-100") matchPreco = p.preco <= 100;
-        else if (precoRange === "100-150") matchPreco = p.preco > 100 && p.preco <= 150;
+        else if (precoRange === "100-150") matchPreco = p.preco >= 100 && p.preco <= 150;
         else if (precoRange === "150+") matchPreco = p.preco > 150;
 
         return matchVibe && matchBusca && matchTamanho && matchPreco && matchGenero;
     });
 
-    // contador
+    // 🔥 UX: vazio
+    if (filtrados.length === 0) {
+        grid.innerHTML = `<p style="color:#888; text-align:center;">Nenhuma fantasia encontrada 😢</p>`;
+        return;
+    }
+
     const countEl = document.getElementById("resultado-count");
     if (countEl) {
         countEl.innerText = `${filtrados.length} fantasias encontradas`;
@@ -132,10 +169,7 @@ function atualizarPrecosModal() {
 
     valorFinalGlobal = (precoFinalFantasia + totalAcc).toFixed(2);
 
-    const precoAtualEl = document.getElementById("modal-preco-atual");
-    if (precoAtualEl) {
-        precoAtualEl.innerText = `R$ ${precoFinalFantasia.toFixed(2)}`;
-    }
+    document.getElementById("modal-preco-atual")?.innerText = `R$ ${precoFinalFantasia.toFixed(2)}`;
 
     const precoAntigo = document.getElementById("modal-preco-antigo");
     if (precoAntigo) {
@@ -161,9 +195,8 @@ function atualizarPrecosModal() {
     }
 }
 
-// WHATSAPP
+// WHATSAPP (mantido)
 const btnFinalizar = document.getElementById("btn-finalizar");
-
 if (btnFinalizar) {
     btnFinalizar.onclick = () => {
         if (!produtoAtual) return;
@@ -174,9 +207,7 @@ if (btnFinalizar) {
 
         if (checks.length > 0) {
             msg += `\n✨ *Acessórios:*`;
-            checks.forEach(c => {
-                msg += `\n- ${c.dataset.nome}`;
-            });
+            checks.forEach(c => msg += `\n- ${c.dataset.nome}`);
         }
 
         msg += `\n\n💰 *VALOR TOTAL: R$ ${valorFinalGlobal}*`;
@@ -187,11 +218,8 @@ if (btnFinalizar) {
 
 // listeners
 document.getElementById("input-busca")?.addEventListener("input", renderizar);
-document.getElementById("filter-tamanho")?.addEventListener("change", renderizar);
-document.getElementById("filter-preco")?.addEventListener("change", renderizar);
-document.getElementById("filter-genero")?.addEventListener("change", renderizar);
 
-// vibe + coleção
+// vibe
 document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
     el.onclick = () => {
         const vibe = el.dataset.vibe;
@@ -201,7 +229,6 @@ document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
         const btnAlvo = document.querySelector(`.vibe-btn[data-vibe="${vibe}"]`);
         if (btnAlvo) btnAlvo.classList.add("active");
 
-        // 🔥 mantém comportamento atual (limpa busca)
         const inputBusca = document.getElementById("input-busca");
         if (inputBusca) inputBusca.value = "";
 
@@ -209,18 +236,12 @@ document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
     };
 });
 
-// fechar modal
+// modal
 document.querySelector(".close")?.addEventListener("click", () => {
     document.getElementById("modal")?.classList.add("hidden");
 });
 
-// init
 window.onload = carregarDados;
-
-
-
-
-
 
 // ========================================
 // DROPDOWN PREMIUM
@@ -238,10 +259,7 @@ document.querySelectorAll(".custom-select").forEach(select => {
 
     selected.addEventListener("click", (e) => {
         e.stopPropagation();
-
-        // fecha outros
         document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
-
         select.classList.toggle("open");
     });
 
@@ -263,7 +281,6 @@ document.querySelectorAll(".custom-select").forEach(select => {
     });
 });
 
-// fechar ao clicar fora
 document.addEventListener("click", () => {
     document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
 });
