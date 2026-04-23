@@ -185,6 +185,11 @@ function renderizar() {
         card.innerHTML = `
             <div class="card-img-container">
                 <img src="${p.imagem}" loading="lazy" alt="${p.nome}">
+                
+                <!-- 🔥 INDICADOR DE MODAL -->
+                <div class="card-overlay">
+                    <span>Ver detalhes</span>
+                </div>
             </div>
 
             <div class="card-content">
@@ -198,7 +203,7 @@ function renderizar() {
     });
 }
 
-// 🪟 MODAL (FINAL CORRIGIDO)
+// 🪟 MODAL (mantido igual)
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -212,8 +217,6 @@ function abrirModal(p) {
     accContainer.innerHTML = "";
 
     const lista = p.upsell || [];
-
-    // 🔥 CORREÇÃO DEFINITIVA
     const acessoriosValidos = lista.filter(id => acessoriosMap[id]);
 
     if (!acessoriosValidos.length) {
@@ -256,7 +259,7 @@ function abrirModal(p) {
     document.getElementById("modal").classList.remove("hidden");
 }
 
-// 💰 REGRA DE NEGÓCIO
+// 💰 REGRA DE NEGÓCIO (mantida)
 function atualizarPrecoTotal() {
     let precoBase = parseFloat(produtoAtual.preco);
     let totalAcc = 0;
@@ -282,4 +285,3 @@ function atualizarPrecoTotal() {
         ${desconto > 0 ? `<div style="color:#00ff88;font-size:13px;">🔥 Você economiza R$ ${(precoBase - precoComDesconto).toFixed(2)}</div>` : ""}
     `;
 }
-
