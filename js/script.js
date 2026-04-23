@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("modal")?.classList.add("hidden");
     });
 
-    // WHATSAPP (agora garantido)
+    // WHATSAPP
     const btnFinalizar = document.getElementById("btn-finalizar");
     if (btnFinalizar) {
         btnFinalizar.onclick = () => {
@@ -124,7 +124,7 @@ async function carregarDados() {
     }
 }
 
-// 🔥 RENDER
+// 🔥 RENDERIZAÇÃO DA GRADE DE PRODUTOS
 function renderizar() {
     const grid = document.getElementById("product-grid");
     if (!grid) return;
@@ -160,12 +160,15 @@ function renderizar() {
         const matchTamanho =
             !tamanho || (Array.isArray(p.tamanhos) && p.tamanhos.includes(tamanho));
 
-        const matchGenero =
-            !genero || normalizar(p.modelo) === normalizar(genero);
+        // MELHORIA: Gênero agora aceita "Unissex" como compatível com ambos
+        const matchGenero = !genero || 
+            normalizar(p.modelo) === normalizar(genero) || 
+            normalizar(p.modelo) === "unissex";
 
+        // MELHORIA: Correção de sobreposição de preços (ex: 100 reais)
         let matchPreco = true;
         if (precoRange === "0-100") matchPreco = p.preco <= 100;
-        else if (precoRange === "100-150") matchPreco = p.preco >= 100 && p.preco <= 150;
+        else if (precoRange === "100-150") matchPreco = p.preco > 100 && p.preco <= 150;
         else if (precoRange === "150+") matchPreco = p.preco > 150;
 
         return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
@@ -179,14 +182,76 @@ function renderizar() {
     filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "card";
-
         card.innerHTML = `
             <div class="card-img-container">
                 <img src="${p.imagem}" onerror="this.src='assets/images/placeholder.jpg'">
             </div>
+            <div class="card-info">
+                <h3>${p.nome}</h3>
+                <p>R$ ${p.preco}</p>
+            </div>
         `;
-
         card.onclick = () => abrirModal(p);
         grid.appendChild(card);
     });
+}
+
+// 🔥 FUNÇÃO ABRIR MODAL (Implementada para correção)
+function abrirModal(p) {
+    produtoAtual = p;
+    const modal = document.getElementById("modal");
+    if (!modal) return;
+
+    // Preencher dados básicos
+    document.getElementById("modal-img").src = p.imagem;
+    document.getElementById("modal-nome").innerText = p.nome;
+    document.getElementById("modal-desc").innerText = p.descricao || "";
+    
+    // Resetar acessórios no modal
+    const accContainer = document.getElementById("acessorios-container");
+    if (accContainer) {
+        accContainer.innerHTML = "";
+        
+        // Se o produto tiver IDs de acessórios relacionados
+        if (Array.isArray(p.acessoriosIds)) {
+            p.acessoriosIds.forEach(id => {
+                const acc = acessoriosMap[id];
+                if (acc) {
+                    const div = document.createElement("div");
+                    div.className = "acc-item";
+                    div.innerHTML = `
+                        <label>
+                            <input type="checkbox" class="acc-check" 
+                                   data-preco="${acc.preco}" 
+                                   data-nome="${acc.nome}" 
+                                   onchange="atualizarPrecoTotal()">
+                            ${acc.nome} (+ R$ ${acc.preco})
+                        </label>
+                    `;
+                    accContainer.appendChild(div);
+                }
+            });
+        }
+    }
+
+    modal.classList.remove("hidden");
+    atualizarPrecoTotal();
+}
+
+// 🔥 ATUALIZAÇÃO DINÂMICA DE PREÇO
+function atualizarPrecoTotal() {
+    if (!produtoAtual) return;
+
+    let total = parseFloat(produtoAtual.preco);
+    
+    const checks = document.querySelectorAll(".acc-check:checked");
+    checks.forEach(c => {
+        total += parseFloat(c.dataset.preco);
+    });
+
+    valorFinalGlobal = total.toFixed(2);
+    const displayPreco = document.getElementById("total-modal");
+    if (displayPreco) {
+        displayPreco.innerText = `Total: R$ ${valorFinalGlobal}`;
+    }
 }
