@@ -35,66 +35,49 @@
         <div class="filters">
 
 
+<section class="search-filter-area">
+    <div class="search-group">
+        <input type="text" id="input-busca" placeholder="O que você procura? (ex: Pirata, Anos 80...)">
+    </div>
 
-const filtrados = produtos.filter(p => {
-
-    const nome = normalizar(p.nome);
-    const categoria = normalizar(p.categoria);
-    const modelo = normalizar(p.modelo);
-    const slug = normalizar(p.categoriaSlug);
-
-    // 🔎 BUSCA
-    const matchBusca =
-        !termo ||
-        nome.includes(termo) ||
-        categoria.includes(termo) ||
-        modelo.includes(termo) ||
-        slug.includes(termo);
-
-    // 🎯 VIBE
-    const matchVibe =
-        termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
-
-    // 📏 TAMANHO
-    const matchTamanho =
-        !filtrosState.tamanho ||
-        (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
-
-    // 👤 GÊNERO (CORRIGIDO)
-    const generoFiltro = normalizar(filtrosState.genero);
-    const modeloProduto = normalizar(p.modelo);
-
-    const matchGenero =
-        !generoFiltro ||
-        modeloProduto === generoFiltro ||
-        modeloProduto === "unissex";
-
-    // 💰 PREÇO (CORRIGIDO)
-    let matchPreco = true;
-
-    if (filtrosState.preco === "0-100") {
-        matchPreco = p.preco <= 100;
-    } else if (filtrosState.preco === "100-150") {
-        matchPreco = p.preco > 100 && p.preco <= 150;
-    } else if (filtrosState.preco === "150+") {
-        matchPreco = p.preco > 150;
-    }
-
-    return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
-});
-            
-
-            <div class="custom-select" data-filter="genero">
-                <div class="selected">Gênero</div>
-                <div class="options">
-                    <div data-value="">Todos</div>
-                    <div data-value="feminino">Feminino</div>
-                    <div data-value="masculino">Masculino</div>
-                    <div data-value="unissex">Unissex</div>
-                </div>
+    <div class="custom-select" data-filter="tamanho">
+        <div class="selected">Tamanho</div>
+        <div class="options">
+            <div data-value="">Todos os Tamanhos</div>
+            <div data-value="PP">Tamanho PP</div>
+            <div data-value="P">Tamanho P</div>
+            <div data-value="M">Tamanho M</div>
+            <div data-value="G">Tamanho G</div>
+            <div data-value="GG">Tamanho GG</div>
+            <div data-value="XG">Tamanho XG (Plus Size)</div>
             </div>
+    </div>
+
+    <div class="custom-select" data-filter="genero">
+        <div class="selected">Gênero</div>
+        <div class="options">
+            <div data-value="">Todos</div>
+            <div data-value="feminino">Feminino</div>
+            <div data-value="masculino">Masculino</div>
+            <div data-value="unissex">Unissex</div>
         </div>
     </div>
+
+    <div class="custom-select" data-filter="preco">
+        <div class="selected">Faixa de Preço</div>
+        <div class="options">
+            <div data-value="">Qualquer valor</div>
+            <div data-value="0-100">Até R$ 100</div>
+            <div data-value="100-150">R$ 100 a R$ 150</div>
+            <div data-value="150+">Acima de R$ 150</div>
+        </div>
+    </div>
+</section>
+
+
+
+
+            
 </section>
 
 <p id="resultado-count" class="container"></p>
