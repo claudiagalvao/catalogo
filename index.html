@@ -23,72 +23,60 @@
   </div>
 </section>
 
-
 <section class="search-filter-container container">
   <div class="search-filter">
 
     <div class="search-input">
       <i class="fa fa-search"></i>
-      <input type="text" id="input-busca" placeholder="Buscar fantasia...">
+      <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
     </div>
 
     <div class="divider"></div>
 
+    <div class="filters">
 
+      <!-- TAMANHO -->
+      <div class="custom-select" data-filter="tamanho">
+        <div class="selected">Tamanho</div>
+        <div class="options">
+          <div data-value="">Todos</div>
+          <div data-value="PP">PP</div>
+          <div data-value="P">P</div>
+          <div data-value="M">M</div>
+          <div data-value="G">G</div>
+          <div data-value="GG">GG</div>
+        </div>
+      </div>
 
+      <!-- PREÇO -->
+      <div class="custom-select" data-filter="preco">
+        <div class="selected">Preço</div>
+        <div class="options">
+          <div data-value="">Todos</div>
+          <div data-value="0-100">Até R$100</div>
+          <div data-value="100-150">R$100 - R$150</div>
+          <div data-value="150+">Acima de R$150</div>
+        </div>
+      </div>
 
-<div class="filters">
+      <!-- GÊNERO -->
+      <div class="custom-select" data-filter="genero">
+        <div class="selected">Gênero</div>
+        <div class="options">
+          <div data-value="">Todos</div>
+          <div data-value="feminino">Feminino</div>
+          <div data-value="masculino">Masculino</div>
+          <div data-value="unissex">Unissex</div>
+        </div>
+      </div>
 
-  <!-- TAMANHO -->
-  <div class="custom-select" data-filter="tamanho">
-    <div class="selected">Tamanho</div>
-    <div class="options">
-      <div data-value="">Todos</div>
-      <div data-value="PP">PP</div>
-      <div data-value="P">P</div>
-      <div data-value="M">M</div>
-      <div data-value="G">G</div>
-      <div data-value="GG">GG</div>
     </div>
-  </div>
 
-  <!-- PREÇO -->
-  <div class="custom-select" data-filter="preco">
-    <div class="selected">Preço</div>
-    <div class="options">
-      <div data-value="">Todos</div>
-      <div data-value="0-100">Até R$100</div>
-      <div data-value="100-150">R$100 - R$150</div>
-      <div data-value="150+">Acima de R$150</div>
-    </div>
-  </div>
-
-  <!-- GÊNERO -->
-  <div class="custom-select" data-filter="genero">
-    <div class="selected">Gênero</div>
-    <div class="options">
-      <div data-value="">Todos</div>
-      <div data-value="feminino">Feminino</div>
-      <div data-value="masculino">Masculino</div>
-      <div data-value="unissex">Unissex</div>
-    </div>
-  </div>
-
-</div>
-
-
-
-
-    
+  </div> <!-- 🔥 fechamento corrigido -->
 </section>
 
-
-
-
-
-  
-
 <p id="resultado-count" class="container"></p>
+
 <section class="collections container">
   <div class="collections-grid">
     <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
@@ -107,14 +95,15 @@
     <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
     <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
     <div class="benefit">
-  <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
-    <i class="fa fa-headset"></i>
-    <span>Suporte VIP</span>
-  </a>
-</div>
+      <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
+        <i class="fa fa-headset"></i>
+        <span>Suporte VIP</span>
+      </a>
+    </div>
   </div>
+
   <div class="footer-content container">
-    <p>© 2026 Crazy Fantasy - Catálogo de Fantasias
+    <p>© 2026 Crazy Fantasy - Catálogo de Fantasias</p> <!-- 🔥 corrigido -->
   </div>
 </footer>
 
@@ -122,19 +111,27 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="modal-layout">
-      <div class="modal-left"><img id="modal-img" src=""></div>
+      <div class="modal-left">
+        <img id="modal-img" src="">
+      </div>
       <div class="modal-right">
         <h3 id="modal-nome"></h3>
+
         <div class="price-container">
-           <span id="modal-preco-antigo" class="old-price"></span>
-           <span id="modal-preco-atual" class="new-price"></span>
+          <span id="modal-preco-antigo" class="old-price"></span>
+          <span id="modal-preco-atual" class="new-price"></span>
         </div>
+
         <div class="upsell-container">
           <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
           <div id="upsell-list"></div>
         </div>
+
         <div id="resumo-financeiro"></div>
-        <button id="btn-finalizar">RESERVAR NO WHATSAPP</button>
+
+        <button id="btn-finalizar" class="btn-whatsapp-neon">
+          RESERVAR NO WHATSAPP
+        </button>
       </div>
     </div>
   </div>
