@@ -198,7 +198,7 @@ function renderizar() {
     });
 }
 
-// 🪟 MODAL (CORRIGIDO)
+// 🪟 MODAL (FINAL CORRIGIDO)
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -213,15 +213,17 @@ function abrirModal(p) {
 
     const lista = p.upsell || [];
 
-    // 🔥 CORREÇÃO AQUI
-    if (!lista.length) {
+    // 🔥 CORREÇÃO DEFINITIVA
+    const acessoriosValidos = lista.filter(id => acessoriosMap[id]);
+
+    if (!acessoriosValidos.length) {
         if (tituloUpsell) tituloUpsell.style.display = "none";
-        accContainer.style.display = "none";
+        if (accContainer) accContainer.style.display = "none";
     } else {
         if (tituloUpsell) tituloUpsell.style.display = "block";
-        accContainer.style.display = "block";
+        if (accContainer) accContainer.style.display = "block";
 
-        lista.forEach(id => {
+        acessoriosValidos.forEach(id => {
             const acc = acessoriosMap[id];
             if (!acc) return;
 
@@ -281,11 +283,6 @@ function atualizarPrecoTotal() {
     `;
 }
 
-
-
-
-
-
 // ========================================
 // SWIPE UX - MOBILE
 // ========================================
@@ -312,12 +309,11 @@ function ativarSwipeMobile() {
         if (!isDown) return;
 
         const x = e.touches[0].pageX - grid.offsetLeft;
-        const walk = (x - startX) * 1.5; // velocidade
+        const walk = (x - startX) * 1.5;
         grid.scrollLeft = scrollLeft - walk;
     });
 }
 
-// ativa só no mobile
 if (window.innerWidth <= 768) {
     ativarSwipeMobile();
 }
