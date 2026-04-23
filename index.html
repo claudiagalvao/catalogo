@@ -24,12 +24,14 @@
 </section>
 
 <section class="search-filter-container container">
+  
   <div class="search-box">
     <i class="fa fa-search"></i>
     <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
   </div>
+
   <div class="filter-box">
-    <select id="filter-tamanho">
+    <select id="filter-tamanho" required>
       <option value="">Tamanho</option>
       <option value="PP">PP</option>
       <option value="P">P</option>
@@ -37,15 +39,18 @@
       <option value="G">G</option>
       <option value="GG">GG</option>
     </select>
-    <select id="filter-preco">
+
+    <select id="filter-preco" required>
       <option value="">Preço</option>
       <option value="0-100">Até R$ 100</option>
       <option value="100-150">R$ 100 - R$ 150</option>
       <option value="150+">Acima de R$ 150</option>
     </select>
   </div>
+
 </section>
 
+<p id="resultado-count" class="container"></p>
 <section class="collections container">
   <div class="collections-grid">
     <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
