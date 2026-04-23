@@ -1,17 +1,32 @@
+// ========================================
+// CRAZY FANTASY - SCRIPT FINAL 2026
+// ========================================
+
 // 🔥 ESTADO
 const filtrosState = { tamanho: "", preco: "", genero: "" };
-let produtos = [], acessorios = [], produtoAtual = null, valorFinalGlobal = 0, acessoriosMap = {};
 
+let produtos = [];
+let acessorios = [];
+let produtoAtual = null;
+let valorFinalGlobal = 0;
+let acessoriosMap = {};
+
+// 🔧 NORMALIZAÇÃO
 function normalizar(t) {
-    return (t || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return (t || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 }
 
+// 🚀 INIT
 document.addEventListener("DOMContentLoaded", () => {
 
-    // BUSCA
+    // 🔎 BUSCA
     document.getElementById("input-busca")?.addEventListener("input", renderizar);
 
-    // VIBES
+    // 🎯 VIBES
     document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
         el.onclick = () => {
             const vibe = el.dataset.vibe;
@@ -26,16 +41,18 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // 🔥 DROPDOWN CORRIGIDO
+    // 🎛️ DROPDOWN (FILTROS)
     document.querySelectorAll(".custom-select").forEach(select => {
         const selected = select.querySelector(".selected");
         const options = select.querySelector(".options");
 
         selected.onclick = (e) => {
             e.stopPropagation();
+
             document.querySelectorAll(".custom-select").forEach(s => {
                 if (s !== select) s.classList.remove("open");
             });
+
             select.classList.toggle("open");
         };
 
@@ -58,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // FECHAR MODAL + DROPDOWN
+    // ❌ FECHAR MODAL + DROPDOWN
     const fecharModal = () => document.getElementById("modal").classList.add("hidden");
 
     document.querySelector(".close")?.addEventListener("click", fecharModal);
@@ -68,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
     });
 
-    // WHATSAPP
+    // 📲 WHATSAPP
     document.getElementById("btn-finalizar").onclick = () => {
         if (!produtoAtual) return;
 
@@ -89,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarDados();
 });
 
-// DATA
+// 📦 CARREGAR DADOS
 async function carregarDados() {
     try {
         const [resP, resA] = await Promise.all([
@@ -104,11 +121,11 @@ async function carregarDados() {
 
         renderizar();
     } catch (e) {
-        console.error("Erro no JSON:", e);
+        console.error("Erro ao carregar JSON:", e);
     }
 }
 
-// 🔥 RENDER CORRIGIDO
+// 🎯 RENDER
 function renderizar() {
     const grid = document.getElementById("product-grid");
     if (!grid) return;
@@ -118,6 +135,13 @@ function renderizar() {
     const termo = normalizar(document.getElementById("input-busca")?.value);
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
+    // 🔥 DETECTA FILTRO ATIVO (corrige conflito com vibe)
+    const temFiltroAtivo =
+        filtrosState.tamanho ||
+        filtrosState.genero ||
+        filtrosState.preco ||
+        termo;
+
     const filtrados = produtos.filter(p => {
 
         const nome = normalizar(p.nome);
@@ -125,6 +149,7 @@ function renderizar() {
         const modelo = normalizar(p.modelo);
         const slug = normalizar(p.categoriaSlug);
 
+        // 🔎 BUSCA
         const matchBusca =
             !termo ||
             nome.includes(termo) ||
@@ -132,13 +157,16 @@ function renderizar() {
             modelo.includes(termo) ||
             slug.includes(termo);
 
+        // 🎯 VIBE (corrigido)
         const matchVibe =
-            termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
+            temFiltroAtivo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
 
+        // 📏 TAMANHO
         const matchTamanho =
             !filtrosState.tamanho ||
             (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
 
+        // 👤 GÊNERO
         const generoFiltro = normalizar(filtrosState.genero);
         const modeloProduto = modelo;
 
@@ -147,6 +175,7 @@ function renderizar() {
             modeloProduto === generoFiltro ||
             modeloProduto === "unissex";
 
+        // 💰 PREÇO
         let matchPreco = true;
 
         if (filtrosState.preco === "0-100") {
@@ -165,17 +194,20 @@ function renderizar() {
         return;
     }
 
+    // 🧩 CARDS
     filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "card";
 
+        // 🔥 CARD MELHORADO
         card.innerHTML = `
             <div class="card-img-container">
-                <img src="${p.imagem}" loading="lazy">
+                <img src="${p.imagem}" loading="lazy" alt="${p.nome}">
             </div>
-            <div style="padding:12px">
+
+            <div class="card-content">
                 <h3>${p.nome}</h3>
-                <p style="color:var(--magenta);font-weight:bold">R$ ${p.preco}</p>
+                <div class="card-price">R$ ${p.preco}</div>
             </div>
         `;
 
@@ -184,7 +216,7 @@ function renderizar() {
     });
 }
 
-// 🔥 MODAL
+// 🪟 MODAL
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -206,7 +238,7 @@ function abrirModal(p) {
         div.innerHTML = `
             <label style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
-                <img src="${acc.imagem}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;">
+                <img src="${acc.imagem}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">
                 <span>${acc.nome} (+ R$ ${acc.preco})</span>
             </label>
         `;
@@ -223,7 +255,7 @@ function abrirModal(p) {
     document.getElementById("modal").classList.remove("hidden");
 }
 
-// 🔥 REGRA DE NEGÓCIO
+// 💰 REGRA DE NEGÓCIO (DESCONTO)
 function atualizarPrecoTotal() {
     let precoBase = parseFloat(produtoAtual.preco);
     let totalAcc = 0;
