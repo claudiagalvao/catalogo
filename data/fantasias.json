@@ -28,10 +28,47 @@
 
     "upsell": [
       "a-luva-branca",
-      "a-oculos-gatinho-rosa",
-      "a-oculos-aviador"
+      "a-oculos-gatinho-branco",
+      "a-meia-calca-branca"
     ],
 
     "destaque": true
   }
+
+
+
+ {
+    "id": "m-luff",
+    "nome": "Luff",
+    "categoria": "pop",
+    "categoriaSlug": "pop",
+    "tipo": "fantasia",
+    "modelo": "Masculino",
+
+    "descricao": "Visual ousado e aventureiro, ideal para festas temáticas, cosplay e eventos cheios de atitude.",
+
+    "tamanhos": ["P"],
+
+    "preco": 250,
+
+    "imagem": "assets/images/luff.jpg",
+    "thumb": "assets/images/luff-thumb.jpg",
+
+    "tags": [
+      "luff",
+      "anime",
+      "cosplay",
+      "masculina",
+      "temática",
+      "halloween",
+      "festa",
+      "fantasia",
+      "onepiece",
+    ],
+
+    "destaque": true
+  }
+
+
+  
 ]
