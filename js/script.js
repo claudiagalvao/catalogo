@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
         el.onclick = () => {
             const vibe = el.dataset.vibe;
+
             document.querySelectorAll(".vibe-btn").forEach(b => b.classList.remove("active"));
             document.querySelector(`.vibe-btn[data-vibe="${vibe}"]`)?.classList.add("active");
 
@@ -25,43 +26,38 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // DROPDOWN (CORRIGIDO)
-  // DROPDOWN (CORRIGIDO)
-document.querySelectorAll(".custom-select").forEach(select => {
-    const selected = select.querySelector(".selected");
-    const options = select.querySelector(".options");
+    // 🔥 DROPDOWN CORRIGIDO
+    document.querySelectorAll(".custom-select").forEach(select => {
+        const selected = select.querySelector(".selected");
+        const options = select.querySelector(".options");
 
-    selected.onclick = (e) => {
-        e.stopPropagation();
-        // Fecha outros que estiverem abertos antes de abrir o atual
-        document.querySelectorAll(".custom-select").forEach(s => {
-            if (s !== select) s.classList.remove("open");
-        });
-        select.classList.toggle("open");
-    };
-
-    options.querySelectorAll("div").forEach(opt => {
-        opt.onclick = (e) => {
+        selected.onclick = (e) => {
             e.stopPropagation();
-
-            // CAPTURA DOS VALORES
-            const value = opt.dataset.value || "";
-            const filterType = select.getAttribute("data-filter"); // Pega se é 'tamanho', 'preco' ou 'genero'
-
-            if (filterType) {
-                filtrosState[filterType] = value;
-                console.log(`Filtro atualizado: ${filterType} = ${value}`); // Para você testar no console
-            }
-
-            // Interface
-            selected.innerText = opt.innerText;
-            select.classList.remove("open");
-
-            // Dispara a atualização da tela
-            renderizar();
+            document.querySelectorAll(".custom-select").forEach(s => {
+                if (s !== select) s.classList.remove("open");
+            });
+            select.classList.toggle("open");
         };
+
+        options.querySelectorAll("div").forEach(opt => {
+            opt.onclick = (e) => {
+                e.stopPropagation();
+
+                const filterType = select.getAttribute("data-filter");
+                const value = opt.dataset.value ? opt.dataset.value.toString().trim() : "";
+
+                if (filterType) {
+                    filtrosState[filterType] = value;
+                }
+
+                selected.innerText = opt.innerText;
+                select.classList.remove("open");
+
+                renderizar();
+            };
+        });
     });
-});
+
     // FECHAR MODAL + DROPDOWN
     const fecharModal = () => document.getElementById("modal").classList.add("hidden");
 
@@ -112,7 +108,7 @@ async function carregarDados() {
     }
 }
 
-// RENDER
+// 🔥 RENDER CORRIGIDO
 function renderizar() {
     const grid = document.getElementById("product-grid");
     if (!grid) return;
@@ -122,62 +118,48 @@ function renderizar() {
     const termo = normalizar(document.getElementById("input-busca")?.value);
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
-
-    
-    
-    
     const filtrados = produtos.filter(p => {
 
-    const nome = normalizar(p.nome);
-    const categoria = normalizar(p.categoria);
-    const modelo = normalizar(p.modelo);
-    const slug = normalizar(p.categoriaSlug);
+        const nome = normalizar(p.nome);
+        const categoria = normalizar(p.categoria);
+        const modelo = normalizar(p.modelo);
+        const slug = normalizar(p.categoriaSlug);
 
-    // 🔎 BUSCA
-    const matchBusca =
-        !termo ||
-        nome.includes(termo) ||
-        categoria.includes(termo) ||
-        modelo.includes(termo) ||
-        slug.includes(termo);
+        const matchBusca =
+            !termo ||
+            nome.includes(termo) ||
+            categoria.includes(termo) ||
+            modelo.includes(termo) ||
+            slug.includes(termo);
 
-    // 🎯 VIBE
-    const matchVibe =
-        termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
+        const matchVibe =
+            termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
 
-    // 📏 TAMANHO
-    const matchTamanho =
-        !filtrosState.tamanho ||
-        (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
+        const matchTamanho =
+            !filtrosState.tamanho ||
+            (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
 
-    // 👤 GÊNERO (CORRIGIDO)
-    const generoFiltro = normalizar(filtrosState.genero);
-    const modeloProduto = normalizar(p.modelo);
+        const generoFiltro = normalizar(filtrosState.genero);
+        const modeloProduto = modelo;
 
-    const matchGenero =
-        !generoFiltro ||
-        modeloProduto === generoFiltro ||
-        modeloProduto === "unissex";
+        const matchGenero =
+            !generoFiltro ||
+            modeloProduto === generoFiltro ||
+            modeloProduto === "unissex";
 
-    // 💰 PREÇO (CORRIGIDO)
-    let matchPreco = true;
+        let matchPreco = true;
 
-    if (filtrosState.preco === "0-100") {
-        matchPreco = p.preco <= 100;
-    } else if (filtrosState.preco === "100-150") {
-        matchPreco = p.preco > 100 && p.preco <= 150;
-    } else if (filtrosState.preco === "150+") {
-        matchPreco = p.preco > 150;
-    }
+        if (filtrosState.preco === "0-100") {
+            matchPreco = Number(p.preco) <= 100;
+        } else if (filtrosState.preco === "100-150") {
+            matchPreco = Number(p.preco) > 100 && Number(p.preco) <= 150;
+        } else if (filtrosState.preco === "150+") {
+            matchPreco = Number(p.preco) > 150;
+        }
 
-    return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
-});
+        return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
+    });
 
-
-
-
-
-    
     if (!filtrados.length) {
         grid.innerHTML = `<p style="text-align:center;color:#888">Nenhuma fantasia encontrada</p>`;
         return;
@@ -202,7 +184,7 @@ function renderizar() {
     });
 }
 
-// 🔥 MODAL MELHORADO
+// 🔥 MODAL
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -241,7 +223,7 @@ function abrirModal(p) {
     document.getElementById("modal").classList.remove("hidden");
 }
 
-// 🔥 REGRA DE NEGÓCIO (AGORA SIM)
+// 🔥 REGRA DE NEGÓCIO
 function atualizarPrecoTotal() {
     let precoBase = parseFloat(produtoAtual.preco);
     let totalAcc = 0;
