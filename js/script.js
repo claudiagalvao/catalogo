@@ -42,7 +42,8 @@ const genero = filtrosState.genero;
         const matchVibe = !vibeAtiva || p.categoriaSlug === vibeAtiva;
         const matchBusca = termo === "" || 
     p.nome.toLowerCase().includes(termo) ||
-    (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
+    (p.tags && p.tags.some(t => t.toLowerCase().includes(termo))) ||
+    (p.categoriaSlug && p.categoriaSlug.toLowerCase().includes(termo));
 
         const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
         const matchGenero = !genero || p.genero === genero;
