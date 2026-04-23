@@ -1,8 +1,6 @@
 /* ========================================
-   CRAZY FANTASY - ESTILO OFICIAL 2026
-   Vibe: Cyberpunk / Netflix Style
-   ========================================
-*/
+   CRAZY FANTASY - ESTILO PREMIUM 2026
+   ======================================== */
 
 :root { 
     --bg: #050505; 
@@ -13,10 +11,12 @@
     --text-gray: #b3b3b3;
 }
 
+* { box-sizing: border-box; }
+
 body { 
     background: var(--bg); 
     color: #fff; 
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Inter', -apple-system, sans-serif; 
     margin: 0; 
     overflow-x: hidden; 
 }
@@ -24,436 +24,143 @@ body {
 .container { 
     max-width: 1200px; 
     margin: auto; 
-    padding: 0 20px; 
+    padding: 0 15px; 
 }
 
-/* HERO BANNER */
-.hero-banner img { 
-    width: 100%; 
-    display: block; 
-}
+/* HERO */
+.hero-banner img { width: 100%; display: block; object-fit: cover; }
 
-/* SEÇÃO DE VIBES */
+/* VIBES */
 .vibe-section h2 {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-top: 30px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    text-align: center; font-size: 1rem; margin: 30px 0 20px;
+    letter-spacing: 3px; color: var(--text-gray);
 }
 
 .vibe-grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-    gap: 15px; 
-    margin: 20px 0; 
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
+    gap: 10px; 
+}
+
+@media (min-width: 768px) {
+    .vibe-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 .vibe-btn { 
-    background: #111; 
-    border: 1px solid #333; 
-    padding: 15px; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    transition: 0.3s; 
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    text-align: center;
+    background: #111; border: 1px solid #222; padding: 12px;
+    border-radius: 12px; cursor: pointer; transition: 0.3s;
+    color: #fff; display: flex; flex-direction: column; align-items: center;
 }
-
-.vibe-btn strong { font-size: 14px; text-transform: uppercase; }
-.vibe-btn span { font-size: 11px; color: #666; }
 
 .vibe-btn.active { 
     border-color: var(--magenta); 
-    box-shadow: 0 0 15px var(--magenta); 
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
 }
 
-/* BUSCA E FILTROS */
+/* BUSCA E FILTROS RESPONSIVOS */
+.search-filter-container { margin: 30px auto; }
+
 .search-filter {
-    display: flex;
-    align-items: center;
-    background: #0d0d0d;
-    border-radius: 50px;
-    padding: 10px 16px;
-    gap: 15px;
-    border: 1px solid rgba(255,255,255,0.05);
+    display: flex; flex-direction: column; /* Coluna no mobile */
+    background: #0d0d0d; border-radius: 20px; padding: 15px;
+    gap: 15px; border: 1px solid rgba(255,255,255,0.05);
 }
 
-.search-input {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    gap: 10px;
+@media (min-width: 768px) {
+    .search-filter { flex-direction: row; border-radius: 50px; padding: 10px 25px; }
 }
 
-.search-input i {
-    color: #666;
+.search-input { display: flex; align-items: center; flex: 1; gap: 10px; }
+.search-input input { 
+    background: transparent; border: none; outline: none; 
+    color: white; width: 100%; font-size: 16px; /* Evita zoom no iPhone */
 }
 
-.search-input input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-    width: 100%;
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.custom-select { flex: 1; min-width: 100px; position: relative; }
+
+.selected {
+    background: #1a1a1a; border: 1px solid #333; border-radius: 12px;
+    padding: 10px 12px; font-size: 13px; cursor: pointer; text-align: center;
 }
 
-.divider {
-    width: 1px;
-    height: 24px;
-    background: rgba(255,255,255,0.1);
+.options {
+    position: absolute; top: 110%; left: 0; width: 100%;
+    background: #151515; border: 1px solid #333; border-radius: 10px;
+    display: none; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
-.search-filter select {
-    background: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    outline: none;
-    font-size: 14px;
-}
+.custom-select.open .options { display: block; }
+.options div { padding: 12px; font-size: 14px; border-bottom: 1px solid #222; }
+.options div:hover { background: var(--magenta); }
 
-/* hover neon */
-.search-filter:hover {
-    box-shadow: 0 0 10px rgba(255, 0, 85, 0.15);
-}
-
-/* CATEGORIAS EM LINHA */
-.collections-grid { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 15px; 
-    margin-bottom: 40px; 
-}
-
-.col-item img { 
-    width: 100%; 
-    border-radius: 15px; 
-    cursor: pointer; 
-    transition: 0.3s; 
-    border: 2px solid transparent; 
-}
-
-.col-item:hover img { 
-    border-color: var(--neon); 
-    transform: scale(1.03); 
-}
-
-/* ========================================
-   CARDS DE PRODUTO (MAIS VIDA)
-   ========================================
-*/
+/* GRID DE PRODUTOS */
 .product-grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-    gap: 25px; 
-    padding: 20px 0;
+    grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no celular */
+    gap: 15px; 
+}
+
+@media (min-width: 768px) {
+    .product-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
 }
 
 .card { 
-    background: var(--card-bg); 
-    backdrop-filter: blur(10px);
-    border-radius: 20px; 
-    overflow: hidden; 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    cursor: pointer;
-    position: relative;
+    background: var(--card-bg); border-radius: 15px; overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05); transition: 0.3s;
 }
 
-.card:hover { 
-    transform: translateY(-10px) scale(1.02); 
-    border-color: var(--magenta); 
-    box-shadow: 0 15px 30px rgba(255, 0, 85, 0.25); 
-}
+.card:active { transform: scale(0.98); } /* Feedback de toque */
 
-.card-img-container {
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    background: #111;
-}
+.card-img-container { aspect-ratio: 3/4; overflow: hidden; }
+.card img { width: 100%; height: 100%; object-fit: cover; }
 
-.card img { 
-    width: 100%; 
-    height: 100%;
-    object-fit: cover; 
-    transition: transform 0.6s ease;
-}
-
-.card:hover img { 
-    transform: scale(1.1); 
-}
-
-.card .info { 
-    padding: 20px; 
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-
-.card h3 { 
-    font-size: 17px; 
-    margin: 0 0 8px 0; 
-    color: #fff;
-    font-weight: 600;
-}
-
-.card .price { 
-    color: var(--magenta); 
-    font-size: 19px; 
-    font-weight: bold;
-}
-
-/* ========================================
-   MODAL E BOTÃO WHATSAPP NEON
-   ========================================
-*/
-.modal { 
-    position: fixed; 
-    inset: 0; 
-    background: rgba(0,0,0,0.92); 
-    z-index: 1000; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 20px; 
-}
-
-.hidden { display: none !important; }
-
-.modal-content { 
-    background: #0a0a0a; 
-    padding: 30px; 
-    border-radius: 20px; 
-    max-width: 850px; 
-    width: 100%; 
-    position: relative; 
-    border: 1px solid #222; 
-}
-
-.modal-layout { display: flex; gap: 30px; flex-wrap: wrap; }
-.modal-left img { width: 100%; max-width: 320px; border-radius: 10px; }
-.modal-right { flex: 1; min-width: 300px; }
-
-/* Botão WhatsApp com Efeito de Pulso */
-.btn-whatsapp-neon {
-    background-color: var(--whatsapp);
-    color: #fff;
-    padding: 16px 25px;
-    border-radius: 50px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
+/* MODAL MOBILE-FIRST */
+.modal {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+    z-index: 2000; display: flex; align-items: flex-end; /* Abre de baixo no mobile */
     justify-content: center;
-    gap: 10px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    margin-top: 20px;
-    width: 100%;
-    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
-    animation: pulse-whatsapp 2s infinite;
 }
 
-.btn-whatsapp-neon:hover {
-    transform: scale(1.03);
-    background-color: #1ebe57;
-    box-shadow: 0 0 25px rgba(37, 211, 102, 0.7);
+@media (min-width: 768px) {
+    .modal { align-items: center; padding: 20px; }
 }
 
-@keyframes pulse-whatsapp {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+.modal-content {
+    background: #0d0d0d; width: 100%; max-height: 90vh;
+    border-radius: 25px 25px 0 0; padding: 25px;
+    overflow-y: auto; position: relative;
 }
 
-.close { 
-    position: absolute; 
-    top: 15px; 
-    right: 20px; 
-    font-size: 30px; 
-    cursor: pointer; 
-    color: #fff;
+@media (min-width: 768px) {
+    .modal-content { border-radius: 20px; max-width: 800px; }
 }
 
-/* RODAPÉ */
-.main-footer { 
-    background: #000; 
-    padding: 60px 0 20px; 
-    border-top: 1px solid #111; 
-    margin-top: 50px; 
-    text-align: center; 
+.close { position: absolute; top: 15px; right: 20px; font-size: 32px; color: #fff; z-index: 10; }
+
+.modal-layout { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 768px) { .modal-layout { flex-direction: row; } }
+
+.modal-left img { width: 100%; border-radius: 15px; }
+
+/* ACESSÓRIOS */
+#acessorios-container { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+.acc-item label { 
+    display: flex; align-items: center; gap: 10px; 
+    background: #1a1a1a; padding: 12px; border-radius: 10px; cursor: pointer;
 }
 
-.footer-top { 
-    display: flex; 
-    justify-content: space-around; 
-    margin-bottom: 40px; 
-    flex-wrap: wrap;
-    gap: 20px;
+/* WHATSAPP NEON */
+.btn-whatsapp-neon {
+    background: var(--whatsapp); color: #fff; padding: 18px;
+    border-radius: 15px; font-weight: bold; border: none; width: 100%;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
-.benefit i { 
-    color: var(--magenta); 
-    margin-bottom: 10px; 
-    font-size: 26px; 
-    display: block; 
-}
+.btn-whatsapp-neon:active { transform: scale(0.95); }
 
-.benefit span { color: #888; font-size: 14px; }
-
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-    .collections-grid { grid-template-columns: repeat(2, 1fr); }
-    .modal-layout { flex-direction: column; align-items: center; }
-    .modal-left img { max-width: 100%; }
-}
-
-
-
-
-
-
-
-/* ========================================
-   CORREÇÃO PREMIUM - BUSCA + FILTRO
-======================================== */
-
-.filter-box {
-    display: flex;
-    gap: 10px;
-}
-
-.filter-box select {
-    background: #111;
-    border: 1px solid #333;
-    padding: 12px 15px;
-    border-radius: 25px;
-    color: #fff;
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-    height: 44px;
-}
-
-/* seta custom */
-.filter-box select {
-    background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 35px;
-}
-
-/* alinhamento com input */
-.search-box input {
-    height: 44px;
-}
-
-/* foco neon */
-.filter-box select:focus {
-    border-color: var(--neon);
-    box-shadow: 0 0 8px var(--neon);
-}
-
-/* ativo (feedback visual) */
-.filter-box select:valid {
-    border-color: var(--magenta);
-    box-shadow: 0 0 6px rgba(255, 0, 85, 0.4);
-}
-
-/* contador */
-#resultado-count {
-    margin-bottom: 10px;
-    color: var(--text-gray);
-    font-size: 13px;
-}
-
-
-
-
-
-
-
-/* ========================================
-   DROPDOWN PREMIUM
-======================================== */
-
-.filters {
-    display: flex;
-    gap: 10px;
-}
-
-.custom-select {
-    position: relative;
-    min-width: 120px;
-    font-size: 14px;
-}
-
-.selected {
-    background: #111;
-    border: 1px solid #333;
-    border-radius: 25px;
-    padding: 10px 35px 10px 15px;
-    cursor: pointer;
-    color: #fff;
-    position: relative;
-}
-
-/* seta */
-.selected::after {
-    content: "▾";
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    color: #888;
-}
-
-/* dropdown */
-.options {
-    position: absolute;
-    top: 120%;
-    left: 0;
-    width: 100%;
-    background: #0d0d0d;
-    border: 1px solid #222;
-    border-radius: 12px;
-    overflow: hidden;
-    display: none;
-    z-index: 20;
-    animation: fadeIn 0.2s ease;
-}
-
-.options div {
-    padding: 10px 12px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.options div:hover {
-    background: var(--magenta);
-}
-
-/* aberto */
-.custom-select.open .options {
-    display: block;
-}
-
-/* glow */
-.custom-select.open .selected {
-    border-color: var(--magenta);
-    box-shadow: 0 0 8px rgba(255,0,85,0.4);
-}
-
-/* animação */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* UTILITÁRIOS */
+.hidden { display: none !important; }
+.hide-mobile { display: none; }
+@media (min-width: 768px) { .hide-mobile { display: block; } }
