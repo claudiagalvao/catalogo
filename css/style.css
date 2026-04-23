@@ -373,3 +373,87 @@ body {
     color: var(--text-gray);
     font-size: 13px;
 }
+
+
+
+
+
+
+
+/* ========================================
+   DROPDOWN PREMIUM
+======================================== */
+
+.filters {
+    display: flex;
+    gap: 10px;
+}
+
+.custom-select {
+    position: relative;
+    min-width: 120px;
+    font-size: 14px;
+}
+
+.selected {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 25px;
+    padding: 10px 35px 10px 15px;
+    cursor: pointer;
+    color: #fff;
+    position: relative;
+}
+
+/* seta */
+.selected::after {
+    content: "▾";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #888;
+}
+
+/* dropdown */
+.options {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+    display: none;
+    z-index: 20;
+    animation: fadeIn 0.2s ease;
+}
+
+.options div {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.options div:hover {
+    background: var(--magenta);
+}
+
+/* aberto */
+.custom-select.open .options {
+    display: block;
+}
+
+/* glow */
+.custom-select.open .selected {
+    border-color: var(--magenta);
+    box-shadow: 0 0 8px rgba(255,0,85,0.4);
+}
+
+/* animação */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
