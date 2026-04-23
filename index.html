@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Crazy Fantasy | Catálogo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -30,18 +30,15 @@
             <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
         </div>
 
-        <div class="divider hide-mobile"></div>
+        <div class="divider"></div>
 
         <div class="filters">
             <div class="custom-select" data-filter="tamanho">
                 <div class="selected">Tamanho</div>
                 <div class="options">
                     <div data-value="">Todos</div>
-                    <div data-value="PP">PP</div>
-                    <div data-value="P">P</div>
-                    <div data-value="M">M</div>
-                    <div data-value="G">G</div>
-                    <div data-value="GG">GG</div>
+                    <div data-value="PP">PP</div><div data-value="P">P</div><div data-value="M">M</div>
+                    <div data-value="G">G</div><div data-value="GG">GG</div>
                 </div>
             </div>
 
@@ -50,8 +47,8 @@
                 <div class="options">
                     <div data-value="">Todos</div>
                     <div data-value="0-100">Até R$100</div>
-                    <div data-value="100-150">R$100 - R$150</div>
-                    <div data-value="150+">Acima de R$150</div>
+                    <div data-value="100-150">R$100-150</div>
+                    <div data-value="150+">150+</div>
                 </div>
             </div>
 
@@ -59,9 +56,8 @@
                 <div class="selected">Gênero</div>
                 <div class="options">
                     <div data-value="">Todos</div>
-                    <div data-value="feminino">Feminino</div>
-                    <div data-value="masculino">Masculino</div>
-                    <div data-value="unissex">Unissex</div>
+                    <div data-value="feminino">Fem</div>
+                    <div data-value="masculino">Masc</div>
                 </div>
             </div>
         </div>
@@ -87,42 +83,16 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="modal-layout">
-            <div class="modal-left">
-                <img id="modal-img" src="" alt="Produto">
-            </div>
+            <div class="modal-left"><img id="modal-img" src=""></div>
             <div class="modal-right">
                 <h3 id="modal-nome"></h3>
-                <p id="modal-desc" style="color: #888; font-size: 14px; margin-bottom: 15px;"></p>
-
-                <div class="price-container">
-                    <span id="total-modal" class="new-price">R$ 0,00</span>
-                </div>
-
-                <div class="upsell-container">
-                    <h4>✨ ADICIONE ACESSÓRIOS:</h4>
-                    <div id="acessorios-container"></div>
-                </div>
-
-                <button id="btn-finalizar" class="btn-whatsapp-neon">
-                    <i class="fab fa-whatsapp"></i> RESERVAR AGORA
-                </button>
+                <div class="price-container"><span id="total-modal" class="new-price"></span></div>
+                <div id="acessorios-container"></div>
+                <button id="btn-finalizar" class="btn-whatsapp-neon">RESERVAR NO WHATSAPP</button>
             </div>
         </div>
     </div>
 </div>
-
-<footer class="main-footer">
-    <div class="footer-top container">
-        <div class="benefit"><i class="fa fa-truck"></i><span>Entrega Rápida</span></div>
-        <div class="benefit"><i class="fa fa-lock"></i><span>Segurança Total</span></div>
-        <div class="benefit">
-            <a href="https://wa.me/5519992850208" target="_blank">
-                <i class="fa fa-headset"></i><span>Suporte VIP</span>
-            </a>
-        </div>
-    </div>
-    <p>© 2026 Crazy Fantasy - Todos os direitos reservados</p>
-</footer>
 
 <script src="js/script.js"></script>
 </body>
