@@ -500,25 +500,5 @@ body {
 
 
 
-/* SWIPE MOBILE */
-@media (max-width: 768px) {
 
-    .product-grid {
-        display: flex;
-        overflow-x: auto;
-        gap: 15px;
-        padding-bottom: 10px;
-        scroll-snap-type: x mandatory;
-    }
-
-    .card {
-        min-width: 70%;
-        scroll-snap-align: center;
-        flex-shrink: 0;
-    }
-
-    /* remove scrollbar feia */
-    .product-grid::-webkit-scrollbar {
-        display: none;
-    }
 }
