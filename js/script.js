@@ -283,37 +283,3 @@ function atualizarPrecoTotal() {
     `;
 }
 
-// ========================================
-// SWIPE UX - MOBILE
-// ========================================
-
-function ativarSwipeMobile() {
-    const grid = document.getElementById("product-grid");
-    if (!grid) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    grid.addEventListener("touchstart", (e) => {
-        isDown = true;
-        startX = e.touches[0].pageX - grid.offsetLeft;
-        scrollLeft = grid.scrollLeft;
-    });
-
-    grid.addEventListener("touchend", () => {
-        isDown = false;
-    });
-
-    grid.addEventListener("touchmove", (e) => {
-        if (!isDown) return;
-
-        const x = e.touches[0].pageX - grid.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        grid.scrollLeft = scrollLeft - walk;
-    });
-}
-
-if (window.innerWidth <= 768) {
-    ativarSwipeMobile();
-}
