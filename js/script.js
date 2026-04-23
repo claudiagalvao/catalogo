@@ -23,10 +23,8 @@ function normalizar(t) {
 // 🚀 INIT
 document.addEventListener("DOMContentLoaded", () => {
 
-    // 🔎 BUSCA
     document.getElementById("input-busca")?.addEventListener("input", renderizar);
 
-    // 🎯 VIBES
     document.querySelectorAll(".vibe-btn, .col-item").forEach(el => {
         el.onclick = () => {
             const vibe = el.dataset.vibe;
@@ -41,18 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // 🎛️ DROPDOWN (FILTROS)
     document.querySelectorAll(".custom-select").forEach(select => {
         const selected = select.querySelector(".selected");
         const options = select.querySelector(".options");
 
         selected.onclick = (e) => {
             e.stopPropagation();
-
             document.querySelectorAll(".custom-select").forEach(s => {
                 if (s !== select) s.classList.remove("open");
             });
-
             select.classList.toggle("open");
         };
 
@@ -63,9 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const filterType = select.getAttribute("data-filter");
                 const value = opt.dataset.value ? opt.dataset.value.toString().trim() : "";
 
-                if (filterType) {
-                    filtrosState[filterType] = value;
-                }
+                if (filterType) filtrosState[filterType] = value;
 
                 selected.innerText = opt.innerText;
                 select.classList.remove("open");
@@ -75,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ❌ FECHAR MODAL + DROPDOWN
     const fecharModal = () => document.getElementById("modal").classList.add("hidden");
 
     document.querySelector(".close")?.addEventListener("click", fecharModal);
@@ -85,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".custom-select").forEach(s => s.classList.remove("open"));
     });
 
-    // 📲 WHATSAPP
     document.getElementById("btn-finalizar").onclick = () => {
         if (!produtoAtual) return;
 
@@ -135,7 +126,6 @@ function renderizar() {
     const termo = normalizar(document.getElementById("input-busca")?.value);
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
-    // 🔥 DETECTA FILTRO ATIVO (corrige conflito com vibe)
     const temFiltroAtivo =
         filtrosState.tamanho ||
         filtrosState.genero ||
@@ -149,7 +139,6 @@ function renderizar() {
         const modelo = normalizar(p.modelo);
         const slug = normalizar(p.categoriaSlug);
 
-        // 🔎 BUSCA
         const matchBusca =
             !termo ||
             nome.includes(termo) ||
@@ -157,25 +146,20 @@ function renderizar() {
             modelo.includes(termo) ||
             slug.includes(termo);
 
-        // 🎯 VIBE (corrigido)
         const matchVibe =
             temFiltroAtivo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
 
-        // 📏 TAMANHO
         const matchTamanho =
             !filtrosState.tamanho ||
             (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
 
-        // 👤 GÊNERO
         const generoFiltro = normalizar(filtrosState.genero);
-        const modeloProduto = modelo;
 
         const matchGenero =
             !generoFiltro ||
-            modeloProduto === generoFiltro ||
-            modeloProduto === "unissex";
+            normalizar(p.modelo) === generoFiltro ||
+            normalizar(p.modelo) === "unissex";
 
-        // 💰 PREÇO
         let matchPreco = true;
 
         if (filtrosState.preco === "0-100") {
@@ -194,12 +178,10 @@ function renderizar() {
         return;
     }
 
-    // 🧩 CARDS
     filtrados.forEach(p => {
         const card = document.createElement("div");
         card.className = "card";
 
-        // 🔥 CARD MELHORADO
         card.innerHTML = `
             <div class="card-img-container">
                 <img src="${p.imagem}" loading="lazy" alt="${p.nome}">
@@ -236,10 +218,16 @@ function abrirModal(p) {
         const div = document.createElement("div");
 
         div.innerHTML = `
-            <label style="display:flex; align-items:center; gap:10px;">
+            <label class="acc-item">
                 <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
-                <img src="${acc.imagem}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">
-                <span>${acc.nome} (+ R$ ${acc.preco})</span>
+                
+                <img src="${acc.imagem}" 
+                     onerror="this.src='assets/images/placeholder.jpg'">
+
+                <div class="acc-info">
+                    <span>${acc.nome}</span>
+                    <span class="acc-preco">+ R$ ${acc.preco}</span>
+                </div>
             </label>
         `;
 
@@ -255,7 +243,7 @@ function abrirModal(p) {
     document.getElementById("modal").classList.remove("hidden");
 }
 
-// 💰 REGRA DE NEGÓCIO (DESCONTO)
+// 💰 REGRA DE NEGÓCIO
 function atualizarPrecoTotal() {
     let precoBase = parseFloat(produtoAtual.preco);
     let totalAcc = 0;
@@ -276,8 +264,8 @@ function atualizarPrecoTotal() {
     valorFinalGlobal = total.toFixed(2);
 
     document.getElementById("total-modal").innerHTML = `
-        ${desconto > 0 ? `<span style="text-decoration:line-through;color:#888">R$ ${precoBase.toFixed(2)}</span>` : ""}
-        <div style="color:var(--neon); font-size:26px;">R$ ${total.toFixed(2)}</div>
-        ${desconto > 0 ? `<div style="color:#00ff88;font-size:12px;">🔥 Você economiza ${(precoBase - precoComDesconto).toFixed(2)}</div>` : ""}
+        ${desconto > 0 ? `<div style="text-decoration:line-through;color:#666">R$ ${precoBase.toFixed(2)}</div>` : ""}
+        <div style="color:var(--neon); font-size:28px;">R$ ${total.toFixed(2)}</div>
+        ${desconto > 0 ? `<div style="color:#00ff88;font-size:13px;">🔥 Você economiza R$ ${(precoBase - precoComDesconto).toFixed(2)}</div>` : ""}
     `;
 }
