@@ -112,31 +112,62 @@ function renderizar() {
     const termo = normalizar(document.getElementById("input-busca")?.value);
     const vibeAtiva = document.querySelector(".vibe-btn.active")?.dataset.vibe;
 
+
+    
+    
+    
     const filtrados = produtos.filter(p => {
 
-        const matchBusca =
-            !termo ||
-            normalizar(p.nome).includes(termo) ||
-            normalizar(p.categoria).includes(termo);
+    const nome = normalizar(p.nome);
+    const categoria = normalizar(p.categoria);
+    const modelo = normalizar(p.modelo);
+    const slug = normalizar(p.categoriaSlug);
 
-        const matchVibe = termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
+    // 🔎 BUSCA
+    const matchBusca =
+        !termo ||
+        nome.includes(termo) ||
+        categoria.includes(termo) ||
+        modelo.includes(termo) ||
+        slug.includes(termo);
 
-        const matchTamanho =
-            !filtrosState.tamanho || p.tamanhos?.includes(filtrosState.tamanho);
+    // 🎯 VIBE
+    const matchVibe =
+        termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
 
-        const matchGenero =
-            !filtrosState.genero ||
-            normalizar(p.modelo) === normalizar(filtrosState.genero) ||
-            normalizar(p.modelo) === "unissex";
+    // 📏 TAMANHO
+    const matchTamanho =
+        !filtrosState.tamanho ||
+        (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
 
-        let matchPreco = true;
-        if (filtrosState.preco === "0-100") matchPreco = p.preco <= 100;
-        else if (filtrosState.preco === "100-150") matchPreco = p.preco > 100 && p.preco <= 150;
-        else if (filtrosState.preco === "150+") matchPreco = p.preco > 150;
+    // 👤 GÊNERO (CORRIGIDO)
+    const generoFiltro = normalizar(filtrosState.genero);
+    const modeloProduto = normalizar(p.modelo);
 
-        return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
-    });
+    const matchGenero =
+        !generoFiltro ||
+        modeloProduto === generoFiltro ||
+        modeloProduto === "unissex";
 
+    // 💰 PREÇO (CORRIGIDO)
+    let matchPreco = true;
+
+    if (filtrosState.preco === "0-100") {
+        matchPreco = p.preco <= 100;
+    } else if (filtrosState.preco === "100-150") {
+        matchPreco = p.preco > 100 && p.preco <= 150;
+    } else if (filtrosState.preco === "150+") {
+        matchPreco = p.preco > 150;
+    }
+
+    return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
+});
+
+
+
+
+
+    
     if (!filtrados.length) {
         grid.innerHTML = `<p style="text-align:center;color:#888">Nenhuma fantasia encontrada</p>`;
         return;
