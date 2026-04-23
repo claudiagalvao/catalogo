@@ -403,3 +403,95 @@ body {
         align-items: center;
     }
 }
+
+
+
+
+
+
+/* ========================================
+   MOBILE FIXES - CRAZY FANTASY
+   ======================================== */
+
+@media (max-width: 768px) {
+
+    /* 🔎 SEARCH + FILTER */
+    .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 15px;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .filters {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .custom-select {
+        flex: 1;
+        min-width: 30%;
+    }
+
+    /* 🧍 CARDS */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card-content h3 {
+        font-size: 13px;
+    }
+
+    .card-price {
+        font-size: 13px;
+    }
+
+    /* 🪟 MODAL */
+    .modal {
+        padding: 10px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .modal-left img {
+        max-width: 100%;
+    }
+
+    /* 🔥 BOTÃO NÃO SUMIR */
+    .btn-whatsapp-neon {
+        position: sticky;
+        bottom: 10px;
+    }
+
+    /* 🦶 FOOTER */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-col {
+        margin-bottom: 10px;
+    }
+
+    .footer-top {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
