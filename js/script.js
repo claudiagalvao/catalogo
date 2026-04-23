@@ -280,3 +280,44 @@ function atualizarPrecoTotal() {
         ${desconto > 0 ? `<div style="color:#00ff88;font-size:13px;">🔥 Você economiza R$ ${(precoBase - precoComDesconto).toFixed(2)}</div>` : ""}
     `;
 }
+
+
+
+
+
+
+// ========================================
+// SWIPE UX - MOBILE
+// ========================================
+
+function ativarSwipeMobile() {
+    const grid = document.getElementById("product-grid");
+    if (!grid) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    grid.addEventListener("touchstart", (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - grid.offsetLeft;
+        scrollLeft = grid.scrollLeft;
+    });
+
+    grid.addEventListener("touchend", () => {
+        isDown = false;
+    });
+
+    grid.addEventListener("touchmove", (e) => {
+        if (!isDown) return;
+
+        const x = e.touches[0].pageX - grid.offsetLeft;
+        const walk = (x - startX) * 1.5; // velocidade
+        grid.scrollLeft = scrollLeft - walk;
+    });
+}
+
+// ativa só no mobile
+if (window.innerWidth <= 768) {
+    ativarSwipeMobile();
+}
