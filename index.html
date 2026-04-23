@@ -23,47 +23,55 @@
     </div>
 </section>
 
+<!-- 🔥 FILTROS CORRIGIDOS -->
 <section class="search-filter-container container">
-    <div class="search-filter-area">
-        <div class="search-group">
-            <div class="search-input">
-                <i class="fa fa-search"></i>
-                <input type="text" id="input-busca" placeholder="O que você procura? (ex: Pirata, Anos 80...)" autocomplete="off">
-            </div>
+    <div class="search-filter">
+
+        <div class="search-input">
+            <i class="fa fa-search"></i>
+            <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
         </div>
 
-        <div class="custom-select" data-filter="tamanho">
-            <div class="selected">Tamanho</div>
-            <div class="options">
-                <div data-value="">Todos os Tamanhos</div>
-                <div data-value="PP">Tamanho PP</div>
-                <div data-value="P">Tamanho P</div>
-                <div data-value="M">Tamanho M</div>
-                <div data-value="G">Tamanho G</div>
-                <div data-value="GG">Tamanho GG</div>
-                <div data-value="XG">Tamanho XG (Plus Size)</div>
-                <div data-value="Infantil">Infantil</div>
-            </div>
-        </div>
+        <div class="divider"></div>
 
-        <div class="custom-select" data-filter="genero">
-            <div class="selected">Gênero</div>
-            <div class="options">
-                <div data-value="">Todos</div>
-                <div data-value="feminino">Feminino</div>
-                <div data-value="masculino">Masculino</div>
-                <div data-value="unissex">Unissex</div>
-            </div>
-        </div>
+        <div class="filters">
 
-        <div class="custom-select" data-filter="preco">
-            <div class="selected">Faixa de Preço</div>
-            <div class="options">
-                <div data-value="">Qualquer valor</div>
-                <div data-value="0-100">Até R$ 100</div>
-                <div data-value="100-150">R$ 100 a R$ 150</div>
-                <div data-value="150+">Acima de R$ 150</div>
+            <!-- TAMANHO -->
+            <div class="custom-select" data-filter="tamanho">
+                <div class="selected">Tamanho</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="PP">PP</div>
+                    <div data-value="P">P</div>
+                    <div data-value="M">M</div>
+                    <div data-value="G">G</div>
+                    <div data-value="GG">GG</div>
+                    <div data-value="XG">Plus Size</div>
+                </div>
             </div>
+
+            <!-- GÊNERO -->
+            <div class="custom-select" data-filter="genero">
+                <div class="selected">Gênero</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="feminino">Feminino</div>
+                    <div data-value="masculino">Masculino</div>
+                    <div data-value="unissex">Unissex</div>
+                </div>
+            </div>
+
+            <!-- PREÇO -->
+            <div class="custom-select" data-filter="preco">
+                <div class="selected">Preço</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="0-100">Até R$100</div>
+                    <div data-value="100-150">R$100 - R$150</div>
+                    <div data-value="150+">Acima de R$150</div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -83,23 +91,28 @@
     <div id="product-grid" class="product-grid"></div>
 </main>
 
+<!-- 🔥 MODAL -->
 <div id="modal" class="modal hidden">
     <div class="modal-content">
         <span class="close">&times;</span>
+
         <div class="modal-layout">
+
             <div class="modal-left">
                 <img id="modal-img" src="" alt="Produto">
             </div>
+
             <div class="modal-right">
                 <h3 id="modal-nome"></h3>
-                <p id="modal-desc" style="color: #888; font-size: 14px; margin-bottom: 15px;"></p>
+
+                <p id="modal-desc" style="color:#888; font-size:14px; margin-bottom:15px;"></p>
 
                 <div class="price-container">
-                    <div id="total-modal" class="new-price">R$ 0,00</div>
+                    <span id="total-modal" class="new-price">R$ 0,00</span>
                 </div>
 
                 <div class="upsell-container">
-                    <h4>✨ ADICIONE ACESSÓRIOS:</h4>
+                    <h4>✨ COMPLETE O LOOK:</h4>
                     <div id="acessorios-container"></div>
                 </div>
 
@@ -107,21 +120,35 @@
                     <i class="fab fa-whatsapp"></i> RESERVAR AGORA
                 </button>
             </div>
+
         </div>
     </div>
 </div>
 
+<!-- 🔥 FOOTER MELHORADO -->
 <footer class="main-footer">
     <div class="footer-top container">
-        <div class="benefit"><i class="fa fa-truck"></i><span>Entrega Rápida</span></div>
-        <div class="benefit"><i class="fa fa-lock"></i><span>Segurança Total</span></div>
         <div class="benefit">
-            <a href="https://wa.me/5519992850208" target="_blank">
-                <i class="fa fa-headset"></i><span>Suporte VIP</span>
+            <i class="fa fa-truck"></i>
+            <span>Entrega Rápida</span>
+        </div>
+
+        <div class="benefit">
+            <i class="fa fa-lock"></i>
+            <span>Pagamento Seguro</span>
+        </div>
+
+        <div class="benefit">
+            <a href="https://wa.me/5519992850208" target="_blank" style="color:inherit;text-decoration:none;">
+                <i class="fa fa-headset"></i>
+                <span>Suporte VIP</span>
             </a>
         </div>
     </div>
-    <p>© 2026 Crazy Fantasy - Todos os direitos reservados</p>
+
+    <div class="footer-content container">
+        <p>© 2026 Crazy Fantasy — Todos os direitos reservados</p>
+    </div>
 </footer>
 
 <script src="js/script.js"></script>
