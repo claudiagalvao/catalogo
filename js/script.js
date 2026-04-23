@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     });
 
-    // DROPDOWN
+    // DROPDOWN (CORRIGIDO)
     document.querySelectorAll(".custom-select").forEach(select => {
         const selected = select.querySelector(".selected");
         const options = select.querySelector(".options");
@@ -40,9 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
         options.querySelectorAll("div").forEach(opt => {
             opt.onclick = (e) => {
                 e.stopPropagation();
+
+                const value = opt.dataset.value || "";
+                filtrosState[select.dataset.filter] = value;
+
                 selected.innerText = opt.innerText;
-                filtrosState[select.dataset.filter] = opt.dataset.value;
                 select.classList.remove("open");
+
                 renderizar();
             };
         });
@@ -157,7 +161,7 @@ function renderizar() {
     });
 }
 
-// MODAL (CORRIGIDO)
+// 🔥 MODAL MELHORADO
 function abrirModal(p) {
     produtoAtual = p;
 
@@ -168,19 +172,19 @@ function abrirModal(p) {
     const accContainer = document.getElementById("acessorios-container");
     accContainer.innerHTML = "";
 
-    const lista = p.upsell || []; // 🔥 CORREÇÃO
+    const lista = p.upsell || [];
 
     lista.forEach(id => {
         const acc = acessoriosMap[id];
         if (!acc) return;
 
         const div = document.createElement("div");
-        div.className = "acc-item";
 
         div.innerHTML = `
-            <label>
+            <label style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" class="acc-check" data-preco="${acc.preco}" data-nome="${acc.nome}">
-                ${acc.nome} (+ R$ ${acc.preco})
+                <img src="${acc.imagem}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;">
+                <span>${acc.nome} (+ R$ ${acc.preco})</span>
             </label>
         `;
 
@@ -196,16 +200,29 @@ function abrirModal(p) {
     document.getElementById("modal").classList.remove("hidden");
 }
 
-// TOTAL
+// 🔥 REGRA DE NEGÓCIO (AGORA SIM)
 function atualizarPrecoTotal() {
-    let total = parseFloat(produtoAtual.preco);
+    let precoBase = parseFloat(produtoAtual.preco);
+    let totalAcc = 0;
 
-    document.querySelectorAll(".acc-check:checked").forEach(c => {
-        total += parseFloat(c.dataset.preco);
-    });
+    const checks = document.querySelectorAll(".acc-check:checked");
+    const qtd = checks.length;
+
+    checks.forEach(c => totalAcc += parseFloat(c.dataset.preco));
+
+    let desconto = 0;
+    if (qtd === 1) desconto = 0.05;
+    else if (qtd === 2) desconto = 0.08;
+    else if (qtd >= 3) desconto = 0.10;
+
+    const precoComDesconto = precoBase * (1 - desconto);
+    const total = precoComDesconto + totalAcc;
 
     valorFinalGlobal = total.toFixed(2);
 
-    document.getElementById("total-modal").innerText =
-        `R$ ${valorFinalGlobal}`;
+    document.getElementById("total-modal").innerHTML = `
+        ${desconto > 0 ? `<span style="text-decoration:line-through;color:#888">R$ ${precoBase.toFixed(2)}</span>` : ""}
+        <div style="color:var(--neon); font-size:26px;">R$ ${total.toFixed(2)}</div>
+        ${desconto > 0 ? `<div style="color:#00ff88;font-size:12px;">🔥 Você economiza ${(precoBase - precoComDesconto).toFixed(2)}</div>` : ""}
+    `;
 }
