@@ -1,141 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Crazy Fantasy | Catálogo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Crazy Fantasy | Catálogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <header class="hero-banner">
-  <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
+    <img src="assets/images/hero-banner.jpg" alt="Crazy Fantasy">
 </header>
 
 <section class="vibe-section container">
-  <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
-  <div class="vibe-grid">
-    <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
-    <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
-    <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
-    <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
-  </div>
+    <h2>QUAL VIBE VOCÊ QUER HOJE?</h2>
+    <div class="vibe-grid">
+        <button class="vibe-btn active" data-vibe="bad"><strong>IMPACTAR</strong><span>Chegue chegando</span></button>
+        <button class="vibe-btn" data-vibe="fun"><strong>DIVERTIR</strong><span>Alegria garantida</span></button>
+        <button class="vibe-btn" data-vibe="pop"><strong>BRILHAR</strong><span>Seja o centro</span></button>
+        <button class="vibe-btn" data-vibe="luxo"><strong>LUXO</strong><span>Sofisticação pura</span></button>
+    </div>
 </section>
 
 <section class="search-filter-container container">
-  <div class="search-filter">
+    <div class="search-filter">
+        <div class="search-input">
+            <i class="fa fa-search"></i>
+            <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
+        </div>
 
-    <div class="search-input">
-      <i class="fa fa-search"></i>
-      <input type="text" id="input-busca" placeholder="Buscar fantasia..." autocomplete="off">
+        <div class="divider hide-mobile"></div>
+
+        <div class="filters">
+            <div class="custom-select" data-filter="tamanho">
+                <div class="selected">Tamanho</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="PP">PP</div>
+                    <div data-value="P">P</div>
+                    <div data-value="M">M</div>
+                    <div data-value="G">G</div>
+                    <div data-value="GG">GG</div>
+                </div>
+            </div>
+
+            <div class="custom-select" data-filter="preco">
+                <div class="selected">Preço</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="0-100">Até R$100</div>
+                    <div data-value="100-150">R$100 - R$150</div>
+                    <div data-value="150+">Acima de R$150</div>
+                </div>
+            </div>
+
+            <div class="custom-select" data-filter="genero">
+                <div class="selected">Gênero</div>
+                <div class="options">
+                    <div data-value="">Todos</div>
+                    <div data-value="feminino">Feminino</div>
+                    <div data-value="masculino">Masculino</div>
+                    <div data-value="unissex">Unissex</div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="divider"></div>
-
-    <div class="filters">
-
-      <!-- TAMANHO -->
-      <div class="custom-select" data-filter="tamanho">
-        <div class="selected">Tamanho</div>
-        <div class="options">
-          <div data-value="">Todos</div>
-          <div data-value="PP">PP</div>
-          <div data-value="P">P</div>
-          <div data-value="M">M</div>
-          <div data-value="G">G</div>
-          <div data-value="GG">GG</div>
-        </div>
-      </div>
-
-      <!-- PREÇO -->
-      <div class="custom-select" data-filter="preco">
-        <div class="selected">Preço</div>
-        <div class="options">
-          <div data-value="">Todos</div>
-          <div data-value="0-100">Até R$100</div>
-          <div data-value="100-150">R$100 - R$150</div>
-          <div data-value="150+">Acima de R$150</div>
-        </div>
-      </div>
-
-      <!-- GÊNERO -->
-      <div class="custom-select" data-filter="genero">
-        <div class="selected">Gênero</div>
-        <div class="options">
-          <div data-value="">Todos</div>
-          <div data-value="feminino">Feminino</div>
-          <div data-value="masculino">Masculino</div>
-          <div data-value="unissex">Unissex</div>
-        </div>
-      </div>
-
-    </div>
-
-  </div> <!-- 🔥 fechamento corrigido -->
 </section>
 
 <p id="resultado-count" class="container"></p>
 
 <section class="collections container">
-  <div class="collections-grid">
-    <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
-    <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
-    <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
-    <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
-  </div>
+    <div class="collections-grid">
+        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
+        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
+        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
+        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
+    </div>
 </section>
 
 <main class="container">
-  <div id="product-grid" class="product-grid"></div>
+    <div id="product-grid" class="product-grid"></div>
 </main>
 
-<footer class="main-footer">
-  <div class="footer-top container">
-    <div class="benefit"><i class="fa fa-truck"></i><span>Disponibilidade Rápida</span></div>
-    <div class="benefit"><i class="fa fa-lock"></i><span>Pagamento Seguro</span></div>
-    <div class="benefit">
-      <a href="https://wa.me/5519992850208" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center;">
-        <i class="fa fa-headset"></i>
-        <span>Suporte VIP</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer-content container">
-    <p>© 2026 Crazy Fantasy - Catálogo de Fantasias</p> <!-- 🔥 corrigido -->
-  </div>
-</footer>
-
 <div id="modal" class="modal hidden">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="modal-layout">
-      <div class="modal-left">
-        <img id="modal-img" src="">
-      </div>
-      <div class="modal-right">
-        <h3 id="modal-nome"></h3>
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-layout">
+            <div class="modal-left">
+                <img id="modal-img" src="" alt="Produto">
+            </div>
+            <div class="modal-right">
+                <h3 id="modal-nome"></h3>
+                <p id="modal-desc" style="color: #888; font-size: 14px; margin-bottom: 15px;"></p>
 
-        <div class="price-container">
-          <span id="modal-preco-antigo" class="old-price"></span>
-          <span id="modal-preco-atual" class="new-price"></span>
+                <div class="price-container">
+                    <span id="total-modal" class="new-price">R$ 0,00</span>
+                </div>
+
+                <div class="upsell-container">
+                    <h4>✨ ADICIONE ACESSÓRIOS:</h4>
+                    <div id="acessorios-container"></div>
+                </div>
+
+                <button id="btn-finalizar" class="btn-whatsapp-neon">
+                    <i class="fab fa-whatsapp"></i> RESERVAR AGORA
+                </button>
+            </div>
         </div>
-
-        <div class="upsell-container">
-          <h4>🔥 COMPLETE O LOOK E GANHE DESCONTO:</h4>
-          <div id="upsell-list"></div>
-        </div>
-
-        <div id="resumo-financeiro"></div>
-
-        <button id="btn-finalizar" class="btn-whatsapp-neon">
-          RESERVAR NO WHATSAPP
-        </button>
-      </div>
     </div>
-  </div>
 </div>
+
+<footer class="main-footer">
+    <div class="footer-top container">
+        <div class="benefit"><i class="fa fa-truck"></i><span>Entrega Rápida</span></div>
+        <div class="benefit"><i class="fa fa-lock"></i><span>Segurança Total</span></div>
+        <div class="benefit">
+            <a href="https://wa.me/5519992850208" target="_blank">
+                <i class="fa fa-headset"></i><span>Suporte VIP</span>
+            </a>
+        </div>
+    </div>
+    <p>© 2026 Crazy Fantasy - Todos os direitos reservados</p>
+</footer>
 
 <script src="js/script.js"></script>
 </body>
