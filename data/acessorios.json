@@ -2,7 +2,7 @@
   {
     "id": "a-luva-branca",
     "nome": "Luva Branca",
-    "preco": 15,
+    "preco": 19,90,
     "imagem": "assets/images/luva-branca.jpg"
   },
   {
@@ -14,7 +14,7 @@
   {
     "id": "a-meia-calca-branca",
     "nome": "Meia-calça branca",
-    "preco": 25,
+    "preco": 29,90,
     "imagem": "assets/images/meia-calca-branca.jpg"
   }
 ]
