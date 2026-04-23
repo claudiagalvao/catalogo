@@ -31,7 +31,8 @@ function renderizar() {
 
     grid.innerHTML = "";
 
-    const termo = document.getElementById("input-busca")?.value?.toLowerCase() || "";
+   const inputBusca = document.getElementById("input-busca");
+const termo = inputBusca ? inputBusca.value.toLowerCase().trim() : "";
     const tamanho = filtrosState.tamanho;
 const precoRange = filtrosState.preco;
 const genero = filtrosState.genero;
@@ -39,8 +40,9 @@ const genero = filtrosState.genero;
 
     const filtrados = produtos.filter(p => {
         const matchVibe = !vibeAtiva || p.categoriaSlug === vibeAtiva;
-        const matchBusca = p.nome.toLowerCase().includes(termo) ||
-            (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
+        const matchBusca = termo === "" || 
+    p.nome.toLowerCase().includes(termo) ||
+    (p.tags && p.tags.some(t => t.toLowerCase().includes(termo)));
 
         const matchTamanho = !tamanho || p.tamanhos.includes(tamanho);
         const matchGenero = !genero || p.genero === genero;
