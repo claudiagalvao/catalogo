@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Crazy Fantasy | Catálogo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    
 </head>
 <body>
 
@@ -27,7 +24,6 @@
     </div>
 </section>
 
-<!-- 🔥 FILTROS CORRIGIDOS -->
 <section class="search-filter-container container">
     <div class="search-filter">
 
@@ -40,7 +36,6 @@
 
         <div class="filters">
 
-            <!-- TAMANHO -->
             <div class="custom-select" data-filter="tamanho">
                 <div class="selected">Tamanho</div>
                 <div class="options">
@@ -54,7 +49,6 @@
                 </div>
             </div>
 
-            <!-- GÊNERO -->
             <div class="custom-select" data-filter="genero">
                 <div class="selected">Gênero</div>
                 <div class="options">
@@ -65,7 +59,6 @@
                 </div>
             </div>
 
-            <!-- PREÇO -->
             <div class="custom-select" data-filter="preco">
                 <div class="selected">Preço</div>
                 <div class="options">
@@ -84,10 +77,10 @@
 
 <section class="collections container">
     <div class="collections-grid">
-        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg" alt="Impactar"></div>
-        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg" alt="Divertir"></div>
-        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg" alt="Brilhar"></div>
-        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg" alt="Luxo"></div>
+        <div class="col-item" data-vibe="bad"><img src="assets/images/cat-bad.jpg"></div>
+        <div class="col-item" data-vibe="fun"><img src="assets/images/cat-fun.jpg"></div>
+        <div class="col-item" data-vibe="pop"><img src="assets/images/cat-pop.jpg"></div>
+        <div class="col-item" data-vibe="luxo"><img src="assets/images/cat-luxo.jpg"></div>
     </div>
 </section>
 
@@ -115,8 +108,9 @@
                     <span id="total-modal" class="new-price">R$ 0,00</span>
                 </div>
 
-                <div class="upsell-container">
-                    <h4>✨ COMPLETE O LOOK:</h4>
+                <!-- 🔥 UPSSELL CORRIGIDO -->
+                <div class="upsell-container" id="upsell-container">
+                    <h4 id="upsell-title">✨ COMPLETE O LOOK:</h4>
                     <div id="acessorios-container"></div>
                 </div>
 
@@ -128,9 +122,6 @@
         </div>
     </div>
 </div>
-
-<!-- 🔥 FOOTER MELHORADO -->
-
 
 <footer class="main-footer">
 
@@ -193,8 +184,6 @@
   </div>
 
 </footer>
-
-
 
 <script src="js/script.js"></script>
 </body>
