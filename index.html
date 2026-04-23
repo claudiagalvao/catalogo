@@ -36,33 +36,52 @@
 
 
 
-<div class="custom-select" data-filter="tamanho">
-    <div class="selected">Tamanho</div>
-    <div class="options">
-        <div data-value="">Todos</div>
-        <div data-value="P">P</div>
-        <div data-value="M">M</div>
-        </div>
-</div>
+const filtrados = produtos.filter(p => {
 
-<div class="custom-select" data-filter="genero">
-    <div class="selected">Gênero</div>
-    <div class="options">
-        <div data-value="">Todos</div>
-        <div data-value="feminino">Feminino</div>
-        <div data-value="masculino">Masculino</div>
-    </div>
-</div>
+    const nome = normalizar(p.nome);
+    const categoria = normalizar(p.categoria);
+    const modelo = normalizar(p.modelo);
+    const slug = normalizar(p.categoriaSlug);
 
-<div class="custom-select" data-filter="preco">
-    <div class="selected">Preço</div>
-    <div class="options">
-        <div data-value="">Todos</div>
-        <div data-value="0-100">Até R$ 100</div>
-        <div data-value="100-150">R$ 100 - 150</div>
-    </div>
-</div>
+    // 🔎 BUSCA
+    const matchBusca =
+        !termo ||
+        nome.includes(termo) ||
+        categoria.includes(termo) ||
+        modelo.includes(termo) ||
+        slug.includes(termo);
 
+    // 🎯 VIBE
+    const matchVibe =
+        termo ? true : (!vibeAtiva || p.categoriaSlug === vibeAtiva);
+
+    // 📏 TAMANHO
+    const matchTamanho =
+        !filtrosState.tamanho ||
+        (Array.isArray(p.tamanhos) && p.tamanhos.includes(filtrosState.tamanho));
+
+    // 👤 GÊNERO (CORRIGIDO)
+    const generoFiltro = normalizar(filtrosState.genero);
+    const modeloProduto = normalizar(p.modelo);
+
+    const matchGenero =
+        !generoFiltro ||
+        modeloProduto === generoFiltro ||
+        modeloProduto === "unissex";
+
+    // 💰 PREÇO (CORRIGIDO)
+    let matchPreco = true;
+
+    if (filtrosState.preco === "0-100") {
+        matchPreco = p.preco <= 100;
+    } else if (filtrosState.preco === "100-150") {
+        matchPreco = p.preco > 100 && p.preco <= 150;
+    } else if (filtrosState.preco === "150+") {
+        matchPreco = p.preco > 150;
+    }
+
+    return matchBusca && matchVibe && matchTamanho && matchGenero && matchPreco;
+});
             
 
             <div class="custom-select" data-filter="genero">
