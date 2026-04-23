@@ -23,15 +23,18 @@
   </div>
 </section>
 
-<section class="search-filter-container container">
-  
-  <div class="search-box">
-    <i class="fa fa-search"></i>
-    <input type="text" id="input-busca" placeholder="Buscar fantasia (ex: Aeromoça)...">
-  </div>
 
-  <div class="filter-box">
-    <select id="filter-tamanho" required>
+<section class="search-filter-container container">
+  <div class="search-filter">
+
+    <div class="search-input">
+      <i class="fa fa-search"></i>
+      <input type="text" id="input-busca" placeholder="Buscar fantasia...">
+    </div>
+
+    <div class="divider"></div>
+
+    <select id="filter-tamanho">
       <option value="">Tamanho</option>
       <option value="PP">PP</option>
       <option value="P">P</option>
@@ -40,15 +43,28 @@
       <option value="GG">GG</option>
     </select>
 
-    <select id="filter-preco" required>
+    <select id="filter-preco">
       <option value="">Preço</option>
       <option value="0-100">Até R$ 100</option>
       <option value="100-150">R$ 100 - R$ 150</option>
       <option value="150+">Acima de R$ 150</option>
     </select>
-  </div>
 
+    <select id="filter-genero">
+      <option value="">Gênero</option>
+      <option value="feminino">Feminino</option>
+      <option value="masculino">Masculino</option>
+      <option value="unissex">Unissex</option>
+    </select>
+
+  </div>
 </section>
+
+
+
+
+
+  
 
 <p id="resultado-count" class="container"></p>
 <section class="collections container">
